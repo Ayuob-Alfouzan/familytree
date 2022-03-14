@@ -1,0 +1,41 @@
+{
+  "global": {
+    "title": "حلالی۔",
+    "home": "ہوم پیج",
+    "about": "کے بارے میں",
+    "login": "لاگ ان کریں",
+    "logout": "لاگ آوٹ",
+    "farms": "فارمز۔",
+    "confirm": "تصدیق کریں",
+    "cancel": "منسوخ کریں",
+    "selectFarm": "فارم منتخب کریں۔",
+    "select": "منتخب کریں۔",
+    "profile": "ذاتی پروفائل",
+    "numberOfFarm": "فارمز کی تعداد",
+    "numberOfOwnedFarm": "ملکیتی فارموں کی تعداد۔",
+    "language": "زبان",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "statistics": "شماریات۔",
+    "numberOfRecords": "کی تعداد {{fieldName}}",
+    "message": {
+      "noData": "کوئی ڈیٹا نہیں ملا",
+      "confirmHeader": "تصدیق کریں",
+      "successfullyAdded": "کامیابی کے ساتھ شامل کر دیا گیا۔",
+      "successfullyEdited": "کامیابی سے ترمیم کی گئی۔",
+      "successfullyRemoved": "کامیابی سے ہٹا دیا گیا۔",
+      "successfullyUpdated": "کامیابی سے اپ ڈیٹ۔",
+      "error": {
+        "internalServerError": "کچھ غلط ہوا ، براہ کرم دوبارہ کوشش کریں۔",
+        "required": "براہ کرم {{fieldName}} درج کریں",
+        "requiredSelect": "براہ کرم {{fieldName}} منتخب کریں",
+        "pattern": "براہ کرم {{fieldName}} درست طریقے سے درج کریں۔",
+        "namePattern": "{{fieldName}} کی لمبائی 15 حروف سے کم ہونی چاہیے۔",
+        "passwordLength": "پاس ورڈ کی لمبائی 8 اور 50 حروف کے درمیان ہونی چاہیے۔",
+        "passwordPattern": "پاس ورڈ میں بڑے اور چھوٹے حروف اور ہندسے ہونے چاہئیں۔",
+        "requiredTrue": "آپ کو شرائط و ضوابط سے اتفاق کرنا ہوگا۔"
+      }
+    }
+  }
+}

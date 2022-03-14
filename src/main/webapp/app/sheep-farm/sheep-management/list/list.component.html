@@ -1,0 +1,167 @@
+<!-- DASHBOARD -->
+<section class="mb-3" *ngIf="dashboardData && isMain">
+  <jhi-sheep-farm-dashboard [dashboardData]="dashboardData"></jhi-sheep-farm-dashboard>
+</section>
+
+<div class="d-flex flex-column body-card">
+  <div class="d-flex justify-content-between flex-lg-row">
+    <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.listSheepTitle"></h3>
+
+    <button type="button" [routerLink]="['..', 'add']" class="btn btn-success">
+      <span jhiTranslate="sheepFarm.addSheepButton"></span>
+    </button>
+  </div>
+
+  <form>
+    <!-- FILTERs -->
+    <div class="form-group form-inline mt-4">
+      <label jhiTranslate="sheepFarm.number" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="number"
+          [(ngModel)]="service.number"
+          placeholder="{{ 'sheepFarm.numberFilterPlaceholder' | translate }}"
+          name="number"
+        />
+      </div>
+
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="service.name"
+          placeholder="{{ 'sheepFarm.nameFilterPlaceholder' | translate }}"
+          name="name"
+        />
+      </div>
+
+      <label jhiTranslate="sheepFarm.category" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown
+          [data]="sheepCategories"
+          name="category"
+          [(ngModel)]="service.category"
+          placeholder="sheepFarm.categoryFilterPlaceholder"
+        >
+        </jhi-dropdown>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
+
+          <span jhiTranslate="sheepFarm.listFilterButton" *ngIf="!service.loading"></span>
+        </button>
+      </div>
+      <div class="col-md-3 mx-md-2 mt-md-3 form-btn">
+        <button
+          type="button"
+          (click)="service.clearFilters()"
+          [disabled]="service.loading"
+          class="btn btn-primary"
+          jhiTranslate="sheepFarm.clearFilterButton"
+        ></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <div class="btn-group btn-group-toggle flex-wrap mt-2" role="group" ngbRadioGroup name="filter" [(ngModel)]="service.filter">
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="ewe" value="EWE" /><span jhiTranslate="sheepFarm.ewes"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="pregnant" value="PREGNANT" /><span jhiTranslate="sheepFarm.pregnant"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="lambed" value="LAMBED" /><span jhiTranslate="sheepFarm.lambed"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="ram" value="RAM" /><span jhiTranslate="sheepFarm.rams"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="lamb" value="LAMB" /><span jhiTranslate="sheepFarm.lambs"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="springLamb" value="SPRING_LAMB" /><span jhiTranslate="sheepFarm.springLambs"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="6to12" value="6-12" /><span jhiTranslate="sheepFarm.6to12"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="dead" value="DEAD" /><span jhiTranslate="sheepFarm.dead"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="sold" value="SOLD" /><span jhiTranslate="sheepFarm.sold"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="stolen" value="STOLEN" /><span jhiTranslate="sheepFarm.stolen"></span>
+        </label>
+        <label class="btn-outline-primary" ngbButtonLabel>
+          <input type="radio" ngbButton name="all" value="ALL" /><span jhiTranslate="sheepFarm.all"></span>
+        </label>
+      </div>
+
+      <table class="table table-hover mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.number" jhiSortable="number" (sort)="onSort($event)"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.name"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.type"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.status"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.category"></th>
+            <th style="width: 25%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ item.number }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.type }}
+            </td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.status }}
+            </td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.category }}
+            </td>
+            <td>
+              <a class="mx-md-3" (click)="view(item)">
+                <fa-icon [icon]="faEye"></fa-icon>
+              </a>
+              <a class="mx-md-3" (click)="update(item)">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </a>
+              <a *ngIf="isMain" [class.disabled]="deleting" class="href mx-md-3" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'sheepFarm.listSheepTitle' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="sheepFarm.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

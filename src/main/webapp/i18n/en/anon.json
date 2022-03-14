@@ -1,0 +1,33 @@
+{
+  "anon": {
+    "loginHeader": "Login",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "registerHeader": "Registration",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastNamePlaceholder": "Enter your last name",
+    "language": "Preferred Language",
+    "agree": "I agree to the terms and conditions of using the website",
+    "activateRegistrationHeader": "Activate Account",
+    "otp": "Code",
+    "otpPlaceholder": "Please enter the code sent to your email",
+    "activateButton": "Activate",
+    "register": "Register Now",
+    "forgotPassword": "Forgot Password",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "resendMessage": "You can resend the after the timer finish",
+    "resend": "Resend",
+    "forgotPasswordHeader": "Reset Password",
+    "forgotPasswordButton": "Send code to Email",
+    "resetPasswordHeader": "Reset Password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Please enter tour new password"
+  }
+}

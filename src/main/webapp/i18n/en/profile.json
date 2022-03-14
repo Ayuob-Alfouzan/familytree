@@ -1,0 +1,22 @@
+{
+  "profile": {
+    "updateAccountHeader": "Update Personal Information",
+    "updateButton": "Update",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "firstNamePlaceholder": "Enter your first name",
+    "lastNamePlaceholder": "Enter your last name",
+    "language": "Preferred Language",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Please enter tour new password",
+    "changePasswordHeader": "Change Password",
+    "changeButton": "Change Password"
+  }
+}

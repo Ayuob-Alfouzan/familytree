@@ -1,0 +1,139 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.addHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.number" class="col-md-2 required"></label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="number" formControlName="number"
+          placeholder="{{ 'sheepFarm.numberPlaceholder' | translate }}" />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'number':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'sheepFarm.number' | translate } }}
+        </small>
+        <small class="form-text text-danger"
+          *ngIf="form | showErrorMessage: 'number':['minlength', 'maxlength']:['required']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'sheepFarm.number' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="name" formControlName="name"
+          placeholder="{{ 'sheepFarm.namePlaceholder' | translate }}" />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'name':['minlength', 'maxlength']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'sheepFarm.name' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.type" class="col-md-2 mt-md-3 required"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown [data]="sheepTypes" formControlName="type" placeholder="sheepFarm.typePlaceholder">
+        </jhi-dropdown>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'type':['required']">
+          {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'sheepFarm.type' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.category" class="col-md-2 mt-md-3 required"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown [data]="sheepCategories" formControlName="category" placeholder="sheepFarm.categoryPlaceholder">
+        </jhi-dropdown>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'category':['required']">
+          {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'sheepFarm.category' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.gender" class="col-md-2 mt-md-3 required"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown [data]="sheepGenderes" formControlName="gender" placeholder="sheepFarm.genderPlaceholder">
+        </jhi-dropdown>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'gender':['required']">
+          {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'sheepFarm.gender' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.age" class="col-md-2 mt-md-3 required"></label>
+      <div class="col-md-4 mt-md-3">
+        <input type="number" class="form-control" id="ageInDays" formControlName="ageInDays"
+          placeholder="{{ 'sheepFarm.ageInDaysPlaceholder' | translate }}" style="display: inline; width: 32%" min="0"
+          max="30" />
+        <input type="number" class="form-control" id="ageInMonths" formControlName="ageInMonths"
+          placeholder="{{ 'sheepFarm.ageInMonthsPlaceholder' | translate }}" style="display: inline; width: 32%" min="0"
+          max="11" />
+        <input type="number" class="form-control" id="ageInYears" formControlName="ageInYears"
+          placeholder="{{ 'sheepFarm.ageInYearsPlaceholder' | translate }}" style="display: inline; width: 32%" min="0"
+          max="30" />
+
+        <small class="form-text text-danger"
+          *ngIf="(form | showErrorMessage: 'ageInDays':['required']) || (form | showErrorMessage: 'ageInMonths':['required']) || (form | showErrorMessage: 'ageInYears':['required'])">
+          {{ 'global.message.error.required' | translate: { fieldName: 'sheepFarm.age' | translate } }}
+        </small>
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'ageInDays':['min', 'max']:['required']">
+          {{ 'sheepFarm.message.error.dayPattern' | translate }}
+        </small>
+        <small class="form-text text-danger" *ngIf="(form | showErrorMessage: 'ageInMonths':['min', 'max']:['required']) && !(form | showErrorMessage: 'ageInDays':['min', 'max']:['required'])">
+          {{ 'sheepFarm.message.error.monthPattern' | translate }}
+        </small>
+        <small class="form-text text-danger" *ngIf="
+            (form | showErrorMessage: 'ageInYears':['min', 'max']:['required']) &&
+            !(form | showErrorMessage: 'ageInDays':['min', 'max']:['required']) &&
+            !(form | showErrorMessage: 'ageInMonths':['min', 'max']:['required'])
+          ">
+          {{ 'sheepFarm.message.error.yearPattern' | translate }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.father" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-general-dropdown [data]="fathers" label="number" formControlName="father"
+          placeholder="sheepFarm.fatherPlaceholder">
+        </jhi-general-dropdown>
+      </div>
+
+      <label jhiTranslate="sheepFarm.mother" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-general-dropdown [data]="mothers" label="number" formControlName="mother"
+          placeholder="sheepFarm.motherPlaceholder">
+        </jhi-general-dropdown>
+      </div>
+
+      <label jhiTranslate="sheepFarm.fatherName" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <input type="text" class="form-control" id="fatherName" formControlName="fatherName"
+          placeholder="{{ 'sheepFarm.fatherNamePlaceholder' | translate }}" />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'fatherName':['minlength', 'maxlength']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'sheepFarm.fatherName' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.motherName" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <input type="text" class="form-control" id="motherName" formControlName="motherName"
+          placeholder="{{ 'sheepFarm.motherNamePlaceholder' | translate }}" />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'motherName':['minlength', 'maxlength']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'sheepFarm.motherName' | translate } }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button type="submit" (click)="add()" [disabled]="submitting" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+          <span jhiTranslate="sheepFarm.addButton" *ngIf="!submitting"></span>
+        </button>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button type="button" [routerLink]="['/', 'sheep-farm', 'list']" [disabled]="submitting" class="btn btn-light"
+          jhiTranslate="global.cancel"></button>
+      </div>
+    </div>
+  </form>
+</div>

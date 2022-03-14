@@ -1,0 +1,25 @@
+<div class="d-flex flex-column body-card">
+  <h4 class="text-primary mt-md-2" jhiTranslate="global.pricingDetails.title"></h4>
+
+  <p class="text-justify" jhiTranslate="global.pricingDetails.start"></p>
+
+  <div class="row mb-md-2">
+    <div *ngFor="let item of list" class="mb-2 col-xl-4 col-md-4">
+      <div class="card-widget h-100 p-2 p-lg-3">
+        <div class="card-widget-body">
+          <div class="dot bg-success mx-3"></div>
+          <div class="text">
+            <h6 class="mb-0">{{ currentLanguage | async | showNameLanguage: item }}</h6>
+            <p class="mb-0">
+              {{ 'global.pricingDetails.from' | translate }} {{ item.rangeStart }} {{ 'global.pricingDetails.to' | translate }}
+              {{ item.rangeEnd }} {{ 'global.pricingDetails.pigeon' | translate }}
+            </p>
+            <span class="text-gray-500"
+              >{{ 'global.pricingDetails.cost' | translate }} {{ item.cost }} {{ 'global.pricingDetails.riyal' | translate }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

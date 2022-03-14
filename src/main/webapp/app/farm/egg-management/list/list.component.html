@@ -1,0 +1,195 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="farm.addEggTitle"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.layDate" class="col-md-2 required"></label>
+      <div class="col-md-4 input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="layDate"
+          formControlName="layDate"
+          placeholder="{{ 'farm.layDatePlaceholder' | translate }}"
+          name="layDate"
+          ngbDatepicker
+          #layDate="ngbDatepicker"
+          [autoClose]="true"
+          [readonly]="true"
+          [maxDate]="todayDate"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="layDate.toggle()" type="button"></button>
+        </div>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'layDate':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'farm.layDate' | translate } }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="submit" (click)="add()" [disabled]="adding" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="adding"></span>
+
+          <span jhiTranslate="farm.addEggButton" *ngIf="!adding"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h3 class="text-primary mt-md-4" jhiTranslate="farm.eggTitle"></h3>
+
+  <form>
+    <!-- FILTERs -->
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.fromFilter" class="col-md-2"></label>
+      <div class="col-md-4 input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="fromFilter"
+          [(ngModel)]="service.dateGraterThanOrEqual"
+          placeholder="{{ 'farm.fromFilterPlaceholder' | translate }}"
+          name="fromFilter"
+          ngbDatepicker
+          #fromFilter="ngbDatepicker"
+          [autoClose]="true"
+          [readonly]="true"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="fromFilter.toggle()" type="button"></button>
+        </div>
+      </div>
+
+      <label jhiTranslate="farm.toFilter" class="col-md-2"></label>
+      <div class="col-md-4 input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="toFilter"
+          [(ngModel)]="service.dateLessThanOrEqual"
+          placeholder="{{ 'farm.toFilterPlaceholder' | translate }}"
+          name="toFilter"
+          ngbDatepicker
+          #toFilter="ngbDatepicker"
+          [autoClose]="true"
+          [readonly]="true"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="toFilter.toggle()" type="button"></button>
+        </div>
+      </div>
+
+      <label jhiTranslate="farm.status" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown
+          [data]="eggStatuses"
+          name="statusCode"
+          [(ngModel)]="service.statusCode"
+          placeholder="farm.statusCodeFilterPlaceholder"
+        >
+        </jhi-dropdown>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn mt-md-3">
+        <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
+
+          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+        </button>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn mt-md-3">
+        <button
+          type="button"
+          (click)="service.clearFilters()"
+          [disabled]="service.loading"
+          class="btn btn-primary"
+          jhiTranslate="farm.clearFilterButton"
+        ></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 20%" scope="col" jhiTranslate="farm.layDate" jhiSortable="layDate" (sort)="onSort($event)"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="farm.counter"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="farm.lastActionDate"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="farm.status"></th>
+            <th style="width: 30%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ item.layDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ item.counter }}</td>
+            <td>{{ item.lastActionDate | date: 'yyyy-MM-dd HH:mm' }}</td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.status }}
+            </td>
+            <td>
+              <button
+                *ngIf="item.status.code === 'NEW'"
+                type="button"
+                (click)="changeStatus(item.id, 'HATCH')"
+                [disabled]="updating"
+                class="btn btn-primary btn-sm py-0"
+              >
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
+
+                <span jhiTranslate="farm.hatchedButton" *ngIf="!updating"></span>
+              </button>
+              <button
+                *ngIf="item.status.code === 'NEW'"
+                type="button"
+                (click)="changeStatus(item.id, 'SPOIL')"
+                [disabled]="updating"
+                class="btn btn-primary btn-sm py-0"
+              >
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
+
+                <span jhiTranslate="farm.spoiledButton" *ngIf="!updating"></span>
+              </button>
+              <button
+                *ngIf="item.status.code === 'NEW'"
+                type="button"
+                (click)="changeStatus(item.id, 'PULLED')"
+                [disabled]="updating"
+                class="btn btn-primary btn-sm py-0"
+              >
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
+
+                <span jhiTranslate="farm.pulledButton" *ngIf="!updating"></span>
+              </button>
+              <a *ngIf="isMain && item.status.code === 'NEW'" class="href mx-md-3" [class.disabled]="updating" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'farm.eggTitle' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="farm.eggDeleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

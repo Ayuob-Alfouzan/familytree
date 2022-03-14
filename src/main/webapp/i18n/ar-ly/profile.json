@@ -1,0 +1,22 @@
+{
+  "profile": {
+    "updateAccountHeader": "تحديث البيانات الشخصية",
+    "updateButton": "تحديث",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "firstNamePlaceholder": "أدخل اسمك الأول",
+    "lastNamePlaceholder": "أدخل اسمك الأخير",
+    "language": "اللغة المفضلة",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "newPassword": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "الرجاء إدخال كلمة مرور جديدة",
+    "changePasswordHeader": "تغيير كلمة المرور",
+    "changeButton": "تغيير كلمة المرور"
+  }
+}

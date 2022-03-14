@@ -1,0 +1,241 @@
+<!-- DASHBOARD -->
+<section class="mb-3" *ngIf="dashboardData && isMain">
+  <button
+    class="navbar-toggler navbar-light dashboard-navbar w-100 d-flex justify-content-between mb-2"
+    type="button"
+    (click)="toggleDashboard()"
+  >
+    <span jhiTranslate="global.statistics" class="align-self-center"></span>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse">
+    <div class="row mb-md-2">
+      <div class="mb-2 col-xl-3 col-md-3">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="farm.numberOfCoops"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfCoops }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-3 col-md-3">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="farm.numberOfEggs"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfEggs }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-3 col-md-3">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="farm.numberOfChicks"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfChicks }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-3 col-md-3">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="farm.numberOfTreatments"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfTreatments }}</span>
+            </div>
+          </div>
+          <div class="icon bg-success">
+            <a [routerLink]="['/', 'farm', 'treatment', service.warehouseId]" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="farm.addCoopTitle"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.coopName" class="col-md-2 required"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          placeholder="{{ 'farm.coopNamePlaceholder' | translate }}"
+        />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'name':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'farm.coopName' | translate } }}
+        </small>
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'name':['maxlength']:['required']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.coopName' | translate } }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="submit" (click)="add()" [disabled]="adding" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="adding"></span>
+
+          <span jhiTranslate="farm.addCoopButton" *ngIf="!adding"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h3 class="text-primary mt-md-4" jhiTranslate="farm.coopTitle"></h3>
+
+  <form>
+    <!-- FILTERs -->
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.coopName" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="coopName"
+          [(ngModel)]="service.name"
+          placeholder="{{ 'farm.coopNameFilterPlaceholder' | translate }}"
+          name="coopName"
+        />
+      </div>
+
+      <label jhiTranslate="farm.maleStatus" class="col-md-2"></label>
+      <div class="col-md-4">
+        <jhi-dropdown
+          [data]="pigeonStatuses"
+          name="maleStatusCode"
+          [(ngModel)]="service.maleStatusCode"
+          placeholder="farm.maleStatusCodeFilterPlaceholder"
+        >
+        </jhi-dropdown>
+      </div>
+
+      <label jhiTranslate="farm.femaleStatus" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <jhi-dropdown
+          [data]="pigeonStatuses"
+          name="femaleStatusCode"
+          [(ngModel)]="service.femaleStatusCode"
+          placeholder="farm.femaleStatusCodeFilterPlaceholder"
+        >
+        </jhi-dropdown>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
+
+          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+        </button>
+      </div>
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button
+          type="button"
+          (click)="service.clearFilters()"
+          [disabled]="service.loading"
+          class="btn btn-primary"
+          jhiTranslate="farm.clearFilterButton"
+        ></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 10%" scope="col" jhiTranslate="farm.coopName" jhiSortable="name" (sort)="onSort($event)"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="farm.maleStatus"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="farm.femaleStatus"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="farm.eggs"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="farm.chicks"></th>
+            <th style="width: 8%" scope="col" jhiTranslate="farm.emptySince"></th>
+            <th style="width: 32%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ item.name }}</td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.maleStatus }}
+              <jhi-dropdown
+                [data]="pigeonStatuses"
+                name="newMaleStatusCode"
+                placeholder="farm.changeMaleStatus"
+                (changed)="changeMaleStatus(item.id, $event)"
+              >
+              </jhi-dropdown>
+            </td>
+            <td>
+              {{ currentLanguage | async | showLanguage: item.femaleStatus }}
+              <jhi-dropdown
+                [data]="pigeonStatuses"
+                name="newFemaleStatusCode"
+                placeholder="farm.changeFemaleStatus"
+                (changed)="changeFemaleStatus(item.id, $event)"
+              >
+              </jhi-dropdown>
+            </td>
+            <td>
+              <p *ngFor="let egg of item.eggs; let i = index" class="mb-0">
+                <span>{{ i + 1 }} {{ 'farm.based' | translate }}: {{ egg.counter }}</span>
+              </p>
+            </td>
+            <td>
+              <p *ngFor="let chick of item.chicks; let i = index" class="mb-0">
+                <span>{{ i + 1 }} {{ 'farm.based' | translate }}: {{ chick.counter }}</span>
+              </p>
+            </td>
+            <td>{{ item.emptySince != undefined && item.emptySince != null ? item.emptySince : '' }}</td>
+            <td>
+              <a [class.disabled]="deleting" class="mx-md-3" [routerLink]="['/', 'farm', 'egg', item.id]">
+                <fa-icon [icon]="faEgg"></fa-icon>
+              </a>
+              <a [class.disabled]="deleting" class="mx-md-3" [routerLink]="['/', 'farm', 'chick', item.id]">
+                <fa-icon [icon]="faKiwiBird"></fa-icon>
+              </a>
+              <a [class.disabled]="deleting" class="href mx-md-3" *ngIf="isMain" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'farm.coopTitle' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="farm.coopDeleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

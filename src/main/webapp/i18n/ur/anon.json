@@ -1,0 +1,33 @@
+{
+  "anon": {
+    "loginHeader": "لاگ ان کریں",
+    "email": "ای میل۔",
+    "password": "پاس ورڈ",
+    "loginButton": "لاگ ان کریں",
+    "emailPlaceholder": "اپنا ای میل درج کریں۔",
+    "passwordPlaceholder": "اپنا پاس ورڈ درج کریں",
+    "registerHeader": "اندراج",
+    "firstName": "پہلا نام",
+    "lastName": "آخری نام",
+    "firstNamePlaceholder": "اپنا پہلا نام درج کریں۔",
+    "lastNamePlaceholder": "اپنا آخری نام درج کریں۔",
+    "language": "پسندیدہ زبان۔",
+    "agree": "میں ویب سائٹ استعمال کرنے کی شرائط سے اتفاق کرتا ہوں۔",
+    "activateRegistrationHeader": "اکاؤنٹ کو چالو کریں۔",
+    "otp": "کوڈ",
+    "otpPlaceholder": "براہ کرم اپنے ای میل پر بھیجا گیا کوڈ درج کریں۔",
+    "activateButton": "محرک کریں",
+    "register": "ابھی رجسٹر کریں",
+    "forgotPassword": "پاسورڈ بھول گے",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "resendMessage": "آپ ٹائمر ختم ہونے کے بعد دوبارہ بھیج سکتے ہیں۔",
+    "resend": "دوبارہ بھیجیں",
+    "forgotPasswordHeader": "پاس ورڈ ری سیٹ",
+    "forgotPasswordButton": "کوڈ ای میل پر بھیجیں۔",
+    "resetPasswordHeader": "پاس ورڈ ری سیٹ",
+    "newPassword": "نیا پاس ورڈ",
+    "newPasswordPlaceholder": "براہ کرم ٹور کا نیا پاس ورڈ درج کریں۔"
+  }
+}

@@ -1,0 +1,10 @@
+<div ngbDropdown>
+  <button class="btn btn-outline-form" [class.selected]="selectedOption" id="dropdown" ngbDropdownToggle>
+    {{ selectedOption ? (currentLanguage | async | showLanguage: selectedOption) : (placeholder | translate) }}
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdown">
+    <button *ngFor="let i of data" ngbDropdownItem (click)="changeSelectedOption(i)">
+      {{ currentLanguage | async | showLanguage: i }}
+    </button>
+  </div>
+</div>

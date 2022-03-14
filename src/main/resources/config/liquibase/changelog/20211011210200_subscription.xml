@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="20211011211600" author="ayuob">
+        <createTable tableName="package">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="farm_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="name_ar" type="nvarchar(50)" />
+            <column name="name_en" type="nvarchar(50)" />
+            <column name="name_ur" type="nvarchar(50)" />
+            <column name="description_ar" type="nvarchar(50)" />
+            <column name="description_en" type="nvarchar(50)" />
+            <column name="description_ur" type="nvarchar(50)" />
+            <column name="range_start" type="bigint" />
+            <column name="range_end" type="bigint" />
+            <column name="cost" type="double" />
+            <column name="duration" type="bigint" />
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="farm_type_id" baseTableName="package"
+                                 constraintName="package_farm_type_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20211015095500" author="ayuob">
+        <addColumn tableName="package">
+            <column name="can_renew" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20211011212202" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="package"
+            file="config/liquibase/data/package.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="20211011210200" author="ayuob">
+        <createTable tableName="invoice">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="farm_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="invoice_number" type="bigint" />
+            <column name="amount" type="double" />
+            <column name="amount_vat" type="double" />
+            <column name="vat_percentage" type="double" />
+            <column name="status_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="creation_date" type="timestamp" />
+            <column name="payment_date" type="timestamp" />
+            <column name="customer_name" type="nvarchar(255)" />
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="farm_id" baseTableName="invoice"
+                                 constraintName="invoice_farm_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="farm"/>
+
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="invoice"
+                                 constraintName="invoice_status_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20211011210300" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="invoice"
+            file="config/liquibase/data/invoice.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="20211011210900" author="ayuob">
+        <createTable tableName="subscription">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="farm_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoice_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="package_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="start_date" type="timestamp" />
+            <column name="end_date" type="timestamp" />
+            <column name="range_start" type="bigint" />
+            <column name="range_end" type="bigint" />
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="farm_id" baseTableName="subscription"
+                                 constraintName="subscription_farm_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="farm"/>
+
+        <addForeignKeyConstraint baseColumnNames="invoice_id" baseTableName="subscription"
+                                 constraintName="subscription_invoice_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="invoice"/>
+
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="subscription"
+                                 constraintName="subscription_status_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+
+        <addForeignKeyConstraint baseColumnNames="package_id" baseTableName="subscription"
+                                 constraintName="subscription_package_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20211023120300" author="ayuob">
+        <dropForeignKeyConstraint baseTableName="subscription" constraintName="subscription_package_id_foreign_key" />
+
+        <addForeignKeyConstraint baseColumnNames="package_id" baseTableName="subscription"
+                                 constraintName="subscription_package_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="package"/>
+    </changeSet>
+
+    <changeSet id="20211011211500" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="subscription"
+            file="config/liquibase/data/subscription.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="20211019172500" author="ayuob">
+        <dropNotNullConstraint tableName="subscription" columnName="invoice_id" />
+    </changeSet>
+
+    <changeSet id="20211023120100" author="ayuob">
+        <createTable tableName="subscription_upgrade_request">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="farm_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoice_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="package_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="farm_id" baseTableName="subscription_upgrade_request"
+                                 constraintName="subscription_upgrade_request_farm_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="farm"/>
+
+        <addForeignKeyConstraint baseColumnNames="subscription_id" baseTableName="subscription_upgrade_request"
+                                 constraintName="subscription_upgrade_request_subscription_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="subscription"/>
+
+        <addForeignKeyConstraint baseColumnNames="invoice_id" baseTableName="subscription_upgrade_request"
+                                 constraintName="subscription_upgrade_request_invoice_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="invoice"/>
+
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="subscription_upgrade_request"
+                                 constraintName="subscription_upgrade_request_status_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+
+        <addForeignKeyConstraint baseColumnNames="package_id" baseTableName="subscription_upgrade_request"
+                                 constraintName="subscription_upgrade_request_package_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="package"/>
+    </changeSet>
+
+    <changeSet id="20211023120500" author="ayuob">
+        <addColumn tableName="invoice">
+            <column name="type_id" type="bigint" />
+        </addColumn>
+
+        <update tableName="invoice">
+            <column name="type_id" value="34" />
+        </update>
+
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="invoice"
+                                 constraintName="invoice_type_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20211225125100" author="ayuob">
+        <addColumn tableName="invoice">
+            <column name="customer_address" type="nvarchar(255)" />
+            <column name="customer_vat_number" type="nvarchar(50)" />
+            <column name="vat_number" type="nvarchar(50)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="20211225150800" author="ayuob">
+        <dropNotNullConstraint tableName="subscription_upgrade_request" columnName="invoice_id" />
+    </changeSet>
+</databaseChangeLog>

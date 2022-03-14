@@ -1,0 +1,126 @@
+<nav class="navbar navbar-expand-sm py-1">
+  <div class="container">
+    <img
+      src="../../../content/images/logo.png"
+      [routerLink]="[isAuthenticated() ? '/' : '/con/login']"
+      style="cursor: pointer; height: 80px"
+      alt=""
+    />
+
+    <button class="navbar-toggler navbar-light" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated() && account" display="dynamic">
+            <button class="btn nav-link" id="farmsDropdown" ngbDropdownToggle>
+              <span jhiTranslate="global.selectFarm" *ngIf="!selectedFarm"></span>
+              <span *ngIf="selectedFarm">{{ getCurrentLanguage() === 'ar-ly' ? selectedFarm.farmNameAr : selectedFarm.farmNameEn }}</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="farmsDropdown">
+              <button ngbDropdownItem *ngFor="let item of account.farmList" (click)="selectFarm(item); toggleNavbar()">
+                {{ getCurrentLanguage() === 'ar-ly' ? item.farmNameAr : item.farmNameEn }}
+              </button>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a
+            jhiTranslate="global.farms"
+            routerLink="/farm-management"
+            *ngIf="isAuthenticated()"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="toggleNavbar()"
+          ></a>
+        </li>
+
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <div ngbDropdown class="d-inline-block" display="dynamic">
+            <button class="btn nav-link" id="languageDropdown" ngbDropdownToggle>
+              <span jhiTranslate="global.language"></span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="languageDropdown">
+              <button
+                *ngIf="getCurrentLanguage() !== 'ar-ly'"
+                ngbDropdownItem
+                (click)="changeLanguage('ar-ly'); toggleNavbar()"
+                jhiTranslate="global.arabic"
+              ></button>
+              <button
+                *ngIf="getCurrentLanguage() !== 'en'"
+                ngbDropdownItem
+                (click)="changeLanguage('en'); toggleNavbar()"
+                jhiTranslate="global.english"
+              ></button>
+              <button
+                *ngIf="getCurrentLanguage() !== 'ur'"
+                ngbDropdownItem
+                (click)="changeLanguage('ur'); toggleNavbar()"
+                jhiTranslate="global.urdu"
+              ></button>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item" *ngIf="!isAuthenticated()">
+          <a
+            jhiTranslate="global.login"
+            routerLink="/con/login"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="toggleNavbar()"
+          ></a>
+        </li>
+
+        <li class="nav-item" *ngIf="isAuthenticated()">
+          <div ngbDropdown class="d-inline-block" display="dynamic">
+            <button class="btn nav-link" id="profileDropdown" ngbDropdownToggle>
+              <span jhiTranslate="global.profile"></span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="profileDropdown">
+              <label class="dropdown-label">
+                <small jhiTranslate="global.language"></small>
+              </label>
+              <button
+                *ngIf="getCurrentLanguage() !== 'ar-ly'"
+                ngbDropdownItem
+                (click)="changeLanguage('ar-ly'); toggleNavbar()"
+                jhiTranslate="global.arabic"
+              ></button>
+              <button
+                *ngIf="getCurrentLanguage() !== 'en'"
+                ngbDropdownItem
+                (click)="changeLanguage('en'); toggleNavbar()"
+                jhiTranslate="global.english"
+              ></button>
+              <button
+                *ngIf="getCurrentLanguage() !== 'ur'"
+                ngbDropdownItem
+                (click)="changeLanguage('ur'); toggleNavbar()"
+                jhiTranslate="global.urdu"
+              ></button>
+
+              <div class="dropdown-divider"></div>
+
+              <button
+                ngbDropdownItem
+                routerLink="/profile"
+                routerLinkActive="active"
+                (click)="toggleNavbar()"
+                [routerLinkActiveOptions]="{ exact: true }"
+                jhiTranslate="global.profile"
+              ></button>
+              <button ngbDropdownItem (click)="logout(); toggleNavbar()" jhiTranslate="global.logout"></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,113 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" *ngIf="isMain" jhiTranslate="farm.addWarehouseTitle"></h3>
+
+  <form role="form" [formGroup]="form" *ngIf="isMain">
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.number" class="col-md-2 required"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="number"
+          formControlName="number"
+          placeholder="{{ 'farm.numberPlaceholder' | translate }}"
+        />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'number':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'farm.number' | translate } }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="submit" (click)="add()" [disabled]="adding" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="adding"></span>
+
+          <span jhiTranslate="farm.addWarehouseButton" *ngIf="!adding"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h3 class="text-primary mt-md-4" jhiTranslate="farm.warehouseTitle"></h3>
+
+  <form>
+    <div class="form-group form-inline">
+      <label jhiTranslate="farm.number" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="number"
+          [(ngModel)]="service.number"
+          placeholder="{{ 'farm.numberFilterPlaceholder' | translate }}"
+          name="number"
+        />
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
+
+          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+        </button>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button
+          type="button"
+          (click)="service.clearFilters()"
+          [disabled]="service.loading"
+          class="btn btn-primary"
+          jhiTranslate="farm.clearFilterButton"
+        ></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 40%" scope="col" jhiSortable="number" (sort)="onSort($event)">{{ 'farm.number' | translate }}</th>
+            <th style="width: 40%" scope="col" jhiTranslate="farm.createdDate"></th>
+            <th style="width: 20%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ item.number }}</td>
+            <td>{{ item.createdDate | date: 'yyyy-MM-dd' }}</td>
+            <td>
+              <a [class.disabled]="deleting" class="mx-md-2" [routerLink]="['/', 'farm', 'coop', item.id]">
+                <fa-icon [icon]="faEye"></fa-icon>
+              </a>
+              <a [class.disabled]="deleting" class="mx-md-2" [routerLink]="['/', 'farm', 'edit-warehouse', item.id]" *ngIf="isMain">
+                <fa-icon [icon]="faEdit"></fa-icon>
+              </a>
+              <a [class.disabled]="deleting" class="href mx-md-3" (click)="delete(item.id)" *ngIf="isMain">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'farm.warehouseTitle' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="farm.warehouseDeleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

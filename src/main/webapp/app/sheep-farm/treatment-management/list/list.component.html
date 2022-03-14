@@ -1,0 +1,72 @@
+<div class="d-flex flex-column body-card">
+  <div class="d-flex justify-content-between flex-column flex-lg-row">
+    <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.treatment.title"></h3>
+
+    <button type="button" [routerLink]="['/', 'sheep-farm', 'add-sheep-treatment']" class="btn btn-success" *ngIf="isMain">
+      <span jhiTranslate="sheepFarm.treatment.addButton"></span>
+    </button>
+  </div>
+
+  <form>
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.treatment.type"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="sheepFarm.treatment.name"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="sheepFarm.treatment.doseType"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="sheepFarm.treatment.numberOfDays"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="sheepFarm.treatment.startingDate"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="sheepFarm.treatment.givenTo"></th>
+            <th style="width: 20%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ currentLanguage | async | showLanguage: item.type }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ currentLanguage | async | showLanguage: item.doseType }}</td>
+            <td>{{ item.numberOfDays }}</td>
+            <td>{{ item.startingDate | date: 'yyyy-MM-dd' }}</td>
+            <td>
+              <p *ngIf="item.all">{{ 'sheepFarm.treatment.all' | translate }}</p>
+              <p *ngIf="item.sheepType">{{ currentLanguage | async | showLanguage: item.sheepType }}</p>
+              <span *ngIf="item.specificSheep">
+                <p *ngFor="let sheep of item.sheepTreatmentSheep; let i = index" class="mb-0">
+                  <span>{{ i + 1 }} : {{ sheep.sheep.number }}</span>
+                </p>
+              </span>
+            </td>
+            <td>
+              <a [class.disabled]="deleting" class="href mx-md-3" [routerLink]="['/', 'sheep-farm', 'view-sheep-treatment', item?.id]">
+                <fa-icon [icon]="faEye"></fa-icon>
+              </a>
+              <a *ngIf="isMain" [class.disabled]="deleting" class="href mx-md-3" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'sheepFarm.treatment.title' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="sheepFarm.treatment.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

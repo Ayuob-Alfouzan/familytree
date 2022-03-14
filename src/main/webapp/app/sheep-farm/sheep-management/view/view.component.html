@@ -1,0 +1,188 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.viewHeader"></h3>
+
+  <div class="form-group form-inline" *ngIf="item !== undefined">
+    <label jhiTranslate="sheepFarm.number" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.number }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.name }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.type" class="col-md-2 mt-md-3"></label>
+    <div class="col-md-4 mt-md-3">
+      <span>{{ currentLanguage | async | showLanguage: item.type }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.status" class="col-md-2 mt-md-3"></label>
+    <div class="col-md-4 mt-md-3">
+      <span>{{ currentLanguage | async | showLanguage: item.status }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.category" class="col-md-2 mt-md-3"></label>
+    <div class="col-md-4 mt-md-3">
+      <span>{{ currentLanguage | async | showLanguage: item.category }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.gender" class="col-md-2 mt-md-3"></label>
+    <div class="col-md-4 mt-md-3">
+      <span>{{ currentLanguage | async | showLanguage: item.gender }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.age" class="col-md-2 mt-md-3"></label>
+    <div class="col-md-4 mt-md-3">
+      <span *ngIf="item.ageInYears">{{ item.ageInYears }} {{ 'sheepFarm.years' | translate }}</span>
+      <span *ngIf="item.ageInYears && item.ageInMonths">{{ 'sheepFarm.and' | translate }} </span>
+      <span *ngIf="item.ageInMonths">
+        {{ item.ageInMonths }} {{ 'sheepFarm.months' | translate }}
+      </span>
+      <span *ngIf="(item.ageInYears || item.ageInMonths) && item.ageInDays">{{ 'sheepFarm.and' | translate }} </span>
+      <span *ngIf="item.ageInDays !== undefined && item.ageInDays !== null">
+        {{ item.ageInDays }} {{ 'sheepFarm.days' | translate }}
+      </span>
+
+      <span *ngIf="ageDescription" class="mx-3">({{ currentLanguage | async | showLanguage: ageDescription }})</span>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <ng-container *ngIf="itemStatus && itemStatus.gestation">
+    <div class="d-flex justify-content-between flex-lg-row">
+      <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.statusHeader"></h3>
+    </div>
+
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.gestation.ramNumber" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ itemStatus.gestation.ram.number }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.gestation.ramName" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ itemStatus.gestation.ram.name }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.gestation.impregnationDate" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <span>{{ itemStatus.gestation.impregnationDate | date: 'yyyy-MM-dd' }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.expectedLambingDate" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <span>{{ itemStatus.gestation.impregnationDate | date: 'yyyy-MM-dd' }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.gestation.numberOfWeeks" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <span>{{ itemStatus.gestation.numberOfWeeks }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.gestation.numberOfLambs" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-3">
+        <span>{{ itemStatus.gestation.numberOfLambs }}</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- FATHER -->
+  <ng-container *ngIf="item && item.father">
+    <div class="d-flex justify-content-between flex-lg-row">
+      <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.fatherHeader"></h3>
+
+      <button type="button" [routerLink]="['/', 'sheep-farm', 'view', item.father.id]" class="btn btn-success">
+        <span jhiTranslate="sheepFarm.viewButton"></span>
+      </button>
+    </div>
+
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.number" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.father?.number }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.father?.name }}</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="item && item.fatherName">
+    <div class="d-flex justify-content-between flex-lg-row">
+      <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.fatherHeader"></h3>
+    </div>
+
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.fatherName }}</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- MOTHER -->
+  <ng-container *ngIf="item && item.mother">
+    <div class="d-flex justify-content-between flex-lg-row">
+      <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.motherHeader"></h3>
+
+      <button type="button" [routerLink]="['/', 'sheep-farm', 'view', item.mother.id]" class="btn btn-success">
+        <span jhiTranslate="sheepFarm.viewButton"></span>
+      </button>
+    </div>
+
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.number" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.mother?.number }}</span>
+      </div>
+
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.mother?.name }}</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="item && item.motherName">
+    <div class="d-flex justify-content-between flex-lg-row">
+      <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.motherHeader"></h3>
+    </div>
+
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.name" class="col-md-2"></label>
+      <div class="col-md-4">
+        <span>{{ item?.motherName }}</span>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<jhi-list-copulation
+  *ngIf="item?.type?.code === 'EWE' || item?.type?.code === 'PREGNANT' || item?.type?.code === 'LAMBED' || item?.type?.code === 'RAM'"
+  [parent]="item"
+  (updated)="updateGestation($event)"
+></jhi-list-copulation>
+
+<jhi-list-gestation
+  *ngIf="item?.type?.code === 'EWE' || item?.type?.code === 'PREGNANT' || item?.type?.code === 'LAMBED'"
+  [parent]="item"
+></jhi-list-gestation>
+
+<jhi-list-sheep-children
+  *ngIf="item?.type?.code === 'EWE' || item?.type?.code === 'PREGNANT' || item?.type?.code === 'LAMBED' || item?.type?.code === 'RAM'"
+  [parent]="item"
+></jhi-list-sheep-children>
+
+<div class="d-flex flex-column body-card">
+  <section class="text-center">
+    <button
+      type="button"
+      [routerLink]="['/', 'sheep-farm', 'update', item?.id]"
+      class="btn btn-primary"
+      jhiTranslate="sheepFarm.updateButton"
+    ></button>
+
+    <button type="button" [routerLink]="['/', 'sheep-farm', 'list']" class="btn btn-light" jhiTranslate="global.back"></button>
+  </section>
+</div>

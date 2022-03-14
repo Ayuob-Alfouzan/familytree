@@ -1,0 +1,66 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.copulation.confirmedHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.copulation.impregnationDate" class="col-md-2"></label>
+      <div class="col-md-4 input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="impregnationDate"
+          formControlName="impregnationDate"
+          name="impregnationDate"
+          ngbDatepicker
+          #impregnationDate="ngbDatepicker"
+          [autoClose]="true"
+          [readonly]="true"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="impregnationDate.toggle()" type="button"></button>
+        </div>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'impregnationDate':['required']">
+          {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'sheepFarm.copulation.impregnationDate' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="sheepFarm.copulation.numberOfLambs" class="col-md-2 required"></label>
+      <div class="col-md-4">
+        <input
+          type="number"
+          class="form-control"
+          id="numberOfLambs"
+          formControlName="numberOfLambs"
+          placeholder="{{ 'sheepFarm.copulation.numberOfLambsPlaceholder' | translate }}"
+          min="1"
+        />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'numberOfLambs':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'sheepFarm.copulation.numberOfLambs' | translate } }}
+        </small>
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'numberOfLambs':['min']:['required']">
+          {{ 'sheepFarm.message.error.numberOfLambsPattern' | translate }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button type="submit" (click)="confirmed()" [disabled]="submitting" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+          <span jhiTranslate="sheepFarm.copulation.confirmedButton" *ngIf="!submitting"></span>
+        </button>
+      </div>
+
+      <div class="col-md-2 mx-md-2 mt-md-3 form-btn">
+        <button
+          type="button"
+          [routerLink]="['/', 'sheep-farm', 'view', item?.ewe?.id]"
+          [disabled]="submitting"
+          class="btn btn-light"
+          jhiTranslate="global.cancel"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>

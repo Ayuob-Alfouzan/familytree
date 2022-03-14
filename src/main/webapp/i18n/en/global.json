@@ -1,0 +1,41 @@
+{
+  "global": {
+    "title": "FamilyTree",
+    "home": "Homepage",
+    "about": "About",
+    "login": "Login",
+    "logout": "Logout",
+    "farms": "Farms",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "selectFarm": "Select farm",
+    "select": "Select",
+    "profile": "Personal Profile",
+    "numberOfFarm": "Number of Farms",
+    "numberOfOwnedFarm": "Number of Owned Farms",
+    "language": "Language",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "statistics": "Statistics",
+    "numberOfRecords": "Number of {{fieldName}}",
+    "message": {
+      "noData": "No data found",
+      "confirmHeader": "Confirm",
+      "successfullyAdded": "Successfully Added",
+      "successfullyEdited": "Successfully Edited",
+      "successfullyRemoved": "Successfully Removed",
+      "successfullyUpdated": "Successfully Update",
+      "error": {
+        "internalServerError": "Something wrong happend, please try again.",
+        "required": "Please enter {{ fieldName }}",
+        "requiredSelect": "Please select {{ fieldName }}",
+        "pattern": "Please enter {{ fieldName }} correctly",
+        "namePattern": "{{ fieldName }} length must be less than 15 characters",
+        "passwordLength": "Password length must be between 8 and 50 characters",
+        "passwordPattern": "Password must contains capital and small letters and digits",
+        "requiredTrue": "You must agree to the terms and conditions"
+      }
+    }
+  }
+}

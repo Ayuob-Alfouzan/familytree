@@ -1,0 +1,2 @@
+id;farm_id;invoice_number;amount;amount_vat;vat_percentage;status_id;creation_date;customer_name;record_activity;created_by;created_date
+1;1;1112223331;99;0;0;27;2020-01-01;Farm 1;1;0;2020-01-01

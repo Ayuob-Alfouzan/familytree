@@ -1,0 +1,44 @@
+nav {
+  background-color: #ffffff;
+}
+
+nav.navbar {
+  -webkit-box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+}
+
+.nav-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.nav-link {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.nav-item .btn:focus,
+.nav-item .btn.focus {
+  box-shadow: none;
+}
+
+.nav-item .dropdown-item:hover,
+.nav-item .dropdown-item:focus {
+  background-color: #e9ecef;
+}
+
+.nav-item .dropdown-item:hover {
+  color: inherit;
+}
+
+.nav-item .dropdown-label {
+  padding: 0rem 1.5rem;
+}
+
+.navbar > .container {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}

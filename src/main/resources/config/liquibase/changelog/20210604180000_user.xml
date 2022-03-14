@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="blob_type" value="bytea" dbms="postgresql"/>
+
+    <changeSet id="20210604181600" author="ayuob">
+        <createTable tableName="familytree_user">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="password" type="varchar(60)">
+                <constraints nullable="true" />
+            </column>
+            <column name="first_name" type="nvarchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="nvarchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="nvarchar(255)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="unique_user_email"/>
+            </column>
+            <column name="activated" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="lang_key" type="varchar(10)"/>
+            <column name="token" type="varchar(255)"/>
+            <column name="type" type="varchar(10)"/>
+            <column name="record_activity" type="boolean" valueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+            <column name="mobile_number" type="nvarchar(10)" />
+            <column name="mobile_number_country_code" type="nvarchar(5)" />
+            <column name="file_content" type="${blob_type}" />
+            <column name="file_content_type" type="nvarchar(255)" />
+            <column name="thumbnail" type="${blob_type}" />
+            <column name="most_reset_password" type="boolean" defaultValueBoolean="false" />
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210712010700" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="family_tree_user"
+            file="config/liquibase/data/user.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="20220305163600" author="ayuob">
+        <createTable tableName="user_login">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

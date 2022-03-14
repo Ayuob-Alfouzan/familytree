@@ -1,0 +1,43 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.vaccination.viewHeader"></h3>
+
+  <div class="form-group form-inline" *ngIf="item !== undefined">
+    <label jhiTranslate="sheepFarm.vaccination.type" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item ? (currentLanguage | async | showLanguage: item.type) : '' }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.vaccination.name" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.name }}</span>
+    </div>
+
+    <ng-container *ngFor="let dose of item?.sheepVaccinationDoses; index as i">
+      <label class="col-md-2 mt-md-3">{{ 'sheepFarm.vaccination.doseDate' | translate }} {{ i + 1 }}</label>
+      <div class="col-md-4 mt-md-3">
+        <span>{{ ('sheepFarm.vaccination.month' | translate) + ' ' + dose.month }}</span>
+        <span>{{ ('sheepFarm.vaccination.day' | translate) + ' ' + dose.day }}</span>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<jhi-list-sheep-vaccination-history *ngIf="item" [vaccination]="item"></jhi-list-sheep-vaccination-history>
+
+<div class="d-flex flex-column body-card">
+  <section class="text-center">
+    <button
+      type="button"
+      [routerLink]="['/', 'sheep-farm', 'update-sheep-vaccination', item?.id]"
+      class="btn btn-primary"
+      jhiTranslate="sheepFarm.vaccination.updateButton"
+    ></button>
+
+    <button
+      type="button"
+      [routerLink]="['/', 'sheep-farm', 'list-sheep-vaccination']"
+      class="btn btn-light"
+      jhiTranslate="global.back"
+    ></button>
+  </section>
+</div>

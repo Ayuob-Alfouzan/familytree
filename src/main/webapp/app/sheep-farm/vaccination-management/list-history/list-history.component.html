@@ -1,0 +1,66 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" *ngIf="isMain" jhiTranslate="sheepFarm.vaccination.addHistoryTitle"></h3>
+
+  <form role="form" [formGroup]="form" *ngIf="isMain">
+    <div class="form-group form-inline">
+      <label jhiTranslate="sheepFarm.vaccination.doseDate" class="col-md-2 required"></label>
+      <div class="col-md-4 input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="doseDate"
+          formControlName="doseDate"
+          placeholder="{{ 'sheepFarm.vaccination.doseDatePlaceholder' | translate }}"
+          name="doseDate"
+          ngbDatepicker
+          #doseDate="ngbDatepicker"
+          [autoClose]="true"
+          [readonly]="true"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="doseDate.toggle()" type="button"></button>
+        </div>
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'doseDate':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'sheepFarm.vaccination.doseDate' | translate } }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="submit" (click)="add()" [disabled]="adding" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="adding"></span>
+
+          <span jhiTranslate="sheepFarm.vaccination.add" *ngIf="!adding"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.vaccination.historyTitle"></h3>
+
+  <form>
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 40%" scope="col" jhiTranslate="sheepFarm.vaccination.doseDate"></th>
+            <th style="width: 60%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="vaccination.sheepVaccinationHistories.length > 0">
+          <tr *ngFor="let item of vaccination.sheepVaccinationHistories">
+            <td>{{ item.doseDate | date: 'yyyy-MM-dd' }}</td>
+            <td>
+              <a *ngIf="isMain" [class.disabled]="deleting" class="href mx-md-3" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="sheepFarm.vaccination.deleteHistoryMessage" (confirmed)="confirmed($event)">
+</jhi-confirm-modal>

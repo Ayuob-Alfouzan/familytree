@@ -1,0 +1,138 @@
+<div *ngIf="!registered">
+  <h3 class="text-primary mt-2" jhiTranslate="anon.registerHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.firstName" class="required"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        formControlName="firstName"
+        placeholder="{{ 'anon.firstNamePlaceholder' | translate }}"
+      />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'firstName':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.firstName' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'firstName':['minlength', 'maxlength']:['required']">
+        {{ 'global.message.error.namePattern' | translate: { fieldName: 'anon.firstName' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.lastName" class="required"></label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        formControlName="lastName"
+        placeholder="{{ 'anon.lastNamePlaceholder' | translate }}"
+      />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'lastName':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.lastName' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'lastName':['minlength', 'maxlength']:['required']">
+        {{ 'global.message.error.namePattern' | translate: { fieldName: 'anon.lastName' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.email" class="required"></label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="{{ 'anon.emailPlaceholder' | translate }}" />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.email' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['email']:['required']">
+        {{ 'global.message.error.pattern' | translate: { fieldName: 'anon.email' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.password" class="required"></label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+        placeholder="{{ 'anon.passwordPlaceholder' | translate }}"
+      />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'password':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.password' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'password':['minlength', 'maxlength']:['required']">
+        {{ 'global.message.error.passwordLength' | translate }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'password':['pattern']:['required', 'minlength', 'maxlength']">
+        {{ 'global.message.error.passwordPattern' | translate }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.language"></label>
+      <div class="btn-group btn-group-toggle mr-3" ngbRadioGroup name="radioBasic" formControlName="language">
+        <label ngbButtonLabel class="btn-primary"><input ngbButton type="radio" [value]="'ar-ly'" /> {{ 'anon.arabic' | translate }}</label>
+        <label ngbButtonLabel class="btn-primary"> <input ngbButton type="radio" [value]="'en'" /> {{ 'anon.english' | translate }} </label>
+        <label ngbButtonLabel class="btn-primary"> <input ngbButton type="radio" [value]="'ur'" /> {{ 'anon.urdu' | translate }} </label>
+      </div>
+    </div>
+
+    <div class="form-group mx-2">
+      <div class="register-checkbox">
+        <input type="checkbox" class="form-check-input" id="agree" formControlName="agree" />
+        <label class="form-check-label text-muted" jhiTranslate="anon.agree"></label>
+      </div>
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'agree':['required']">
+        {{ 'global.message.error.requiredTrue' | translate }}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <re-captcha #captchaRef="reCaptcha" [siteKey]="siteKey" size="invisible" (resolved)="resolved($event)"> </re-captcha>
+    </div>
+
+    <div class="mx-2 form-btn">
+      <button type="submit" (click)="register(captchaRef)" [disabled]="submitting" class="btn btn-primary btn-block mb-3">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+        <span jhiTranslate="anon.registerHeader" *ngIf="!submitting"></span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="registered">
+  <h3 class="text-primary mt-2" jhiTranslate="anon.activateRegistrationHeader"></h3>
+
+  <form role="form" [formGroup]="activationForm">
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.otp" class="required"></label>
+      <input type="text" class="form-control" id="otp" formControlName="otp" placeholder="{{ 'anon.otpPlaceholder' | translate }}" />
+
+      <small class="form-text text-danger" *ngIf="activationForm | showErrorMessage: 'otp':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.otp' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="activationForm | showErrorMessage: 'otp':['minlength', 'maxlength']:['required']">
+        {{ 'global.message.error.pattern' | translate: { fieldName: 'anon.otp' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label *ngIf="!canResend">{{ 'anon.resendMessage' | translate }} {{ timeLeft }}</label>
+
+      <a *ngIf="canResend && !resending" (click)="resendActivationEmail()" class="text-primary" jhiTranslate="anon.resend"></a>
+    </div>
+
+    <div class="mx-2 form-btn">
+      <button type="submit" (click)="activateAccount()" [disabled]="submitting" class="btn btn-primary btn-block mb-3">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+        <span jhiTranslate="anon.activateButton" *ngIf="!submitting"></span>
+      </button>
+    </div>
+  </form>
+</div>

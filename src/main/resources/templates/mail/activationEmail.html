@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="ar-ly" dir="rtl">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OTP Code | رمز التحقق</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style>
+      .container {
+        display: block !important;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        clear: both !important;
+      }
+
+      .content {
+        padding: 8px 15px;
+        max-width: 600px;
+        display: block;
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: none;
+        width: 100% !important;
+        height: 100%;
+        direction: rtl;
+        text-align: right;
+      }
+
+      table.body-wrap {
+        width: 100%;
+        /*background:transparent url(pattern.png)*/
+      }
+
+      .content table {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <table align="center">
+      <tr>
+        <td align="center" class="header container">
+          <div class="content">
+            <a th:href="${baseUrl}"><img th:src="${baseUrl + 'content/images/logo.png'}" style="width: 150px" /></a>
+          </div>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+
+    <!-- BODY -->
+    <table class="body-wrap">
+      <tbody>
+        <tr>
+          <td
+            class="container"
+            bgcolor="#FFFFFF"
+            style="
+              empty-cells: hide;
+              font-family: 'Cairo', sans-serif;
+              font-size: 14px;
+              vertical-align: top;
+              display: block;
+              margin: 0 auto !important;
+              width: 600px;
+              padding-bottom: 10px;
+              padding-right: 10px;
+              padding-left: 10px;
+            "
+          >
+            <div class="content">
+              <table align="center">
+                <tr>
+                  <td>
+                    <p style="text-align: center">الرجاء استخدام رمز التحقق أدناه</p>
+                    <p style="text-align: center">Please use below OTP code</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table>
+                      <tr>
+                        <td></td>
+                        <td width="80%">
+                          <table style="text-align: center; line-height: 23px">
+                            <tr style="background-color: #6e6e6e; color: #fff; border: 1px solid #6e6e6e; font-weight: 700">
+                              <td style="padding: 5px 0">رمز التحقق | OTP Code</td>
+                            </tr>
+                            <tr style="background-color: #e5e5e5; font-weight: 400; padding: 5px 0">
+                              <td style="padding: 5px 0" th:text="${token}"></td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table align="center" style="margin-top: 20px">
+                      <tr>
+                        <p align="center">أرق التحايا<br /></p>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

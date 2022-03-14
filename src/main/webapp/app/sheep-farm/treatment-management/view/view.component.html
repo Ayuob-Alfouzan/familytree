@@ -1,0 +1,59 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.treatment.viewHeader"></h3>
+
+  <div class="form-group form-inline" *ngIf="item !== undefined">
+    <label jhiTranslate="sheepFarm.treatment.type" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item ? (currentLanguage | async | showLanguage: item.type) : '' }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.treatment.name" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.name }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.treatment.doseType" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item ? (currentLanguage | async | showLanguage: item.doseType) : '' }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.treatment.numberOfDays" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.numberOfDays }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.treatment.numberOfDays" class="col-md-2"></label>
+    <div class="col-md-4">
+      <span>{{ item?.startingDate | date: 'yyyy-MM-dd' }}</span>
+    </div>
+
+    <label jhiTranslate="sheepFarm.treatment.givenTo" class="col-md-2"></label>
+    <div class="col-md-4">
+      <p *ngIf="item.all">{{ 'sheepFarm.treatment.all' | translate }}</p>
+      <p *ngIf="item.sheepType">{{ currentLanguage | async | showLanguage: item.sheepType }}</p>
+      <span *ngIf="item.specificSheep">
+        <p *ngFor="let sheep of item.sheepTreatmentSheep; let i = index" class="mb-0">
+          <span>{{ i + 1 }} : {{ sheep.sheep.number }}</span>
+        </p>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex flex-column body-card">
+  <section class="text-center">
+    <button
+      type="button"
+      [routerLink]="['/', 'sheep-farm', 'update-sheep-treatment', item?.id]"
+      class="btn btn-primary"
+      jhiTranslate="sheepFarm.treatment.updateButton"
+    ></button>
+
+    <button
+      type="button"
+      [routerLink]="['/', 'sheep-farm', 'list-sheep-treatment']"
+      class="btn btn-light"
+      jhiTranslate="global.back"
+    ></button>
+  </section>
+</div>

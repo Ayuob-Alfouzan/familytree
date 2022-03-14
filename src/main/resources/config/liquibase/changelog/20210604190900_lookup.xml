@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="20210604190900" author="ayuob">
+        <createTable tableName="lookup">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="nvarchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ar" type="nvarchar(255)" />
+            <column name="en" type="nvarchar(255)" />
+            <column name="ur" type="nvarchar(255)" />
+            <column name="record_order" type="int" />
+            <column name="record_activity" type="boolean" defaultValueBoolean="true"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202107131641032" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="lookup"
+            file="config/liquibase/data/lookup.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>

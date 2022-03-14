@@ -1,0 +1,23 @@
+<ng-template #content let-modal>
+  <div class="modal-header bg-secondary">
+    <h4 class="modal-title" id="modal-basic-title" [jhiTranslate]="headerKey"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label [jhiTranslate]="messageKey"></label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="cancel()" class="btn btn-light">
+      <span [jhiTranslate]="cancelKey"></span>
+    </button>
+    <button type="button" (click)="confirm()" [class]="buttonClass">
+      <span [jhiTranslate]="buttonKey"></span>
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,109 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="profile.updateAccountHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group form-inline">
+      <label jhiTranslate="profile.firstName" class="col-md-2 required"></label>
+      <div class="col-md-4 input">
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="{{ 'profile.firstNamePlaceholder' | translate }}"
+        />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'firstName':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'profile.firstName' | translate } }}
+        </small>
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'firstName':['minlength', 'maxlength']:['required']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'profile.firstName' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="profile.lastName" class="col-md-2 required"></label>
+      <div class="col-md-4 input">
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName"
+          placeholder="{{ 'profile.lastNamePlaceholder' | translate }}"
+        />
+
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'lastName':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'profile.lastName' | translate } }}
+        </small>
+        <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'lastName':['minlength', 'maxlength']:['required']">
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'profile.lastName' | translate } }}
+        </small>
+      </div>
+
+      <label jhiTranslate="profile.language" class="col-md-2 mt-md-3"></label>
+      <div class="col-md-4 mt-md-2">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="langKey" formControlName="langKey">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="'ar-ly'" /> {{ 'profile.arabic' | translate }}
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="'en'" /> {{ 'profile.english' | translate }}
+          </label>
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="'ur'" /> {{ 'profile.urdu' | translate }}
+          </label>
+        </div>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn mt-md-3">
+        <button type="submit" (click)="updateAccount()" [disabled]="updating" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
+
+          <span jhiTranslate="profile.updateButton" *ngIf="!updating"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="profile.changePasswordHeader"></h3>
+
+  <form role="form" [formGroup]="changePasswordForm">
+    <div class="form-group form-inline">
+      <label jhiTranslate="profile.password" class="col-md-2 required"></label>
+      <div class="col-md-4">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          placeholder="{{ 'profile.passwordPlaceholder' | translate }}"
+        />
+
+        <small class="form-text text-danger" *ngIf="changePasswordForm | showErrorMessage: 'password':['required']">
+          {{ 'global.message.error.required' | translate: { fieldName: 'anon.password' | translate } }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="changePasswordForm | showErrorMessage: 'password':['minlength', 'maxlength']:['required']"
+        >
+          {{ 'global.message.error.passwordLength' | translate }}
+        </small>
+        <small
+          class="form-text text-danger"
+          *ngIf="changePasswordForm | showErrorMessage: 'password':['pattern']:['required', 'minlength', 'maxlength']"
+        >
+          {{ 'global.message.error.passwordPattern' | translate }}
+        </small>
+      </div>
+
+      <div class="col-md-2 mx-md-2 form-btn">
+        <button type="submit" (click)="changePassword()" [disabled]="changing" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="changing"></span>
+
+          <span jhiTranslate="profile.changeButton" *ngIf="!changing"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

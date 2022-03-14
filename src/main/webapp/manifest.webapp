@@ -1,0 +1,26 @@
+{
+  "name": "Family Tree شجرة العائلة",
+  "short_name": "Family Tree شجرة العائلة",
+  "icons": [
+    {
+      "src": "./content/images/logo16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "./content/images/logo32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./content/images/logo64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#e0e0e0",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait"
+}

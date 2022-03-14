@@ -1,0 +1,25 @@
+{
+  "financialTransaction": {
+    "expenseTitle": "Expenses List",
+    "incomeTitle": "Incomes List",
+    "filter": "Filter",
+    "fromFilter": "From Date",
+    "toFilter": "To Date",
+    "fromFilterPlaceholder": "Period start date",
+    "toFilterPlaceholder": "period end date",
+    "listFilterButton": "Filter",
+    "amount": "Amount",
+    "description": "Description",
+    "date": "Transaction Date",
+    "expenseAddButton": "Add Expense",
+    "incomeAddButton": "Add Income",
+    "amountPlaceholder": "Enter the amount",
+    "descriptionPlaceholder": "Enter transaction description",
+    "deleteMessage": "Are you sure you want to delete this item, the item will be deleted and cannot be restored?",
+    "addExpenseTitle": "Add Expense",
+    "addIncomeTitle": "Add Income",
+    "specificType": "Type",
+    "specificTypePlaceholder": "Select type",
+    "clearFilterButton": "Reset Filters"
+  }
+}

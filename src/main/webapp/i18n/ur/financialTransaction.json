@@ -1,0 +1,25 @@
+{
+  "financialTransaction": {
+    "expenseTitle": "اخراجات کی فہرست۔",
+    "incomeTitle": "آمدنی کی فہرست۔",
+    "filter": "فلٹر",
+    "fromFilter": "اس تاریخ سے",
+    "toFilter": "تاریخ تک۔",
+    "fromFilterPlaceholder": "مدت شروع ہونے کی تاریخ۔",
+    "toFilterPlaceholder": "مدت ختم ہونے کی تاریخ",
+    "listFilterButton": "فلٹر",
+    "amount": "رقم",
+    "description": "تفصیل",
+    "date": "لین دین کی تاریخ",
+    "expenseAddButton": "اخراجات شامل کریں۔",
+    "incomeAddButton": "آمدنی شامل کریں۔",
+    "amountPlaceholder": "رقم درج کریں۔",
+    "descriptionPlaceholder": "لین دین کی تفصیل درج کریں۔",
+    "deleteMessage": "کیا آپ واقعی اس آئٹم کو حذف کرنا چاہتے ہیں ، آئٹم حذف ہو جائے گا اور اسے بحال نہیں کیا جا سکتا؟",
+    "addExpenseTitle": "اخراجات شامل کریں۔",
+    "addIncomeTitle": "آمدنی شامل کریں۔",
+    "specificType": "ٹائپ کریں۔",
+    "specificTypePlaceholder": "قسم منتخب کریں۔",
+    "clearFilterButton": "فلٹرز کو دوبارہ ترتیب دیں۔"
+  }
+}

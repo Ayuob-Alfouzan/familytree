@@ -1,0 +1,33 @@
+{
+  "anon": {
+    "loginHeader": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "loginButton": "تسجيل الدخول",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "registerHeader": "تسجيل",
+    "firstName": "الاسم الأول",
+    "lastName": "الاسم الأخير",
+    "firstNamePlaceholder": "أدخل اسمك الأول",
+    "lastNamePlaceholder": "أدخل اسمك الأخير",
+    "language": "اللغة المفضلة",
+    "agree": "أوافق على شروط وأجكام استخدام الموقع",
+    "activateRegistrationHeader": "تفعيل الحساب",
+    "otp": "الرمز",
+    "otpPlaceholder": "الرجاء إدخال الرمز المرسل إلى البريد الإلكتروني",
+    "activateButton": "تفعيل",
+    "register": "سجل الآن",
+    "forgotPassword": "نسيت كلمة المرور",
+    "arabic": "العربية",
+    "english": "English",
+    "urdu": "اردو",
+    "resendMessage": "يمكنك إعادة الإرسال بعد إنتهاء العداد",
+    "resend": "إعادة إرسال الرمز",
+    "forgotPasswordHeader": "إستعادة كلمة المرور",
+    "forgotPasswordButton": "إرسال الرمز للبريد الإلكتروني",
+    "resetPasswordHeader": "إعادة تعيين كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "الرجاء إدخال كلمة مرور جديدة"
+  }
+}

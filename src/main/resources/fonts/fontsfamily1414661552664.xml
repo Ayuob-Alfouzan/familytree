@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+  <fontFamily name="ELM-Font">
+    <normal>
+      <ttf>fonts/FONT/DINNextLTArabic-Regular.ttf</ttf>
+      <pdf>fonts/FONT/DINNextLTArabic-Regular.ttf</pdf>
+      <eot>fonts/FONT/DINNextLTArabic-Regular.ttf</eot>
+      <svg>fonts/FONT/DINNextLTArabic-Regular.ttf</svg>
+      <woff>fonts/FONT/DINNextLTArabic-Regular.ttf</woff>
+    </normal>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+    <exportFonts>
+    </exportFonts>
+  </fontFamily>
+
+</fontFamilies>

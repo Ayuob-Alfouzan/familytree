@@ -1,0 +1,58 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.addHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="row justify-content-center py-4">
+      <label jhiTranslate="farm.subscription.first"></label>
+    </div>
+
+    <div class="row justify-content-center py-4 text-danger" *ngIf="!packages">
+      <label jhiTranslate="farm.subscription.noSuitablePackages"></label>
+    </div>
+
+    <div class="radio-group row px-3 a">
+      <div
+        *ngFor="let item of packages"
+        class="mb-2 pb-2 col-xl-4 col-md-4 radio"
+        (click)="selectPackage(item.id)"
+        [class.selected]="form.get('packageId')?.value === item.id"
+      >
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0">{{ currentLanguage | async | showNameLanguage: item }}</h6>
+              <p class="mb-0">
+                {{ 'global.pricingDetails.from' | translate }} {{ item.rangeStart }} {{ 'global.pricingDetails.to' | translate }}
+                {{ item.rangeEnd }} {{ 'global.pricingDetails.pigeon' | translate }}
+              </p>
+              <span class="text-gray-500"
+                >{{ 'global.pricingDetails.cost' | translate }} {{ item.cost }} {{ 'global.pricingDetails.riyal' | translate }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'packageId':['required']">
+      {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'farm.subscription.package' | translate } }}
+    </small>
+
+    <div class="row justify-content-center py-4">
+      <button type="submit" (click)="upgrade()" [disabled]="submitting" class="btn btn-success mx-2" *ngIf="packages">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+        <span jhiTranslate="farm.subscription.addButton" *ngIf="!submitting"></span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/', 'farm-management', 'subscription', farmId]"
+        [disabled]="submitting"
+        class="btn btn-light mx-2"
+        jhiTranslate="global.cancel"
+      ></button>
+    </div>
+  </form>
+</div>

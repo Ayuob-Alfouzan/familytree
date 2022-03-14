@@ -1,0 +1,137 @@
+<!-- DASHBOARD -->
+<section class="mb-3" *ngIf="dashboardData && isMain">
+  <button
+    class="navbar-toggler navbar-light dashboard-navbar w-100 d-flex justify-content-between mb-2"
+    type="button"
+    (click)="toggleDashboard()"
+  >
+    <span jhiTranslate="global.statistics" class="align-self-center"></span>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse">
+    <div class="row mb-md-2">
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfUsers"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfUsers }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfSheep"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfSheep }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfSheepVaccinations"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfSheepVaccinations }}</span>
+            </div>
+          </div>
+          <div class="icon bg-success">
+            <a [routerLink]="['/', 'sheep-farm', 'list-sheep-vaccination']" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-md-2">
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfSheepTreatments"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfSheepTreatments }}</span>
+            </div>
+          </div>
+          <div class="icon bg-success">
+            <a [routerLink]="['/', 'sheep-farm', 'list-sheep-treatment']" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.notPregnantReport"></h6>
+              <span class="text-gray-500"></span>
+            </div>
+          </div>
+          <div class="icon bg-success">
+            <a [routerLink]="['/', 'sheep-farm', 'not-pregnant-report']" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot mx-3" [ngClass]="dashboardData.financialStatus < 0 ? 'bg-danger' : 'bg-success'"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.financialStatus"></h6>
+              <span class="text-gray-500">{{ dashboardData.financialStatus }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-danger mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfExpenseFinancialTransactions"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfExpenseFinancialTransactions }}</span>
+            </div>
+          </div>
+          <div class="icon bg-danger">
+            <a [routerLink]="['/', 'financial-transaction', 'EXPENSE']" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0" jhiTranslate="sheepFarm.numberOfIncomeFinancialTransactions"></h6>
+              <span class="text-gray-500">{{ dashboardData.numberOfIncomeFinancialTransactions }}</span>
+            </div>
+          </div>
+          <div class="icon bg-success">
+            <a [routerLink]="['/', 'financial-transaction', 'INCOME']" class="text-white">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

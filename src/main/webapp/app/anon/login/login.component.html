@@ -1,0 +1,50 @@
+<div>
+  <h3 class="text-primary mt-2" jhiTranslate="anon.loginHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.email"></label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="{{ 'anon.emailPlaceholder' | translate }}" />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.email' | translate } }}
+      </small>
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['email']:['required']">
+        {{ 'global.message.error.pattern' | translate: { fieldName: 'anon.email' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group mx-2">
+      <label jhiTranslate="anon.password"></label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+        placeholder="{{ 'anon.passwordPlaceholder' | translate }}"
+      />
+
+      <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'password':['required']">
+        {{ 'global.message.error.required' | translate: { fieldName: 'anon.password' | translate } }}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <re-captcha #captchaRef="reCaptcha" [siteKey]="siteKey" size="invisible" (resolved)="resolved($event)"> </re-captcha>
+    </div>
+
+    <div class="mx-2 form-btn">
+      <button type="submit" (click)="login(captchaRef)" [disabled]="submitting" class="btn btn-primary btn-block mb-3">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+        <span jhiTranslate="anon.loginButton" *ngIf="!submitting"></span>
+      </button>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-between m-3">
+    <a routerLink="/con/register" class="text-primary" jhiTranslate="anon.register"></a>
+
+    <a routerLink="/con/forgot-password" class="text-primary" jhiTranslate="anon.forgotPassword"></a>
+  </div>
+</div>
