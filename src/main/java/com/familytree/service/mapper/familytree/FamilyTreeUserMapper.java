@@ -11,7 +11,6 @@ import org.mapstruct.Mapping;
 public interface FamilyTreeUserMapper extends EntityMapper<FamilyTreeUserDTO, FamilyTreeUser> {
     @Mapping(source = "familyTree.id", target = "familyTreeId")
     @Mapping(source = "familyTree.nameAr", target = "familyTreeNameAr")
-    @Mapping(source = "familyTree.nameEn", target = "familyTreeNameEn")
     @Mapping(source = "familyTree.type", target = "familyTreeType")
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "user.firstName", target = "userFirstName")

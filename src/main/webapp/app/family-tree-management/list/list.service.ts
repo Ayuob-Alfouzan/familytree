@@ -6,7 +6,7 @@ import { Pageable } from 'app/shared/models/page.model';
 import { TableStateModel } from 'app/shared/models/table-state.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FamilyTreeCriteria, FamilyTreeListModel, FamilyTreeModel } from '../models/familyTree.model';
+import { FamilyTreeCriteria, FamilyTreeListModel, FamilyTreeModel } from '../models/family-tree.model';
 
 @Injectable()
 export class ListFamilyTreeService {
@@ -84,7 +84,7 @@ export class ListFamilyTreeService {
 
   loadFromServer(): Observable<FamilyTreeListModel[]> {
     return this.http
-      .post<Pageable<FamilyTreeListModel>>(this.applicationConfigService.getEndpointFor('api/familyTree/list'), this.createBody(), {
+      .post<Pageable<FamilyTreeListModel>>(this.applicationConfigService.getEndpointFor('api/family-tree/list'), this.createBody(), {
         params: this.createParam(),
       })
       .pipe(
@@ -96,7 +96,7 @@ export class ListFamilyTreeService {
   }
 
   remove(id: number): Observable<FamilyTreeModel> {
-    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor(`api/familyTree/remove/${id}`), {});
+    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor(`api/family-tree/remove/${id}`), {});
   }
 
   errorHandler(response: HttpErrorResponse): void {

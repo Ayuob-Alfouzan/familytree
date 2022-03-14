@@ -14,7 +14,6 @@ import com.familytree.service.dto.familytree.FamilyTreeListDTO;
 import com.familytree.service.lookup.FamilyTreeUserTypeEnum;
 import com.familytree.service.lookup.LookupService;
 import com.familytree.service.mapper.familytree.FamilyTreeListMapper;
-
 import javax.persistence.metamodel.SingularAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,9 +77,9 @@ public class FamilyTreeUserService extends QueryService<FamilyTreeUser> {
                 criteria.getName().setContains(criteria.getName().getContains().trim());
                 Specification<FamilyTreeUser> nameSpecification = Specification.where(null);
                 nameSpecification =
-                    nameSpecification.or(buildReferringEntitySpecification(criteria.getName(), FamilyTreeUser_.familyTree, FamilyTree_.nameAr));
-                nameSpecification =
-                    nameSpecification.or(buildReferringEntitySpecification(criteria.getName(), FamilyTreeUser_.familyTree, FamilyTree_.nameEn));
+                    nameSpecification.or(
+                        buildReferringEntitySpecification(criteria.getName(), FamilyTreeUser_.familyTree, FamilyTree_.nameAr)
+                    );
                 specification = specification.and(nameSpecification);
             }
         }
@@ -90,7 +89,8 @@ public class FamilyTreeUserService extends QueryService<FamilyTreeUser> {
             active.setEquals(true);
 
             specification = specification.and(buildSpecification(active, FamilyTreeUser_.recordActivity));
-            specification = specification.and(buildReferringEntitySpecification(active, FamilyTreeUser_.familyTree, FamilyTree_.recordActivity));
+            specification =
+                specification.and(buildReferringEntitySpecification(active, FamilyTreeUser_.familyTree, FamilyTree_.recordActivity));
 
             StringFilter currentUser = new StringFilter();
             currentUser.setEquals(SecurityUtils.getCurrentUserEmailOrThrowException());

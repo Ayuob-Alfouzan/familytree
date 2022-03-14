@@ -47,22 +47,10 @@ export class HeaderComponent implements OnInit {
     this.selectedFamilyTree = selectedFamilyTree;
     this.accountService.selectedFamilyTree = selectedFamilyTree;
 
-    if (selectedFamilyTree.familyTreeType.code === 'PIGEON') {
-      if (this.router.url === '/familyTree/dashboard') {
-        this.router.navigate(['/', 'familyTree', 'dashboard']).then(() => {
-          window.location.reload();
-        });
-      } else {
-        this.router.navigate(['/', 'familyTree', 'dashboard']);
-      }
-    } else {
-      if (this.router.url === '/sheep-familyTree/list') {
-        this.router.navigate(['/', 'sheep-familyTree', 'list']).then(() => {
-          window.location.reload();
-        });
-      } else {
-        this.router.navigate(['/', 'sheep-familyTree', 'list']);
-      }
+    if (this.router.url === '/family-tree/dashboard') {
+      this.router.navigate(['/', 'family-tree', 'dashboard']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

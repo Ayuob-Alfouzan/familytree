@@ -8,21 +8,17 @@ import { LanguageService } from 'app/shared/language/language.service';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { first } from 'rxjs/operators';
-import { AddFamilyTreeModel } from '../models/familyTree.model';
+import { AddFamilyTreeModel } from '../models/family-tree.model';
 import { AddFamilyTreeService } from './add.service';
 
 @Component({
-  selector: 'jhi-add-familyTree',
+  selector: 'jhi-add-family-tree',
   templateUrl: './add.component.html',
 })
 export class AddFamilyTreeComponent implements OnInit {
   form = this.fb.group({
     nameAr: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    nameEn: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    location: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     type: [null, [Validators.required]],
-    notRegisteredInVat: [false, [Validators.required]],
-    vatNumber: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
   });
 
   familyTreeTypes = [];
@@ -47,16 +43,6 @@ export class AddFamilyTreeComponent implements OnInit {
         this.familyTreeTypes = data.lookups.find((x: LookupCategoryModel) => x.lookupName === LookupEnum.FamilyTreeType).lookupList;
       }
     });
-
-    this.form.get('notRegisteredInVat')?.valueChanges.subscribe(x => {
-      if (x) {
-        this.form.get('vatNumber')?.setValidators([]);
-        this.form.get('vatNumber')?.updateValueAndValidity();
-      } else {
-        this.form.get('vatNumber')?.setValidators([Validators.required, Validators.minLength(15), Validators.maxLength(15)]);
-        this.form.get('vatNumber')?.updateValueAndValidity();
-      }
-    });
   }
 
   add(): void {
@@ -66,7 +52,7 @@ export class AddFamilyTreeComponent implements OnInit {
       this.service.add(this.createAddFamilyTreeModel()).subscribe(
         () => {
           this.accountService.identity(true).subscribe();
-          this.router.navigate(['/', 'familyTree-management']);
+          this.router.navigate(['/', 'family-tree-management']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },
@@ -85,14 +71,8 @@ export class AddFamilyTreeComponent implements OnInit {
   createAddFamilyTreeModel(): AddFamilyTreeModel {
     const data: AddFamilyTreeModel = {
       nameAr: this.form.get('nameAr')?.value,
-      nameEn: this.form.get('nameEn')?.value,
-      location: this.form.get('location')?.value,
       type: this.form.get('type')?.value.code,
     };
-
-    if (!this.form.get('notRegisteredInVat')?.value) {
-      data.vatNumber = this.form.get('vatNumber')?.value;
-    }
 
     return data;
   }

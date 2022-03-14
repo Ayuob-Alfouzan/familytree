@@ -79,7 +79,7 @@
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="family_tree_user"
                                  constraintName="family_tree_user_user_id_foreign_key" deferrable="false"
                                  initiallyDeferred="false" referencedColumnNames="id"
-                                 referencedTableName="family_tree_user"/>
+                                 referencedTableName="ft_user"/>
 
         <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="family_tree_user"
                                  constraintName="family_tree_user_type_id_foreign_key" deferrable="false"

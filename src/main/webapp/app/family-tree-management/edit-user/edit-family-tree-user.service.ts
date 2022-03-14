@@ -9,11 +9,11 @@ export class EditFamilyTreeUserService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   addUser(data: AddUserModel): Observable<FamilyTreeModel> {
-    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor('api/familyTree/add-user'), data);
+    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor('api/family-tree/add-user'), data);
   }
 
   removeUser(data: RemoveUserModel): Observable<FamilyTreeModel> {
-    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor('api/familyTree/remove-user'), data);
+    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor('api/family-tree/remove-user'), data);
   }
 
   getSuitableUsers(data: FindSuitableUserModel): Observable<SuitableUserModel[]> {

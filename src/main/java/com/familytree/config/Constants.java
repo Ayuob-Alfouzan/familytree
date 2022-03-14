@@ -8,7 +8,7 @@ public final class Constants {
     // Regex for acceptable logins
     public static final String LOGIN_REGEX = "^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)$";
     public static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
-    public static final String LANGUAGE_REGEX = "^(ar-ly|en|ur)$";
+    public static final String LANGUAGE_REGEX = "^(ar-ly|en)$";
     public static final String MOBILE_NUMBER_REGEX = "^[0-9]{9}$";
     public static final String VAT_NUMBER_REGEX = "^[0-9]{15}$";
 

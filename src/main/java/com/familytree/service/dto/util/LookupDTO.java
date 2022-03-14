@@ -7,7 +7,6 @@ public class LookupDTO {
     private String code;
     private String ar;
     private String en;
-    private String ur;
     private String category;
     private Boolean recordActivity;
 
@@ -17,15 +16,13 @@ public class LookupDTO {
         this.code = lookup.getCode();
         this.ar = lookup.getAr();
         this.en = lookup.getEn();
-        this.ur = lookup.getUr();
         this.category = lookup.getCategory();
     }
 
-    public LookupDTO(String code, String ar, String en, String ur, String category) {
+    public LookupDTO(String code, String ar, String en, String category) {
         this.code = code;
         this.ar = ar;
         this.en = en;
-        this.ur = ur;
         this.category = category;
     }
 
@@ -69,14 +66,6 @@ public class LookupDTO {
         this.category = category;
     }
 
-    public String getUr() {
-        return ur;
-    }
-
-    public void setUr(String ur) {
-        this.ur = ur;
-    }
-
     @Override
     public String toString() {
         return (
@@ -89,9 +78,6 @@ public class LookupDTO {
             '\'' +
             ", en='" +
             en +
-            '\'' +
-            ", ur='" +
-            ur +
             '\'' +
             ", category='" +
             category +

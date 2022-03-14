@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ConfirmModalComponent } from 'app/shared/components/confirm-modal/confirm-modal.component';
 import { ToastService } from 'app/core/util/toast.service';
-import { SubscriptionModel } from 'app/familyTree-management/models/subscription.model';
+import { SubscriptionModel } from 'app/family-tree-management/models/subscription.model';
 
 @Component({
   selector: 'jhi-view-subscription',

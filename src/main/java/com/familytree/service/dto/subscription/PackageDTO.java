@@ -8,10 +8,8 @@ public class PackageDTO {
     private LookupDTO familyTreeType;
     private String nameAr;
     private String nameEn;
-    private String nameUr;
     private String descriptionAr;
     private String descriptionEn;
-    private String descriptionUr;
     private Long rangeStart;
     private Long rangeEnd;
     private Double cost;
@@ -50,14 +48,6 @@ public class PackageDTO {
         this.nameEn = nameEn;
     }
 
-    public String getNameUr() {
-        return nameUr;
-    }
-
-    public void setNameUr(String nameUr) {
-        this.nameUr = nameUr;
-    }
-
     public String getDescriptionAr() {
         return descriptionAr;
     }
@@ -72,14 +62,6 @@ public class PackageDTO {
 
     public void setDescriptionEn(String descriptionEn) {
         this.descriptionEn = descriptionEn;
-    }
-
-    public String getDescriptionUr() {
-        return descriptionUr;
-    }
-
-    public void setDescriptionUr(String descriptionUr) {
-        this.descriptionUr = descriptionUr;
     }
 
     public Long getRangeStart() {
@@ -124,20 +106,35 @@ public class PackageDTO {
 
     @Override
     public String toString() {
-        return "PackageDTO{" +
-            "id=" + id +
-            ", familyTreeType=" + familyTreeType +
-            ", nameAr='" + nameAr + '\'' +
-            ", nameEn='" + nameEn + '\'' +
-            ", nameUr='" + nameUr + '\'' +
-            ", descriptionAr='" + descriptionAr + '\'' +
-            ", descriptionEn='" + descriptionEn + '\'' +
-            ", descriptionUr='" + descriptionUr + '\'' +
-            ", rangeStart=" + rangeStart +
-            ", rangeEnd=" + rangeEnd +
-            ", cost=" + cost +
-            ", duration=" + duration +
-            ", recordActivity=" + recordActivity +
-            '}';
+        return (
+            "PackageDTO{" +
+            "id=" +
+            id +
+            ", familyTreeType=" +
+            familyTreeType +
+            ", nameAr='" +
+            nameAr +
+            '\'' +
+            ", nameEn='" +
+            nameEn +
+            '\'' +
+            ", descriptionAr='" +
+            descriptionAr +
+            '\'' +
+            ", descriptionEn='" +
+            descriptionEn +
+            '\'' +
+            ", rangeStart=" +
+            rangeStart +
+            ", rangeEnd=" +
+            rangeEnd +
+            ", cost=" +
+            cost +
+            ", duration=" +
+            duration +
+            ", recordActivity=" +
+            recordActivity +
+            '}'
+        );
     }
 }

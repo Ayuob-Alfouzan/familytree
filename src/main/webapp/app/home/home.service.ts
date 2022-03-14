@@ -9,6 +9,6 @@ export class HomeService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   getFamilyTreeDashboard(): Observable<FamilyTreeDashboardModel> {
-    return this.http.get<FamilyTreeDashboardModel>(this.applicationConfigService.getEndpointFor(`api/familyTree/global-dashboard`));
+    return this.http.get<FamilyTreeDashboardModel>(this.applicationConfigService.getEndpointFor(`api/family-tree/global-dashboard`));
   }
 }

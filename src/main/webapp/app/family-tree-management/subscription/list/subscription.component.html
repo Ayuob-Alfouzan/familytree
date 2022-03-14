@@ -4,7 +4,7 @@
 
     <button
       type="button"
-      [routerLink]="['/', 'familyTree-management', 'subscription', 'add', service.familyTreeId]"
+      [routerLink]="['/', 'family-tree-management', 'subscription', 'add', service.familyTreeId]"
       class="btn btn-success"
       *ngIf="service.subscriptionAction?.canSubscribe"
     >
@@ -15,7 +15,7 @@
       type="button"
       [routerLink]="[
         '/',
-        'familyTree-management',
+        'family-tree-management',
         'subscription',
         'renew',
         service.familyTreeId,
@@ -84,7 +84,7 @@
                 *ngIf="item.canUpgrade"
                 type="button"
                 [disabled]="cancelling"
-                [routerLink]="['/', 'familyTree-management', 'subscription', 'upgrade', service.familyTreeId, item.id]"
+                [routerLink]="['/', 'family-tree-management', 'subscription', 'upgrade', service.familyTreeId, item.id]"
                 class="btn btn-primary btn-sm py-0"
                 jhiTranslate="familyTree.subscription.upgradeButton"
               ></button>

@@ -32,10 +32,6 @@ public class Package extends AbstractAuditingEntity implements Serializable {
     @Length(max = 50)
     private String nameEn;
 
-    @Column(name = "name_ur")
-    @Length(max = 50)
-    private String nameUr;
-
     @Column(name = "description_ar")
     @Length(max = 50)
     private String descriptionAr;
@@ -43,10 +39,6 @@ public class Package extends AbstractAuditingEntity implements Serializable {
     @Column(name = "description_en")
     @Length(max = 50)
     private String descriptionEn;
-
-    @Column(name = "description_ur")
-    @Length(max = 50)
-    private String descriptionUr;
 
     @Column(name = "range_start")
     private Long rangeStart;
@@ -103,14 +95,6 @@ public class Package extends AbstractAuditingEntity implements Serializable {
         this.nameEn = nameEn;
     }
 
-    public String getNameUr() {
-        return nameUr;
-    }
-
-    public void setNameUr(String nameUr) {
-        this.nameUr = nameUr;
-    }
-
     public String getDescriptionAr() {
         return descriptionAr;
     }
@@ -125,14 +109,6 @@ public class Package extends AbstractAuditingEntity implements Serializable {
 
     public void setDescriptionEn(String descriptionEn) {
         this.descriptionEn = descriptionEn;
-    }
-
-    public String getDescriptionUr() {
-        return descriptionUr;
-    }
-
-    public void setDescriptionUr(String descriptionUr) {
-        this.descriptionUr = descriptionUr;
     }
 
     public Long getRangeStart() {
@@ -219,17 +195,11 @@ public class Package extends AbstractAuditingEntity implements Serializable {
             ", nameEn='" +
             nameEn +
             '\'' +
-            ", nameUr='" +
-            nameUr +
-            '\'' +
             ", descriptionAr='" +
             descriptionAr +
             '\'' +
             ", descriptionEn='" +
             descriptionEn +
-            '\'' +
-            ", descriptionUr='" +
-            descriptionUr +
             '\'' +
             ", rangeStart=" +
             rangeStart +

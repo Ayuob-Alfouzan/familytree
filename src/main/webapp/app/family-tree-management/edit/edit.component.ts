@@ -5,21 +5,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'app/core/util/toast.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
-import { EditFamilyTreeModel, FamilyTreeModel } from '../models/familyTree.model';
+import { EditFamilyTreeModel, FamilyTreeModel } from '../models/family-tree.model';
 import { EditFamilyTreeService } from './edit.service';
 
 @Component({
-  selector: 'jhi-edit-familyTree',
+  selector: 'jhi-edit-family-tree',
   templateUrl: './edit.component.html',
 })
 export class EditFamilyTreeComponent implements OnInit {
   form = this.fb.group({
     id: [null, []],
     nameAr: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    nameEn: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    location: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    notRegisteredInVat: [false, [Validators.required]],
-    vatNumber: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
   });
 
   familyTree?: FamilyTreeModel;
@@ -48,26 +44,6 @@ export class EditFamilyTreeComponent implements OnInit {
 
     this.form.get('id')?.setValue(familyTreeData.id);
     this.form.get('nameAr')?.setValue(familyTreeData.nameAr);
-    this.form.get('nameEn')?.setValue(familyTreeData.nameEn);
-    this.form.get('location')?.setValue(familyTreeData.location);
-
-    if (familyTreeData.vatNumber) {
-      this.form.get('vatNumber')?.setValue(familyTreeData.vatNumber);
-    } else {
-      this.form.get('notRegisteredInVat')?.setValue(true);
-      this.form.get('vatNumber')?.setValidators([]);
-      this.form.get('vatNumber')?.updateValueAndValidity();
-    }
-
-    this.form.get('notRegisteredInVat')?.valueChanges.subscribe(x => {
-      if (x) {
-        this.form.get('vatNumber')?.setValidators([]);
-        this.form.get('vatNumber')?.updateValueAndValidity();
-      } else {
-        this.form.get('vatNumber')?.setValidators([Validators.required, Validators.minLength(15), Validators.maxLength(15)]);
-        this.form.get('vatNumber')?.updateValueAndValidity();
-      }
-    });
   }
 
   edit(): void {
@@ -76,7 +52,7 @@ export class EditFamilyTreeComponent implements OnInit {
 
       this.service.edit(this.createEditFamilyTreeModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'familyTree-management']);
+          this.router.navigate(['/', 'family-tree-management']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyEdited');
         },
@@ -96,13 +72,7 @@ export class EditFamilyTreeComponent implements OnInit {
     const data: EditFamilyTreeModel = {
       id: this.form.get('id')?.value,
       nameAr: this.form.get('nameAr')?.value,
-      nameEn: this.form.get('nameEn')?.value,
-      location: this.form.get('location')?.value,
     };
-
-    if (!this.form.get('notRegisteredInVat')?.value) {
-      data.vatNumber = this.form.get('vatNumber')?.value;
-    }
 
     return data;
   }

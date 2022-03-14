@@ -50,12 +50,12 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/', 'familyTree', 'dashboard']);
       }
     } else {
-      if (this.router.url === '/sheep-familyTree/list') {
+      if (this.router.url === '/sheep-family-tree/list') {
         this.router.navigate(['/', 'sheep-familyTree', 'list']).then(() => {
           window.location.reload();
         });
       } else {
-        this.router.navigate(['/', 'sheep-familyTree', 'list']);
+        this.router.navigate(['/', 'sheep-family-tree', 'list']);
       }
     }
   }

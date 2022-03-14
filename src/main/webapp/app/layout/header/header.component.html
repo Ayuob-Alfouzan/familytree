@@ -17,13 +17,11 @@
           <div ngbDropdown class="d-inline-block" *ngIf="isAuthenticated() && account" display="dynamic">
             <button class="btn nav-link" id="familyTreesDropdown" ngbDropdownToggle>
               <span jhiTranslate="global.selectFamilyTree" *ngIf="!selectedFamilyTree"></span>
-              <span *ngIf="selectedFamilyTree">{{
-                getCurrentLanguage() === 'ar-ly' ? selectedFamilyTree.familyTreeNameAr : selectedFamilyTree.familyTreeNameEn
-              }}</span>
+              <span *ngIf="selectedFamilyTree">{{ selectedFamilyTree.familyTreeNameAr }}</span>
             </button>
             <div ngbDropdownMenu aria-labelledby="familyTreesDropdown">
               <button ngbDropdownItem *ngFor="let item of account.familyTreeList" (click)="selectFamilyTree(item); toggleNavbar()">
-                {{ getCurrentLanguage() === 'ar-ly' ? item.familyTreeNameAr : item.familyTreeNameEn }}
+                {{ item.familyTreeNameAr }}
               </button>
             </div>
           </div>
@@ -32,7 +30,7 @@
         <li class="nav-item">
           <a
             jhiTranslate="global.familyTrees"
-            routerLink="/familyTree-management"
+            routerLink="/family-tree-management"
             *ngIf="isAuthenticated()"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -58,12 +56,6 @@
                 ngbDropdownItem
                 (click)="changeLanguage('en'); toggleNavbar()"
                 jhiTranslate="global.english"
-              ></button>
-              <button
-                *ngIf="getCurrentLanguage() !== 'ur'"
-                ngbDropdownItem
-                (click)="changeLanguage('ur'); toggleNavbar()"
-                jhiTranslate="global.urdu"
               ></button>
             </div>
           </div>
@@ -100,12 +92,6 @@
                 ngbDropdownItem
                 (click)="changeLanguage('en'); toggleNavbar()"
                 jhiTranslate="global.english"
-              ></button>
-              <button
-                *ngIf="getCurrentLanguage() !== 'ur'"
-                ngbDropdownItem
-                (click)="changeLanguage('ur'); toggleNavbar()"
-                jhiTranslate="global.urdu"
               ></button>
 
               <div class="dropdown-divider"></div>

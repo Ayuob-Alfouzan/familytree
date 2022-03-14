@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'app/core/util/toast.service';
-import { PackageModel } from 'app/familyTree-management/models/subscription.model';
+import { PackageModel } from 'app/family-tree-management/models/subscription.model';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
 import { SubscriptionService } from '../subscription.service';
@@ -61,7 +61,7 @@ export class RenewSubscriptionComponent implements OnInit {
     this.service.renew(this.familyTreeId, this.subscriptionId).subscribe(
       () => {
         this.service.subscriptionAction = undefined;
-        this.router.navigate(['/', 'familyTree-management', 'subscription', this.familyTreeId]);
+        this.router.navigate(['/', 'family-tree-management', 'subscription', this.familyTreeId]);
         this.submitting = false;
         this.toastService.success('global.message.successfullyAdded');
       },

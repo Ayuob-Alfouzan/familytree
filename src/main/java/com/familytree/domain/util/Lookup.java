@@ -34,10 +34,6 @@ public class Lookup implements Serializable {
     @Size(max = 255)
     private String en;
 
-    @Column(name = "ur")
-    @Size(max = 255)
-    private String ur;
-
     @Column(name = "record_activity")
     private Boolean recordActivity;
 
@@ -100,14 +96,6 @@ public class Lookup implements Serializable {
         this.order = order;
     }
 
-    public String getUr() {
-        return ur;
-    }
-
-    public void setUr(String ur) {
-        this.ur = ur;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -141,9 +129,6 @@ public class Lookup implements Serializable {
             '\'' +
             ", en='" +
             en +
-            '\'' +
-            ", ur='" +
-            ur +
             '\'' +
             ", recordActivity=" +
             recordActivity +

@@ -35,15 +35,13 @@
         <thead class="thead-dark">
           <tr>
             <th style="width: 20%" scope="col" jhiTranslate="familyTree.name" jhiSortable="familyTree.nameAr" (sort)="onSort($event)"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="familyTree.location"></th>
             <th style="width: 20%" scope="col" jhiTranslate="familyTree.type"></th>
             <th style="width: 40%" scope="col"></th>
           </tr>
         </thead>
         <tbody *ngIf="service.list" [class.loading]="service.loading">
           <tr *ngFor="let item of service.list">
-            <td>{{ (currentLanguage | async) === 'ar-ly' ? item.nameAr : item.nameEn }}</td>
-            <td>{{ item.location }}</td>
+            <td>{{ item.nameAr }}</td>
             <td>{{ currentLanguage | async | showLanguage: item.type }}</td>
             <td>
               <button
@@ -95,4 +93,4 @@
 
 <jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>
 
-<jhi-list-familyTree></jhi-list-familyTree>
+<jhi-list-family-tree></jhi-list-family-tree>

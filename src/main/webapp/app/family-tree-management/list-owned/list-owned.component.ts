@@ -8,7 +8,7 @@ import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
-  selector: 'jhi-list-owned-familyTree',
+  selector: 'jhi-list-owned-family-tree',
   templateUrl: './list-owned.component.html',
 })
 export class ListOwnedFamilyTreeComponent implements OnInit {

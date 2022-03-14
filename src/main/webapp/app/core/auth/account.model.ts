@@ -19,7 +19,6 @@ export interface FamilyTreeModel {
   id: number;
   familyTreeId: number;
   familyTreeNameAr: String;
-  familyTreeNameEn: String;
   familyTreeType: LookupModel;
   type: LookupModel;
 }
