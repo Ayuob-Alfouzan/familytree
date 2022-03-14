@@ -46,22 +46,10 @@ import { PricingComponent } from './static/pricing/pricing.component';
           path: 'profile',
           loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
         },
-        {
-          path: 'familyTree',
-          loadChildren: () => import('./familyTree/familyTree.module').then(m => m.FarmModule),
-        },
-        {
-          path: 'sheep-familyTree',
-          loadChildren: () => import('./sheep-familyTree/sheep-familyTree.module').then(m => m.SheepFarmModule),
-        },
-        {
-          path: 'familyTree-management',
-          loadChildren: () => import('./familyTree-management/familyTree-management.module').then(m => m.FarmManagementModule),
-        },
-        {
-          path: 'financial-transaction',
-          loadChildren: () => import('./financial-transaction/financial-transaction.module').then(m => m.FinancialTransactionModule),
-        },
+        // {
+        //   path: 'family-tree-management',
+        //   loadChildren: () => import('./family-tree-management/family-tree-management.module').then(m => m.FamilyTreeManagementModule),
+        // },
         {
           path: 'contact-us',
           component: ContactUsComponent,

@@ -120,12 +120,7 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
                         null,
                         new Locale(Constants.ARABIC_LANGUAGE_TRANSLATION_KEY)
                     ),
-                    messageSource.getMessage(ERROR_MESSAGE_TRANSLATION_BASE + ex.getErrorKey(), null, Locale.ENGLISH),
-                    messageSource.getMessage(
-                        ERROR_MESSAGE_TRANSLATION_BASE + ex.getErrorKey(),
-                        null,
-                        new Locale(Constants.URDU_LANGUAGE_TRANSLATION_KEY)
-                    )
+                    messageSource.getMessage(ERROR_MESSAGE_TRANSLATION_BASE + ex.getErrorKey(), null, Locale.ENGLISH)
                 )
             )
             .build();
@@ -142,12 +137,10 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
 
         private String ar;
         private String en;
-        private String ur;
 
-        public ErrorMessage(String ar, String en, String ur) {
+        public ErrorMessage(String ar, String en) {
             this.ar = ar;
             this.en = en;
-            this.ur = ur;
         }
 
         public String getAr() {
@@ -166,17 +159,9 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
             this.en = en;
         }
 
-        public String getUr() {
-            return ur;
-        }
-
-        public void setUr(String ur) {
-            this.ur = ur;
-        }
-
         @Override
         public String toString() {
-            return "ErrorMessage{" + "ar='" + ar + '\'' + ", en='" + en + '\'' + ", ur='" + ur + '\'' + '}';
+            return "ErrorMessage{" + "ar='" + ar + '\'' + ", en='" + en + '\'' + '}';
         }
     }
 }

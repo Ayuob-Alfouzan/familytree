@@ -1,4 +1,4 @@
-export interface FarmDashboardModel {
-  numberOfOwnedFarms: number;
-  numberOfFarms: number;
+export interface FamilyTreeDashboardModel {
+  numberOfOwnedFamilyTrees: number;
+  numberOfFamilyTrees: number;
 }

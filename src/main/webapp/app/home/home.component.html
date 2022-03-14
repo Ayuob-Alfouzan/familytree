@@ -5,8 +5,8 @@
         <div class="card-widget-body">
           <div class="dot bg-success mx-3"></div>
           <div class="text">
-            <h6 class="mb-0" jhiTranslate="global.numberOfOwnedFarm"></h6>
-            <span class="text-gray-500">{{ dashboardData.numberOfOwnedFarms }}</span>
+            <h6 class="mb-0" jhiTranslate="global.numberOfOwnedFamilyTree"></h6>
+            <span class="text-gray-500">{{ dashboardData.numberOfOwnedFamilyTrees }}</span>
           </div>
         </div>
         <div class="icon bg-success">
@@ -22,8 +22,8 @@
         <div class="card-widget-body">
           <div class="dot bg-success mx-3"></div>
           <div class="text">
-            <h6 class="mb-0" jhiTranslate="global.numberOfFarm"></h6>
-            <span class="text-gray-500">{{ dashboardData.numberOfFarms }}</span>
+            <h6 class="mb-0" jhiTranslate="global.numberOfFamilyTree"></h6>
+            <span class="text-gray-500">{{ dashboardData.numberOfFamilyTrees }}</span>
           </div>
         </div>
         <div class="icon bg-success">
@@ -37,21 +37,21 @@
 </section>
 
 <section class="mb-3">
-  <h3 class="text-primary col-md-12 my-4" jhiTranslate="global.viewFarm"></h3>
+  <h3 class="text-primary col-md-12 my-4" jhiTranslate="global.viewFamilyTree"></h3>
 
   <div class="mb-2" *ngIf="account">
-    <div class="mb-2 col-xl-6 col-md-6" *ngFor="let item of account.farmList">
+    <div class="mb-2 col-xl-6 col-md-6" *ngFor="let item of account.familyTreeList">
       <div class="card-widget h-100 p-2 p-lg-3">
         <div class="card-widget-body">
           <div class="dot bg-success mx-3"></div>
           <div class="text">
             <h6 class="mb-0">
-              {{ getCurrentLanguage() === 'ar-ly' ? item.farmNameAr : item.farmNameEn }}
+              {{ getCurrentLanguage() === 'ar-ly' ? item.familyTreeNameAr : item.familyTreeNameEn }}
             </h6>
           </div>
         </div>
         <div class="icon bg-success">
-          <a (click)="selectFarm(item)" class="text-white">
+          <a (click)="selectFamilyTree(item)" class="text-white">
             <fa-icon [icon]="faEye"></fa-icon>
           </a>
         </div>

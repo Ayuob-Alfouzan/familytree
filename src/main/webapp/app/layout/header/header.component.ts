@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DOCUMENT } from '@angular/common';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Account, FarmModel } from 'app/core/auth/account.model';
+import { Account, FamilyTreeModel } from 'app/core/auth/account.model';
 
 @Component({
   selector: 'jhi-header',
@@ -16,7 +16,7 @@ import { Account, FarmModel } from 'app/core/auth/account.model';
 })
 export class HeaderComponent implements OnInit {
   account?: Account | null;
-  selectedFarm: FarmModel | null = null;
+  selectedFamilyTree: FamilyTreeModel | null = null;
 
   isCollapsed = true;
 
@@ -37,17 +37,17 @@ export class HeaderComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(x => {
         this.account = x;
-        this.selectedFarm = this.accountService.selectedFarm;
+        this.selectedFamilyTree = this.accountService.selectedFamilyTree;
       });
 
-    this.selectedFarm = this.accountService.selectedFarm;
+    this.selectedFamilyTree = this.accountService.selectedFamilyTree;
   }
 
-  selectFarm(selectedFarm: FarmModel): void {
-    this.selectedFarm = selectedFarm;
-    this.accountService.selectedFarm = selectedFarm;
+  selectFamilyTree(selectedFamilyTree: FamilyTreeModel): void {
+    this.selectedFamilyTree = selectedFamilyTree;
+    this.accountService.selectedFamilyTree = selectedFamilyTree;
 
-    if (selectedFarm.farmType.code === 'PIGEON') {
+    if (selectedFamilyTree.familyTreeType.code === 'PIGEON') {
       if (this.router.url === '/familyTree/dashboard') {
         this.router.navigate(['/', 'familyTree', 'dashboard']).then(() => {
           window.location.reload();
@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.selectedFarm = null;
+    this.selectedFamilyTree = null;
     this.loginService.logout();
     this.router.navigate(['/', 'con', 'login']);
   }

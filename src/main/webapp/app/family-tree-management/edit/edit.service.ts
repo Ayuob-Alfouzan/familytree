@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Observable } from 'rxjs';
-import { FamilyTreeDashboardModel } from './home.model';
+import { EditFamilyTreeModel, FamilyTreeModel } from '../models/familyTree.model';
 
-@Injectable({ providedIn: 'root' })
-export class HomeService {
+@Injectable()
+export class EditFamilyTreeService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  getFamilyTreeDashboard(): Observable<FamilyTreeDashboardModel> {
-    return this.http.get<FamilyTreeDashboardModel>(this.applicationConfigService.getEndpointFor(`api/familyTree/global-dashboard`));
+  edit(data: EditFamilyTreeModel): Observable<FamilyTreeModel> {
+    return this.http.post<FamilyTreeModel>(this.applicationConfigService.getEndpointFor('api/familyTree/edit'), data);
   }
 }

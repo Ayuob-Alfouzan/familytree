@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
-import { Account, FarmModel } from 'app/core/auth/account.model';
+import { Account, FamilyTreeModel } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { first } from 'rxjs/operators';
-import { FarmDashboardModel } from './home.model';
+import { FamilyTreeDashboardModel } from './home.model';
 import { HomeService } from './home.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
   account?: Account | null;
-  dashboardData?: FarmDashboardModel;
+  dashboardData?: FamilyTreeDashboardModel;
   faEye = faEye;
 
   constructor(
@@ -33,15 +33,15 @@ export class HomeComponent implements OnInit {
         this.account = x;
       });
 
-    this.service.getFarmDashboard().subscribe(result => {
+    this.service.getFamilyTreeDashboard().subscribe(result => {
       this.dashboardData = result;
     });
   }
 
-  selectFarm(selectedFarm: FarmModel): void {
-    this.accountService.selectedFarm = selectedFarm;
+  selectFamilyTree(selectedFamilyTree: FamilyTreeModel): void {
+    this.accountService.selectedFamilyTree = selectedFamilyTree;
 
-    if (selectedFarm.farmType.code === 'PIGEON') {
+    if (selectedFamilyTree.familyTreeType.code === 'PIGEON') {
       if (this.router.url === '/familyTree/dashboard') {
         this.router.navigate(['/', 'familyTree', 'dashboard']).then(() => {
           window.location.reload();

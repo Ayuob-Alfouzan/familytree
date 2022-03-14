@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "familyTree": {
+    "familytree": {
       "root": "",
       "sourceRoot": "src/main/webapp",
       "projectType": "application",
@@ -81,7 +81,7 @@
           "options": {
             "browserTarget": "familytree:build:development",
             "proxyConfig": "./webpack/proxy.conf.js",
-            "port": 4200
+            "port": 4201
           },
           "configurations": {
             "production": {

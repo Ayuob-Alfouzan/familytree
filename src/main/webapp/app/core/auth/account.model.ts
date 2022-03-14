@@ -11,15 +11,15 @@ export class Account {
     public lastName: string | null,
     public login: string,
     public imageUrl: string | null,
-    public farmList: FarmModel[] | null
+    public familyTreeList: FamilyTreeModel[] | null
   ) {}
 }
 
-export interface FarmModel {
+export interface FamilyTreeModel {
   id: number;
-  farmId: number;
-  farmNameAr: String;
-  farmNameEn: String;
-  farmType: LookupModel;
+  familyTreeId: number;
+  familyTreeNameAr: String;
+  familyTreeNameEn: String;
+  familyTreeType: LookupModel;
   type: LookupModel;
 }

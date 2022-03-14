@@ -1,0 +1,45 @@
+<div class="d-flex flex-column body-card">
+  <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.renewHeader"></h3>
+
+  <div role="form">
+    <div class="row justify-content-center py-4">
+      <label jhiTranslate="familyTree.subscription.renewFirst"></label>
+    </div>
+
+    <div class="radio-group row px-3 a" *ngIf="package">
+      <div class="mb-2 pb-2 col-xl-4 col-md-4">
+        <div class="card-widget h-100 p-2 p-lg-3">
+          <div class="card-widget-body">
+            <div class="dot bg-success mx-3"></div>
+            <div class="text">
+              <h6 class="mb-0">{{ currentLanguage | async | showNameLanguage: package }}</h6>
+              <p class="mb-0">
+                {{ 'global.pricingDetails.from' | translate }} {{ package.rangeStart }} {{ 'global.pricingDetails.to' | translate }}
+                {{ package.rangeEnd }} {{ 'global.pricingDetails.pigeon' | translate }}
+              </p>
+              <span class="text-gray-500"
+                >{{ 'global.pricingDetails.cost' | translate }} {{ package.cost }} {{ 'global.pricingDetails.riyal' | translate }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center py-4">
+      <button type="submit" (click)="renew()" [disabled]="submitting" class="btn btn-success mx-2">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+        <span jhiTranslate="familyTree.subscription.renewButton" *ngIf="!submitting"></span>
+      </button>
+
+      <button
+        type="button"
+        [routerLink]="['/', 'familyTree-management', 'subscription', familyTreeId]"
+        [disabled]="submitting"
+        class="btn btn-light mx-2"
+        jhiTranslate="global.cancel"
+      ></button>
+    </div>
+  </div>
+</div>

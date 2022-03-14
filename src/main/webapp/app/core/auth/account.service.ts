@@ -7,7 +7,7 @@ import { shareReplay, tap, catchError } from 'rxjs/operators';
 
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
-import { Account, FarmModel } from 'app/core/auth/account.model';
+import { Account, FamilyTreeModel } from 'app/core/auth/account.model';
 import { LanguageService } from 'app/shared/language/language.service';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,7 @@ export class AccountService {
   private userIdentity: Account | null = null;
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account | null>;
-  private _selectedFarm: FarmModel | null = null;
+  private _selectedFamilyTree: FamilyTreeModel | null = null;
 
   constructor(
     private languageService: LanguageService,
@@ -34,8 +34,8 @@ export class AccountService {
   authenticate(identity: Account | null): void {
     this.userIdentity = identity;
 
-    if (identity?.farmList && identity.farmList.length > 0) {
-      this.updateSelectedFarmData(identity.farmList);
+    if (identity?.familyTreeList && identity.familyTreeList.length > 0) {
+      this.updateSelectedFamilyTreeData(identity.familyTreeList);
     }
 
     this.authenticationState.next(this.userIdentity);
@@ -80,30 +80,30 @@ export class AccountService {
     return this.userIdentity?.imageUrl ?? '';
   }
 
-  updateSelectedFarmData(farms: FarmModel[]): void {
-    if (this._selectedFarm != null) {
-      const id = this._selectedFarm.id;
-      const newFarm = farms.find(x => x.id === id);
+  updateSelectedFamilyTreeData(familyTrees: FamilyTreeModel[]): void {
+    if (this._selectedFamilyTree != null) {
+      const id = this._selectedFamilyTree.id;
+      const newFamilyTree = familyTrees.find(x => x.id === id);
 
-      if (newFarm) {
-        this.selectedFarm = newFarm;
+      if (newFamilyTree) {
+        this.selectedFamilyTree = newFamilyTree;
       } else {
-        this.selectedFarm = null;
+        this.selectedFamilyTree = null;
       }
     }
   }
 
-  get selectedFarm(): FarmModel | null {
-    if (this._selectedFarm == null) {
-      this._selectedFarm = this.localStorage.retrieve('selectedFarm');
+  get selectedFamilyTree(): FamilyTreeModel | null {
+    if (this._selectedFamilyTree == null) {
+      this._selectedFamilyTree = this.localStorage.retrieve('selectedFamilyTree');
     }
 
-    return this._selectedFarm;
+    return this._selectedFamilyTree;
   }
 
-  set selectedFarm(familyTree: FarmModel | null) {
-    this._selectedFarm = familyTree;
-    this.localStorage.store('selectedFarm', familyTree);
+  set selectedFamilyTree(familyTree: FamilyTreeModel | null) {
+    this._selectedFamilyTree = familyTree;
+    this.localStorage.store('selectedFamilyTree', familyTree);
   }
 
   private fetch(): Observable<Account> {

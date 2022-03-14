@@ -15,7 +15,6 @@ public final class Constants {
     public static final String SYSTEM = "system";
     public static final String DEFAULT_LANGUAGE = "ar-ly";
     public static final String ARABIC_LANGUAGE_TRANSLATION_KEY = "ar-ly";
-    public static final String URDU_LANGUAGE_TRANSLATION_KEY = "ur";
     public static final Long SYSTEM_ACCOUNT_ID = 0L;
 
     public static final String USERNAME_KEY = "username";

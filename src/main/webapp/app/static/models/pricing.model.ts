@@ -2,7 +2,7 @@ import { LookupModel } from 'app/shared/models/lookup.model';
 
 export interface PricingModel {
   id: number;
-  farmType: LookupModel;
+  familyTreeType: LookupModel;
   nameAr: string;
   nameEn: string;
   nameUr: string;
