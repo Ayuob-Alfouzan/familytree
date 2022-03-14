@@ -14,7 +14,7 @@ import {
   AddSheepVaccinationHistoryModel,
   DeleteSheepVaccinationHistoryModel,
   SheepVaccinationModel,
-} from 'app/sheep-farm/models/vaccination.model';
+} from 'app/sheep-familyTree/models/vaccination.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import * as dayjs from 'dayjs';
@@ -33,7 +33,7 @@ export class ListSheepVaccinationHistoryComponent implements OnInit {
   deleting = false;
   adding = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   form = this.fb.group({
@@ -49,7 +49,7 @@ export class ListSheepVaccinationHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm && this.farm.type.code === 'MAIN') {
+    if (this.familyTree && this.familyTree.type.code === 'MAIN') {
       this.isMain = true;
     }
   }

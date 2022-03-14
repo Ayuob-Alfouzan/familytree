@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ToastService } from 'app/core/util/toast.service';
-import { DeleteTreatmentModel, TreatmentCriteria, TreatmentModel } from 'app/farm/models/treatment.model';
+import { DeleteTreatmentModel, TreatmentCriteria, TreatmentModel } from 'app/familyTree/models/treatment.model';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
 import { Dayjs } from 'dayjs';

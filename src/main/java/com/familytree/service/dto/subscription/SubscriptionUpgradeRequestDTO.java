@@ -6,7 +6,7 @@ import java.time.Instant;
 public class SubscriptionUpgradeRequestDTO {
 
     private Long id;
-    private Long farmId;
+    private Long familyTreeId;
     private InvoiceDTO invoice;
     private LookupDTO status;
     private PackageDTO packageDTO;
@@ -20,12 +20,12 @@ public class SubscriptionUpgradeRequestDTO {
         this.id = id;
     }
 
-    public Long getFarmId() {
-        return farmId;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(Long farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public LookupDTO getStatus() {
@@ -66,8 +66,7 @@ public class SubscriptionUpgradeRequestDTO {
             "SubscriptionUpgradeRequestDTO{" +
             "id=" +
             id +
-            ", farmId=" +
-            farmId +
+            ", familyTreeId=" + familyTreeId +
             ", invoice=" +
             invoice +
             ", status=" +

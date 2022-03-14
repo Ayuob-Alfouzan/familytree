@@ -17,7 +17,7 @@
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210604190900_lookup.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210604180000_user.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20210713163600_farm.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210713163600_family_tree.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211011210200_subscription.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20211115091400_shedlock.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->

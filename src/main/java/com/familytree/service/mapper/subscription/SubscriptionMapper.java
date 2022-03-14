@@ -32,7 +32,7 @@ public abstract class SubscriptionMapper {
     @Autowired
     private PackageMapper packageMapper;
 
-    @Mapping(source = "farm.id", target = "farmId")
+    @Mapping(source = "familyTree.id", target = "familyTreeId")
     @Mapping(source = "invoice.id", target = "invoiceId")
     @Mapping(target = "invoice", ignore = true)
     @Mapping(source = "aPackage", target = "packageDTO")
@@ -40,7 +40,7 @@ public abstract class SubscriptionMapper {
     @Mapping(target = "subscriptionUpgradeRequests", ignore = true)
     public abstract SubscriptionDTO toDto(Subscription subscription);
 
-    @Mapping(source = "farm.id", target = "farmId")
+    @Mapping(source = "familyTree.id", target = "familyTreeId")
     @Mapping(source = "invoice.id", target = "invoiceId")
     @Mapping(source = "aPackage", target = "packageDTO")
     @Mapping(source = "subscription", target = "canUpgrade", qualifiedByName = "canUpgrade")

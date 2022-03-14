@@ -16,7 +16,7 @@ export class NotPregnantReportComponent implements OnInit {
 
   currentLanguage = this.languageService.onLangChange();
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
 
   constructor(
     public service: NotPregnantReportService,
@@ -26,12 +26,12 @@ export class NotPregnantReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm != null) {
-      if (this.service.farmId && this.service.farmId !== +this.farm.farmId) {
+    if (this.familyTree != null) {
+      if (this.service.farmId && this.service.farmId !== +this.familyTree.farmId) {
         this.service.resetDefauleState();
       }
 
-      this.service.farmId = +this.farm.farmId;
+      this.service.farmId = +this.familyTree.farmId;
     } else {
       this.router.navigate(['/']);
     }

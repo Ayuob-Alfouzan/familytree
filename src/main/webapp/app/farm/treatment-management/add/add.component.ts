@@ -4,15 +4,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from 'app/core/util/toast.service';
-import { AddTreatmentModel } from 'app/farm/models/treatment.model';
-import { FullWarehouseModel } from 'app/farm/models/warehouse.model';
+import { AddTreatmentModel } from 'app/familyTree/models/treatment.model';
+import { FullWarehouseModel } from 'app/familyTree/models/warehouse.model';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { first } from 'rxjs/operators';
 import { AddTreatmentService } from './add.service';
 import { ListCoopService } from '../../coop-management/list/list.service';
-import { SimpleCoopModel } from 'app/farm/models/coop.model';
+import { SimpleCoopModel } from 'app/familyTree/models/coop.model';
 import { LanguageService } from 'app/shared/language/language.service';
 
 @Component({
@@ -91,7 +91,7 @@ export class AddTreatmentComponent implements OnInit {
 
       this.service.add(this.createAddFarmModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'farm', 'treatment', this.warehouse?.id]);
+          this.router.navigate(['/', 'familyTree', 'treatment', this.warehouse?.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },

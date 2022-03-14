@@ -5,7 +5,7 @@
     <button
       type="button"
       *ngIf="parent.status.code === 'HALE' || parent.status.code === 'SICK'"
-      [routerLink]="['/', 'sheep-farm', 'add-gestation', parent.id]"
+      [routerLink]="['/', 'sheep-familyTree', 'add-gestation', parent.id]"
       class="btn btn-success"
     >
       <span jhiTranslate="sheepFarm.gestation.addButton"></span>
@@ -118,7 +118,7 @@
               <button
                 *ngIf="item.status.code === 'HALE' && (parent.status.code === 'HALE' || parent.status.code === 'SICK')"
                 type="button"
-                [routerLink]="['/', 'sheep-farm', 'lambed-gestation', item.id]"
+                [routerLink]="['/', 'sheep-familyTree', 'lambed-gestation', item.id]"
                 class="btn btn-primary btn-sm py-0"
               >
                 <span jhiTranslate="sheepFarm.gestation.lambed"></span>
@@ -126,7 +126,7 @@
               <button
                 *ngIf="item.status.code === 'HALE' && (parent.status.code === 'HALE' || parent.status.code === 'SICK')"
                 type="button"
-                [routerLink]="['/', 'sheep-farm', 'aborted-gestation', item.id]"
+                [routerLink]="['/', 'sheep-familyTree', 'aborted-gestation', item.id]"
                 class="btn btn-primary btn-sm py-0"
               >
                 <span jhiTranslate="sheepFarm.gestation.aborted"></span>
@@ -134,7 +134,7 @@
               <a
                 *ngIf="item.status.code === 'HALE' && (parent.status.code === 'HALE' || parent.status.code === 'SICK')"
                 class="href mx-md-3"
-                [routerLink]="['/', 'sheep-farm', 'update-gestation', item.id]"
+                [routerLink]="['/', 'sheep-familyTree', 'update-gestation', item.id]"
               >
                 <fa-icon [icon]="faEdit" class="text-primary"></fa-icon>
               </a>

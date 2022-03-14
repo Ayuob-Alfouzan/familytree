@@ -21,8 +21,8 @@ public class Package extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "farm_type_id", nullable = false)
-    private Lookup farmType;
+    @JoinColumn(name = "family_tree_type_id", nullable = false)
+    private Lookup familyTreeType;
 
     @Column(name = "name_ar")
     @Length(max = 50)
@@ -79,12 +79,12 @@ public class Package extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public Lookup getFarmType() {
-        return farmType;
+    public Lookup getFamilyTreeType() {
+        return familyTreeType;
     }
 
-    public void setFarmType(Lookup farmType) {
-        this.farmType = farmType;
+    public void setFamilyTreeType(Lookup familyTreeType) {
+        this.familyTreeType = familyTreeType;
     }
 
     public String getNameAr() {

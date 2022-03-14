@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
 
-export type SortColumn = 'id' | 'farm.nameAr' | 'number' | 'name' | 'layDate' | 'hatchingDate' | 'type' | '';
+export type SortColumn = 'id' | 'familyTree.nameAr' | 'number' | 'name' | 'layDate' | 'hatchingDate' | 'type' | '';
 export type SortDirection = 'asc' | 'desc' | '';
 const rotate: { [key: string]: SortDirection } = { asc: 'desc', desc: '', '': 'asc' };
 

@@ -9,14 +9,14 @@ import { first } from 'rxjs/operators';
 import { UpdateSheepService } from './update.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepModel, SimpleSheepModel, UpdateSheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SheepModel, SimpleSheepModel, UpdateSheepModel } from 'app/sheep-familyTree/models/sheep.model';
 
 @Component({
   selector: 'jhi-update-sheep',
   templateUrl: './update.component.html',
 })
 export class UpdateSheepComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item!: SheepModel;
 
   form = this.fb.group({
@@ -63,8 +63,8 @@ export class UpdateSheepComponent implements OnInit {
         this.item = data.item;
         this.setForm();
 
-        if (this.farm) {
-          this.service.listSimple(this.farm.farmId, ['RAM']).subscribe(
+        if (this.familyTree) {
+          this.service.listSimple(this.familyTree.farmId, ['RAM']).subscribe(
             result => {
               this.fathers = result;
 
@@ -76,7 +76,7 @@ export class UpdateSheepComponent implements OnInit {
             },
             error => this.errorHandler(error)
           );
-          this.service.listSimple(this.farm.farmId, ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
+          this.service.listSimple(this.familyTree.farmId, ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
             result => {
               this.mothers = result;
 
@@ -90,7 +90,7 @@ export class UpdateSheepComponent implements OnInit {
           );
         }
       } else {
-        this.router.navigate(['/', 'sheep-farm', 'list']);
+        this.router.navigate(['/', 'sheep-familyTree', 'list']);
       }
 
       if (data.lookups?.find((x: LookupCategoryModel) => x.lookupName === LookupEnum.SheepType)) {
@@ -135,7 +135,7 @@ export class UpdateSheepComponent implements OnInit {
 
       this.service.update(this.createUpdateModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'list']);
+          this.router.navigate(['/', 'sheep-familyTree', 'list']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyUpdated');
         },
@@ -152,7 +152,7 @@ export class UpdateSheepComponent implements OnInit {
   }
 
   createUpdateModel(): UpdateSheepModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: UpdateSheepModel = {
         sheepId: this.item.id,
         number: this.form.get('number')?.value,

@@ -1,54 +1,54 @@
 <div class="d-flex flex-column body-card">
   <div class="d-flex justify-content-between flex-column flex-lg-row">
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.viewTitle"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.viewTitle"></h3>
   </div>
 
   <div role="form" *ngIf="subscription">
     <div class="form-group form-inline">
-      <label jhiTranslate="farm.status" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.status" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ currentLanguage | async | showLanguage: subscription.status }}</label>
 
-      <label jhiTranslate="farm.subscription.package" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.subscription.package" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.packageDTO.nameAr }}</label>
 
-      <label jhiTranslate="farm.subscription.startDate" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.subscription.startDate" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.startDate | date: 'yyyy-MM-dd' }}</label>
 
-      <label jhiTranslate="farm.subscription.endDate" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.subscription.endDate" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.endDate | date: 'yyyy-MM-dd' }}</label>
 
-      <label jhiTranslate="farm.subscription.rangeEnd" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.subscription.rangeEnd" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.rangeEnd }}</label>
 
-      <label jhiTranslate="farm.subscription.duration" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.subscription.duration" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.packageDTO.duration }}</label>
     </div>
   </div>
 
   <div class="d-flex justify-content-between flex-column flex-lg-row" *ngIf="subscription && subscription.invoice">
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.invoiceTitle"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.invoiceTitle"></h3>
   </div>
 
   <div role="form" *ngIf="subscription && subscription.invoice">
     <div class="form-group form-inline">
-      <label jhiTranslate="farm.status" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.status" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ currentLanguage | async | showLanguage: subscription.invoice.status }}</label>
 
-      <label jhiTranslate="farm.invoice.amount" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.invoice.amount" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.invoice.amount }}</label>
 
-      <label jhiTranslate="farm.invoice.amountVat" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.invoice.amountVat" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.invoice.amountVat }}</label>
 
-      <label jhiTranslate="farm.invoice.vatPercentage" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.invoice.vatPercentage" class="col-md-2"></label>
       <label class="col-md-4 text-muted">{{ subscription.invoice.vatPercentage }}</label>
 
-      <label jhiTranslate="farm.invoice.invoiceNumber" class="col-md-2" *ngIf="subscription.invoice.status.code === 'PAID'"></label>
+      <label jhiTranslate="familyTree.invoice.invoiceNumber" class="col-md-2" *ngIf="subscription.invoice.status.code === 'PAID'"></label>
       <label class="col-md-4 text-muted" *ngIf="subscription.invoice.status.code === 'PAID'">{{
         subscription.invoice.invoiceNumber
       }}</label>
 
-      <label jhiTranslate="farm.invoice.paymentDate" class="col-md-2" *ngIf="subscription.invoice.status.code === 'PAID'"></label>
+      <label jhiTranslate="familyTree.invoice.paymentDate" class="col-md-2" *ngIf="subscription.invoice.status.code === 'PAID'"></label>
       <label class="col-md-4 text-muted" *ngIf="subscription.invoice.status.code === 'PAID'">{{
         subscription.invoice.paymentDate | date: 'yyyy-MM-dd'
       }}</label>
@@ -59,17 +59,17 @@
     class="d-flex justify-content-between flex-column flex-lg-row"
     *ngIf="subscription && subscription.subscriptionUpgradeRequests && subscription.subscriptionUpgradeRequests.length > 0"
   >
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.subscriptionUpgradeRequest"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.subscriptionUpgradeRequest"></h3>
   </div>
 
   <div role="form" *ngIf="subscription && subscription.subscriptionUpgradeRequests && subscription.subscriptionUpgradeRequests.length > 0">
     <table class="table table-hover mt-4">
       <thead class="thead-dark">
         <tr>
-          <th style="width: 20%" scope="col" jhiTranslate="farm.subscription.createdDate"></th>
-          <th style="width: 15%" scope="col" jhiTranslate="farm.status"></th>
-          <th style="width: 15%" scope="col" jhiTranslate="farm.subscription.package"></th>
-          <th style="width: 15%" scope="col" jhiTranslate="farm.invoice.amount"></th>
+          <th style="width: 20%" scope="col" jhiTranslate="familyTree.subscription.createdDate"></th>
+          <th style="width: 15%" scope="col" jhiTranslate="familyTree.status"></th>
+          <th style="width: 15%" scope="col" jhiTranslate="familyTree.subscription.package"></th>
+          <th style="width: 15%" scope="col" jhiTranslate="familyTree.invoice.amount"></th>
           <th style="width: 15%" scope="col"></th>
         </tr>
       </thead>
@@ -89,7 +89,7 @@
             >
               <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="cancelling"></span>
 
-              <span jhiTranslate="farm.subscription.cancelButton" *ngIf="!cancelling"></span>
+              <span jhiTranslate="familyTree.subscription.cancelButton" *ngIf="!cancelling"></span>
             </button>
           </td>
         </tr>
@@ -98,5 +98,5 @@
   </div>
 </div>
 
-<jhi-confirm-modal #confirmDeleteModal messageKey="farm.subscription.cancelUpgradeMessage" (confirmed)="confirmed($event)">
+<jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.subscription.cancelUpgradeMessage" (confirmed)="confirmed($event)">
 </jhi-confirm-modal>

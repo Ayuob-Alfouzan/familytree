@@ -7,17 +7,17 @@ import tech.jhipster.service.filter.StringFilter;
 
 public class InvoiceCriteria {
 
-    private LongFilter farmId;
+    private LongFilter familyTreeId;
     private StringFilter statusCode;
     private LongFilter invoiceNumber;
     private RangeFilter<Instant> creationDate;
 
-    public LongFilter getFarmId() {
-        return farmId;
+    public LongFilter getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(LongFilter farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(LongFilter familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public StringFilter getStatusCode() {
@@ -46,17 +46,11 @@ public class InvoiceCriteria {
 
     @Override
     public String toString() {
-        return (
-            "InvoiceCriteria{" +
-            "farmId=" +
-            farmId +
-            ", statusCode=" +
-            statusCode +
-            ", invoiceNumber=" +
-            invoiceNumber +
-            ", creationDate=" +
-            creationDate +
-            '}'
-        );
+        return "InvoiceCriteria{" +
+            "familyTreeId=" + familyTreeId +
+            ", statusCode=" + statusCode +
+            ", invoiceNumber=" + invoiceNumber +
+            ", creationDate=" + creationDate +
+            '}';
     }
 }

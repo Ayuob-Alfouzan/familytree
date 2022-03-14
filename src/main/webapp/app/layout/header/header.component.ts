@@ -48,20 +48,20 @@ export class HeaderComponent implements OnInit {
     this.accountService.selectedFarm = selectedFarm;
 
     if (selectedFarm.farmType.code === 'PIGEON') {
-      if (this.router.url === '/farm/dashboard') {
-        this.router.navigate(['/', 'farm', 'dashboard']).then(() => {
+      if (this.router.url === '/familyTree/dashboard') {
+        this.router.navigate(['/', 'familyTree', 'dashboard']).then(() => {
           window.location.reload();
         });
       } else {
-        this.router.navigate(['/', 'farm', 'dashboard']);
+        this.router.navigate(['/', 'familyTree', 'dashboard']);
       }
     } else {
-      if (this.router.url === '/sheep-farm/list') {
-        this.router.navigate(['/', 'sheep-farm', 'list']).then(() => {
+      if (this.router.url === '/sheep-familyTree/list') {
+        this.router.navigate(['/', 'sheep-familyTree', 'list']).then(() => {
           window.location.reload();
         });
       } else {
-        this.router.navigate(['/', 'sheep-farm', 'list']);
+        this.router.navigate(['/', 'sheep-familyTree', 'list']);
       }
     }
   }

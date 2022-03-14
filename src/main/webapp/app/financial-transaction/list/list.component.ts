@@ -32,7 +32,7 @@ export class ListFinancialTransactionComponent implements OnInit {
   deleting = false;
   adding = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
 
   @Input() type = 'EXPENSE';
 
@@ -57,9 +57,9 @@ export class ListFinancialTransactionComponent implements OnInit {
         this.type = typeParam;
       }
 
-      if (this.farm != null && this.farm.type.code === 'MAIN') {
+      if (this.familyTree != null && this.familyTree.type.code === 'MAIN') {
         this.service.type = this.type;
-        this.service.farmId = this.farm.farmId;
+        this.service.farmId = this.familyTree.farmId;
       } else {
         this.router.navigate(['/']);
       }
@@ -119,9 +119,9 @@ export class ListFinancialTransactionComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteFinancialTransactionModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteFinancialTransactionModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         financialTransactionId: id,
       };
 
@@ -132,9 +132,9 @@ export class ListFinancialTransactionComponent implements OnInit {
   }
 
   createAddModel(): AddFinancialTransactionModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: AddFinancialTransactionModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         type: this.type,
         amount: this.type === 'EXPENSE' ? '-' + String(this.form.get('amount')?.value) : this.form.get('amount')?.value,
         description: this.form.get('description')?.value,

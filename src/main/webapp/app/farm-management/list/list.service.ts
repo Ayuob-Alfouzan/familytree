@@ -6,7 +6,7 @@ import { Pageable } from 'app/shared/models/page.model';
 import { TableStateModel } from 'app/shared/models/table-state.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FarmCriteria, FarmListModel, FarmModel } from '../models/farm.model';
+import { FarmCriteria, FarmListModel, FarmModel } from '../models/familyTree.model';
 
 @Injectable()
 export class ListFarmService {
@@ -84,7 +84,7 @@ export class ListFarmService {
 
   loadFromServer(): Observable<FarmListModel[]> {
     return this.http
-      .post<Pageable<FarmListModel>>(this.applicationConfigService.getEndpointFor('api/farm/list'), this.createBody(), {
+      .post<Pageable<FarmListModel>>(this.applicationConfigService.getEndpointFor('api/familyTree/list'), this.createBody(), {
         params: this.createParam(),
       })
       .pipe(
@@ -96,7 +96,7 @@ export class ListFarmService {
   }
 
   remove(id: number): Observable<FarmModel> {
-    return this.http.post<FarmModel>(this.applicationConfigService.getEndpointFor(`api/farm/remove/${id}`), {});
+    return this.http.post<FarmModel>(this.applicationConfigService.getEndpointFor(`api/familyTree/remove/${id}`), {});
   }
 
   errorHandler(response: HttpErrorResponse): void {

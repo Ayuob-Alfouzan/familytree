@@ -1,8 +1,8 @@
 package com.familytree.service.subscription;
 
 import com.familytree.config.ApplicationProperties;
-import com.familytree.domain.farm.Farm;
-import com.familytree.domain.farm.Farm_;
+import com.familytree.domain.familytree.FamilyTree;
+import com.familytree.domain.familytree.FamilyTree_;
 import com.familytree.domain.subscription.Package;
 import com.familytree.domain.subscription.Subscription;
 import com.familytree.domain.subscription.SubscriptionUpgradeRequest;
@@ -14,7 +14,7 @@ import com.familytree.repository.subscription.SubscriptionUpgradeRequestReposito
 import com.familytree.security.AuthoritiesConstants;
 import com.familytree.security.SecurityUtils;
 import com.familytree.service.dto.subscription.*;
-import com.familytree.service.farm.OwnershipService;
+import com.familytree.service.familytree.OwnershipService;
 import com.familytree.service.lookup.InvoiceTypeEnum;
 import com.familytree.service.lookup.LookupCategory;
 import com.familytree.service.lookup.LookupService;
@@ -88,7 +88,7 @@ public class SubscriptionService extends QueryService<Subscription> {
 
     @Transactional(readOnly = true)
     public Page<SubscriptionDTO> list(SubscriptionCriteria subscriptionCriteria, Pageable pageable) {
-        Farm farm = ownershipService.getToWriteByFarmId(subscriptionCriteria.getFarmId().getEquals());
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(subscriptionCriteria.getFamilyTreeId().getEquals());
 
         Specification<Subscription> specification = createSpecification(subscriptionCriteria);
         Page<Subscription> all = subscriptionRepository.findAll(specification, pageable);
@@ -96,29 +96,29 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional(readOnly = true)
-    public SubscriptionDTO getCurrentSubscription(Long farmId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionDTO getCurrentSubscription(Long familyTreeId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         return subscriptionRepository
-            .findActiveSubscription(farm.getId())
+            .findActiveSubscription(familyTree.getId())
             .map(subscriptionMapper::toDto)
             .orElseThrow(() -> new BadRequestException("subscription.does_not_have_active_subscription"));
     }
 
     @Transactional(readOnly = true)
-    public SubscriptionDTO get(Long farmId, Long subscriptionId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionDTO get(Long familyTreeId, Long subscriptionId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         return subscriptionRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrue(subscriptionId, farm.getId())
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrue(subscriptionId, familyTree.getId())
             .map(subscriptionMapper::toDtoWithInvoice)
             .orElseThrow(() -> new BadRequestException("not_found"));
     }
 
     @Transactional(readOnly = true)
-    public SubscriptionActionResponseVM subscriptionAction(Long farmId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionActionResponseVM subscriptionAction(Long familyTreeId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
 
-        boolean hasWaitingForPayment = subscriptionRepository.existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(
-            farmId,
+        boolean hasWaitingForPayment = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(
+            familyTreeId,
             Collections.singletonList(SubscriptionStatusEnum.WaitingForPayment.value())
         );
 
@@ -126,13 +126,13 @@ public class SubscriptionService extends QueryService<Subscription> {
             return new SubscriptionActionResponseVM();
         }
 
-        boolean canSubscribe = !subscriptionRepository.existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(
-            farm.getId(),
+        boolean canSubscribe = !subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(
+            familyTree.getId(),
             Arrays.asList(SubscriptionStatusEnum.Active.value(), SubscriptionStatusEnum.WaitingForPayment.value())
         );
 
-        List<Subscription> subscriptions = subscriptionRepository.findByFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(
-            farm.getId(),
+        List<Subscription> subscriptions = subscriptionRepository.findByFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(
+            familyTree.getId(),
             Collections.singletonList(SubscriptionStatusEnum.Active.value())
         );
 
@@ -144,9 +144,9 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public SubscriptionDTO create(Long farmId, Long packageId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
-        Package aPackage = packageService.isSuitable(farm, packageId);
+    public SubscriptionDTO create(Long familyTreeId, Long packageId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
+        Package aPackage = packageService.isSuitable(familyTree, packageId);
 
         //Lookup status = lookupService.getEntityByCodeAndCategory(SubscriptionStatusEnum.WaitingForPayment.value(), LookupCategory.SubscriptionStatus.value()); // TODO return after completing payment
         Lookup status = lookupService.getEntityByCodeAndCategory(
@@ -156,15 +156,15 @@ public class SubscriptionService extends QueryService<Subscription> {
         Lookup type = lookupService.getEntityByCodeAndCategory(InvoiceTypeEnum.Subscription.value(), LookupCategory.InvoiceType.value());
 
         Subscription subscription = new Subscription();
-        subscription.setFarm(farm);
-        //        subscription.setInvoice(invoiceService.create(farm, aPackage.getCost(), type)); // TODO return after completing payment
+        subscription.setFamilyTree(familyTree);
+        //        subscription.setInvoice(invoiceService.create(familyTree, aPackage.getCost(), type)); // TODO return after completing payment
         subscription.setStatus(status);
         subscription.setaPackage(aPackage);
         subscription.setRangeStart(aPackage.getRangeStart());
         subscription.setRangeEnd(aPackage.getRangeEnd());
 
         // TODO remove following 9 lines after completing payment
-        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFarm().getId());
+        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFamilyTree().getId());
         if (activeSubscription.isPresent()) {
             Instant endDate = activeSubscription.get().getEndDate();
             subscription.setStartDate(endDate);
@@ -178,9 +178,9 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public SubscriptionDTO renew(Long farmId, Long subscriptionId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
-        Package aPackage = packageService.suitableForRenew(farmId, subscriptionId);
+    public SubscriptionDTO renew(Long familyTreeId, Long subscriptionId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
+        Package aPackage = packageService.suitableForRenew(familyTreeId, subscriptionId);
 
         //Lookup status = lookupService.getEntityByCodeAndCategory(SubscriptionStatusEnum.WaitingForPayment.value(), LookupCategory.SubscriptionStatus.value()); // TODO return after completing payment
         Lookup status = lookupService.getEntityByCodeAndCategory(
@@ -190,15 +190,15 @@ public class SubscriptionService extends QueryService<Subscription> {
         Lookup type = lookupService.getEntityByCodeAndCategory(InvoiceTypeEnum.Subscription.value(), LookupCategory.InvoiceType.value());
 
         Subscription subscription = new Subscription();
-        subscription.setFarm(farm);
-        //        subscription.setInvoice(invoiceService.create(farm, aPackage.getCost(), type)); // TODO return after completing payment
+        subscription.setFamilyTree(familyTree);
+        //        subscription.setInvoice(invoiceService.create(familyTree, aPackage.getCost(), type)); // TODO return after completing payment
         subscription.setStatus(status);
         subscription.setaPackage(aPackage);
         subscription.setRangeStart(aPackage.getRangeStart());
         subscription.setRangeEnd(aPackage.getRangeEnd());
 
         // TODO remove following 9 lines after completing payment
-        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFarm().getId());
+        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFamilyTree().getId());
         if (activeSubscription.isPresent()) {
             Instant endDate = activeSubscription.get().getEndDate();
             subscription.setStartDate(endDate);
@@ -212,8 +212,8 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public Subscription createTrail(Farm farm) {
-        Package aPackage = packageService.getTrialPackage(farm.getType().getCode());
+    public Subscription createTrail(FamilyTree familyTree) {
+        Package aPackage = packageService.getTrialPackage(familyTree.getType().getCode());
 
         Lookup status = lookupService.getEntityByCodeAndCategory(
             SubscriptionStatusEnum.Active.value(),
@@ -221,7 +221,7 @@ public class SubscriptionService extends QueryService<Subscription> {
         );
 
         Subscription subscription = new Subscription();
-        subscription.setFarm(farm);
+        subscription.setFamilyTree(familyTree);
         subscription.setInvoice(null);
         subscription.setStatus(status);
         subscription.setaPackage(aPackage);
@@ -234,12 +234,12 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public SubscriptionDTO upgrade(Long farmId, Long subscriptionId, Long packageId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionDTO upgrade(Long familyTreeId, Long subscriptionId, Long packageId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         Subscription subscription = subscriptionRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(
                 subscriptionId,
-                farm.getId(),
+                familyTree.getId(),
                 Collections.singletonList(SubscriptionStatusEnum.Active.value())
             )
             .orElseThrow(() -> new BadRequestException("not_found"));
@@ -270,9 +270,9 @@ public class SubscriptionService extends QueryService<Subscription> {
         double cost = (newPackageDailyPrice - oldPackageDailyPrice) * remainingDays;
 
         SubscriptionUpgradeRequest subscriptionUpgradeRequest = new SubscriptionUpgradeRequest();
-        subscriptionUpgradeRequest.setFarm(farm);
+        subscriptionUpgradeRequest.setFamilyTree(familyTree);
         subscriptionUpgradeRequest.setSubscription(subscription);
-        //subscriptionUpgradeRequest.setInvoice(invoiceService.create(farm, cost, type)); // TODO return after completing payment
+        //subscriptionUpgradeRequest.setInvoice(invoiceService.create(familyTree, cost, type)); // TODO return after completing payment
         subscriptionUpgradeRequest.setaPackage(aPackage);
         subscriptionUpgradeRequest.setStatus(status);
 
@@ -287,12 +287,12 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public SubscriptionDTO cancel(Long farmId, Long subscriptionId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionDTO cancel(Long familyTreeId, Long subscriptionId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         Subscription subscription = subscriptionRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(
                 subscriptionId,
-                farm.getId(),
+                familyTree.getId(),
                 Arrays.asList(SubscriptionStatusEnum.WaitingForPayment.value(), SubscriptionStatusEnum.Active.value())
             )
             .orElseThrow(() -> new BadRequestException("not_found"));
@@ -327,13 +327,13 @@ public class SubscriptionService extends QueryService<Subscription> {
     }
 
     @Transactional
-    public SubscriptionUpgradeRequestDTO cancelUpgrade(Long farmId, Long subscriptionUpgradeRequestId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public SubscriptionUpgradeRequestDTO cancelUpgrade(Long familyTreeId, Long subscriptionUpgradeRequestId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
 
         SubscriptionUpgradeRequest subscriptionUpgradeRequest = subscriptionUpgradeRequestRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_Code(
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_Code(
                 subscriptionUpgradeRequestId,
-                farm.getId(),
+                familyTree.getId(),
                 SubscriptionStatusEnum.WaitingForPayment.value()
             )
             .orElseThrow(() -> new BadRequestException("not_found"));
@@ -360,7 +360,7 @@ public class SubscriptionService extends QueryService<Subscription> {
     private Specification<Subscription> createSpecification(SubscriptionCriteria criteria) {
         Specification<Subscription> specification = Specification.where(null);
 
-        specification = specification.and(buildReferringEntitySpecification(criteria.getFarmId(), Subscription_.farm, Farm_.id));
+        specification = specification.and(buildReferringEntitySpecification(criteria.getFamilyTreeId(), Subscription_.familyTree, FamilyTree_.id));
 
         if (criteria.getStatusCode() != null) {
             specification =

@@ -5,15 +5,15 @@ import tech.jhipster.service.filter.StringFilter;
 
 public class SubscriptionCriteria {
 
-    private LongFilter farmId;
+    private LongFilter familyTreeId;
     private StringFilter statusCode;
 
-    public LongFilter getFarmId() {
-        return farmId;
+    public LongFilter getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(LongFilter farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(LongFilter familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public StringFilter getStatusCode() {
@@ -26,6 +26,6 @@ public class SubscriptionCriteria {
 
     @Override
     public String toString() {
-        return "SubscriptionCriteria{" + "farmId=" + farmId + ", statusCode=" + statusCode + '}';
+        return "SubscriptionCriteria{" + "familyTreeId=" + familyTreeId + ", statusCode=" + statusCode + '}';
     }
 }

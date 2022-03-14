@@ -1,16 +1,16 @@
 <div class="d-flex flex-column body-card">
-  <h3 class="text-primary mt-md-2" jhiTranslate="farm.addChickTitle"></h3>
+  <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.addChickTitle"></h3>
 
   <form role="form" [formGroup]="form">
     <div class="form-group form-inline">
-      <label jhiTranslate="farm.hatchingDate" class="col-md-2 required"></label>
+      <label jhiTranslate="familyTree.hatchingDate" class="col-md-2 required"></label>
       <div class="col-md-4 input-group">
         <input
           type="text"
           class="form-control"
           id="hatchingDate"
           formControlName="hatchingDate"
-          placeholder="{{ 'farm.hatchingDatePlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.hatchingDatePlaceholder' | translate }}"
           name="hatchingDate"
           ngbDatepicker
           #hatchingDate="ngbDatepicker"
@@ -23,7 +23,7 @@
         </div>
 
         <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'hatchingDate':['required']">
-          {{ 'global.message.error.required' | translate: { fieldName: 'farm.hatchingDate' | translate } }}
+          {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.hatchingDate' | translate } }}
         </small>
       </div>
 
@@ -31,25 +31,25 @@
         <button type="submit" (click)="add()" [disabled]="adding" class="btn btn-success">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="adding"></span>
 
-          <span jhiTranslate="farm.addChickButton" *ngIf="!adding"></span>
+          <span jhiTranslate="familyTree.addChickButton" *ngIf="!adding"></span>
         </button>
       </div>
     </div>
   </form>
 
-  <h3 class="text-primary mt-md-4" jhiTranslate="farm.chickTitle"></h3>
+  <h3 class="text-primary mt-md-4" jhiTranslate="familyTree.chickTitle"></h3>
 
   <form>
     <!-- FILTERs -->
     <div class="form-group form-inline">
-      <label jhiTranslate="farm.fromFilter" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.fromFilter" class="col-md-2"></label>
       <div class="col-md-4 input-group">
         <input
           type="text"
           class="form-control"
           id="fromFilter"
           [(ngModel)]="service.dateGraterThanOrEqual"
-          placeholder="{{ 'farm.fromFilterPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.fromFilterPlaceholder' | translate }}"
           name="fromFilter"
           ngbDatepicker
           #fromFilter="ngbDatepicker"
@@ -61,14 +61,14 @@
         </div>
       </div>
 
-      <label jhiTranslate="farm.toFilter" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.toFilter" class="col-md-2"></label>
       <div class="col-md-4 input-group">
         <input
           type="text"
           class="form-control"
           id="toFilter"
           [(ngModel)]="service.dateLessThanOrEqual"
-          placeholder="{{ 'farm.toFilterPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.toFilterPlaceholder' | translate }}"
           name="toFilter"
           ngbDatepicker
           #toFilter="ngbDatepicker"
@@ -80,13 +80,13 @@
         </div>
       </div>
 
-      <label jhiTranslate="farm.status" class="col-md-2 mt-md-3"></label>
+      <label jhiTranslate="familyTree.status" class="col-md-2 mt-md-3"></label>
       <div class="col-md-4 mt-md-3">
         <jhi-dropdown
           [data]="chickStatuses"
           name="statusCode"
           [(ngModel)]="service.statusCode"
-          placeholder="farm.statusCodeFilterPlaceholder"
+          placeholder="familyTree.statusCodeFilterPlaceholder"
         >
         </jhi-dropdown>
       </div>
@@ -95,7 +95,7 @@
         <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
 
-          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+          <span jhiTranslate="familyTree.listFilterButton" *ngIf="!service.loading"></span>
         </button>
       </div>
 
@@ -105,7 +105,7 @@
           (click)="service.clearFilters()"
           [disabled]="service.loading"
           class="btn btn-primary"
-          jhiTranslate="farm.clearFilterButton"
+          jhiTranslate="familyTree.clearFilterButton"
         ></button>
       </div>
     </div>
@@ -114,10 +114,10 @@
       <table class="table table-hover mt-4">
         <thead class="thead-dark">
           <tr>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.hatchingDate" jhiSortable="hatchingDate" (sort)="onSort($event)"></th>
-            <th style="width: 15%" scope="col" jhiTranslate="farm.counter"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.lastActionDate"></th>
-            <th style="width: 15%" scope="col" jhiTranslate="farm.status"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.hatchingDate" jhiSortable="hatchingDate" (sort)="onSort($event)"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="familyTree.counter"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.lastActionDate"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="familyTree.status"></th>
             <th style="width: 30%" scope="col"></th>
           </tr>
         </thead>
@@ -139,7 +139,7 @@
               >
                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
 
-                <span jhiTranslate="farm.diedButton" *ngIf="!updating"></span>
+                <span jhiTranslate="familyTree.diedButton" *ngIf="!updating"></span>
               </button>
               <button
                 *ngIf="item.status.code === 'NEW'"
@@ -150,7 +150,7 @@
               >
                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
 
-                <span jhiTranslate="farm.killedButton" *ngIf="!updating"></span>
+                <span jhiTranslate="familyTree.killedButton" *ngIf="!updating"></span>
               </button>
               <button
                 *ngIf="item.status.code === 'NEW'"
@@ -161,7 +161,7 @@
               >
                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="updating"></span>
 
-                <span jhiTranslate="farm.productionButton" *ngIf="!updating"></span>
+                <span jhiTranslate="familyTree.productionButton" *ngIf="!updating"></span>
               </button>
               <a *ngIf="isMain && item.status.code === 'NEW'" class="href mx-md-3" [class.disabled]="deleting" (click)="delete(item.id)">
                 <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
@@ -172,7 +172,7 @@
 
         <caption>
           {{
-            'global.numberOfRecords' | translate: { fieldName: 'farm.chickTitle' | translate }
+            'global.numberOfRecords' | translate: { fieldName: 'familyTree.chickTitle' | translate }
           }}
           {{
             service.totalRecords
@@ -192,4 +192,4 @@
   </form>
 </div>
 
-<jhi-confirm-modal #confirmDeleteModal messageKey="farm.chickDeleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>
+<jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.chickDeleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

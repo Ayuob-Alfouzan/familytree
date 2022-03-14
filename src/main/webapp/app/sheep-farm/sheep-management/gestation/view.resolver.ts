@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ListGestationService } from './list/list.service';
-import { GestationModel } from 'app/sheep-farm/models/gestation.model';
+import { GestationModel } from 'app/sheep-familyTree/models/gestation.model';
 
 @Injectable()
 export class ViewGestationResolver implements Resolve<GestationModel> {

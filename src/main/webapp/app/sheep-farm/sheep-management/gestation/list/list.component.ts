@@ -6,7 +6,7 @@ import { NgbdSortableHeaderDirective, SortEvent } from '../../../sortable.direct
 import { LanguageService } from 'app/shared/language/language.service';
 import { SheepModel } from '../../../models/sheep.model';
 import { ConfirmModalComponent } from 'app/shared/components/confirm-modal/confirm-modal.component';
-import { DeleteGestationModel } from 'app/sheep-farm/models/gestation.model';
+import { DeleteGestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import { ToastService } from 'app/core/util/toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -26,7 +26,7 @@ export class ListGestationComponent implements OnInit, OnChanges {
 
   currentLanguage = this.languageService.onLangChange();
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   deleting = false;
@@ -50,7 +50,7 @@ export class ListGestationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.farm != null && this.parent != null) {
+    if (this.familyTree != null && this.parent != null) {
       if (this.parent.gender.code === 'FEMALE') {
         if (!this.service.eweId || this.service.eweId !== this.parent.id) {
           this.service.resetDefauleState();
@@ -65,7 +65,7 @@ export class ListGestationComponent implements OnInit, OnChanges {
         this.service.ramId = this.parent.id;
       }
 
-      this.isMain = this.farm.type.code === 'MAIN';
+      this.isMain = this.familyTree.type.code === 'MAIN';
     }
   }
 
@@ -89,7 +89,7 @@ export class ListGestationComponent implements OnInit, OnChanges {
   }
 
   createDeleteModel(gestationId: number): DeleteGestationModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteGestationModel = {
         gestationId,
       };

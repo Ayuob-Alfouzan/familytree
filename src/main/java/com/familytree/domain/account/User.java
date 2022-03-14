@@ -1,7 +1,7 @@
 package com.familytree.domain.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.familytree.domain.farm.FarmUser;
+import com.familytree.domain.familytree.FamilyTreeUser;
 import com.familytree.domain.util.AbstractAuditingEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * A user.
  */
 @Entity
-@Table(name = "family_tree_user")
+@Table(name = "ft_user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Boolean mostResetPassword = false;
 
     @OneToMany(mappedBy = "user")
-    private List<FarmUser> farmUsers = new ArrayList<>();
+    private List<FamilyTreeUser> familyTreeUsers = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -124,12 +124,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.firstName = firstName;
     }
 
-    public List<FarmUser> getFarmUsers() {
-        return farmUsers;
+    public List<FamilyTreeUser> getFamilyTreeUsers() {
+        return familyTreeUsers;
     }
 
-    public void setFarmUsers(List<FarmUser> farmUsers) {
-        this.farmUsers = farmUsers;
+    public void setFamilyTreeUsers(List<FamilyTreeUser> familyTreeUsers) {
+        this.familyTreeUsers = familyTreeUsers;
     }
 
     public String getLastName() {

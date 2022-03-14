@@ -5,7 +5,7 @@
     <button
       type="button"
       *ngIf="parent.status.code === 'HALE' || parent.status.code === 'SICK'"
-      [routerLink]="['/', 'sheep-farm', 'add-copulation', parent.id]"
+      [routerLink]="['/', 'sheep-familyTree', 'add-copulation', parent.id]"
       class="btn btn-success"
     >
       <span jhiTranslate="sheepFarm.copulation.addButton"></span>
@@ -112,7 +112,7 @@
                   (parent.status.code === 'HALE' || parent.status.code === 'SICK')
                 "
                 type="button"
-                [routerLink]="['/', 'sheep-farm', 'confirmed-copulation', item.id]"
+                [routerLink]="['/', 'sheep-familyTree', 'confirmed-copulation', item.id]"
                 class="btn btn-primary btn-sm py-0"
               >
                 <span jhiTranslate="sheepFarm.copulation.confirm"></span>

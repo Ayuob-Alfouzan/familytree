@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ToastService } from 'app/core/util/toast.service';
 import { Pageable } from 'app/shared/models/page.model';
-import { CopulationCriteria, CopulationModel, DeleteCopulationModel, FalseCopulationModel } from 'app/sheep-farm/models/copulation.model';
+import { CopulationCriteria, CopulationModel, DeleteCopulationModel, FalseCopulationModel } from 'app/sheep-familyTree/models/copulation.model';
 import { Dayjs } from 'dayjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

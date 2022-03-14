@@ -26,7 +26,7 @@ export class ListSheepComponent implements OnInit {
 
   currentLanguage = this.languageService.onLangChange();
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   deleting = false;
@@ -47,14 +47,14 @@ export class ListSheepComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm != null) {
-      if (this.service.farmId && this.service.farmId !== +this.farm.farmId) {
+    if (this.familyTree != null) {
+      if (this.service.farmId && this.service.farmId !== +this.familyTree.farmId) {
         this.service.resetDefauleState();
       }
 
-      this.service.farmId = +this.farm.farmId;
+      this.service.farmId = +this.familyTree.farmId;
 
-      if (this.farm.type.code === 'MAIN') {
+      if (this.familyTree.type.code === 'MAIN') {
         this.isMain = true;
       }
     } else {
@@ -98,7 +98,7 @@ export class ListSheepComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteSheepModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteSheepModel = {
         sheepId: id,
       };
@@ -127,11 +127,11 @@ export class ListSheepComponent implements OnInit {
 
   view(item: SheepModel): void {
     this.service.viewed = item;
-    this.router.navigate(['/', 'sheep-farm', 'view', item.id]);
+    this.router.navigate(['/', 'sheep-familyTree', 'view', item.id]);
   }
 
   update(item: SheepModel): void {
     this.service.viewed = item;
-    this.router.navigate(['/', 'sheep-farm', 'update', item.id]);
+    this.router.navigate(['/', 'sheep-familyTree', 'update', item.id]);
   }
 }

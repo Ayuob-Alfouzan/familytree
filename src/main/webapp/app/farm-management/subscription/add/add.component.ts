@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'app/core/util/toast.service';
-import { PackageModel } from 'app/farm-management/models/subscription.model';
+import { PackageModel } from 'app/familyTree-management/models/subscription.model';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
 import { SubscriptionService } from '../subscription.service';
@@ -73,7 +73,7 @@ export class AddSubscriptionComponent implements OnInit {
       this.service.add(this.farmId, this.form.get('packageId')?.value).subscribe(
         () => {
           this.service.subscriptionAction = undefined;
-          this.router.navigate(['/', 'farm-management', 'subscription', this.farmId]);
+          this.router.navigate(['/', 'familyTree-management', 'subscription', this.farmId]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },

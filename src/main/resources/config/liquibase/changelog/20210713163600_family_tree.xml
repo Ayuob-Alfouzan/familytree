@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="20210713163702" author="ayuob">
+        <createTable tableName="family_tree">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_ar" type="nvarchar(255)" />
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="family_tree"
+                                 constraintName="family_tree_type_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20210713163903" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="family_tree"
+            file="config/liquibase/data/family_tree.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="20210713165401" author="ayuob">
+        <createTable tableName="family_tree_user">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="family_tree_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="family_tree_id" baseTableName="family_tree_user"
+                                 constraintName="family_tree_user_family_tree_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="family_tree"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="family_tree_user"
+                                 constraintName="family_tree_user_user_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="family_tree_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="type_id" baseTableName="family_tree_user"
+                                 constraintName="family_tree_user_type_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="lookup"/>
+    </changeSet>
+
+    <changeSet id="20210713165902" author="ayuob">
+        <loadUpdateData
+            primaryKey="id"
+            tableName="family_tree_user"
+            file="config/liquibase/data/family_tree_user.csv"
+            separator=";">
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>

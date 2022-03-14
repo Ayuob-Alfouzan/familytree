@@ -20,7 +20,6 @@
             </column>
             <column name="ar" type="nvarchar(255)" />
             <column name="en" type="nvarchar(255)" />
-            <column name="ur" type="nvarchar(255)" />
             <column name="record_order" type="int" />
             <column name="record_activity" type="boolean" defaultValueBoolean="true"/>
         </createTable>

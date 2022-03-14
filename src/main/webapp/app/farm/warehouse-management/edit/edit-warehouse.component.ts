@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faUserMinus, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastService } from 'app/core/util/toast.service';
-import { FarmModel, FarmUserModel } from '../../../farm-management/models/farm.model';
-import { EditWarehouseModel, FullWarehouseModel, ManageWarehouseUserModel } from 'app/farm/models/warehouse.model';
+import { FarmModel, FarmUserModel } from '../../../familyTree-management/models/familyTree.model';
+import { EditWarehouseModel, FullWarehouseModel, ManageWarehouseUserModel } from 'app/familyTree/models/warehouse.model';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
 import { EditWarehouseService } from './edit-warehouse.service';
@@ -22,7 +22,7 @@ export class EditWarehouseComponent implements OnInit {
   faUserMinus = faUserMinus;
   faUserPlus = faUserPlus;
 
-  farm?: FarmModel;
+  familyTree?: FarmModel;
   warehouse?: FullWarehouseModel;
 
   submitting = false;
@@ -42,24 +42,24 @@ export class EditWarehouseComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
       this.warehouse = data.warehouse;
-      this.farm = data.farm;
+      this.familyTree = data.familyTree;
       this.setup();
     });
   }
 
   setup(): void {
-    if (this.farm && this.warehouse) {
+    if (this.familyTree && this.warehouse) {
       const normalUsers: FarmUserModel[] = [];
 
-      this.farm.farmUsers.forEach(x => {
+      this.familyTree.familyTreeUsers.forEach(x => {
         if (x.type.code === 'NORMAL') {
           normalUsers.push(x);
         }
       });
 
-      this.farm.farmUsers = normalUsers;
+      this.familyTree.familyTreeUsers = normalUsers;
 
-      this.farm.farmUsers.forEach(x => {
+      this.familyTree.familyTreeUsers.forEach(x => {
         const found = this.warehouse?.warehouseUsers.find(xx => xx.userId === x.userId);
 
         if (found) {
@@ -81,7 +81,7 @@ export class EditWarehouseComponent implements OnInit {
         () => {
           this.editing = false;
           this.toastService.success('global.message.successfullyUpdated');
-          this.router.navigate(['/', 'farm', 'dashboard']);
+          this.router.navigate(['/', 'familyTree', 'dashboard']);
         },
         error => {
           this.errorHandler(error);
@@ -96,9 +96,9 @@ export class EditWarehouseComponent implements OnInit {
   }
 
   createEditModel(): EditWarehouseModel {
-    if (this.farm && this.warehouse) {
+    if (this.familyTree && this.warehouse) {
       return {
-        farmId: this.farm.id,
+        farmId: this.familyTree.id,
         warehouseId: this.warehouse.id,
         number: this.form.get('number')?.value,
       } as EditWarehouseModel;
@@ -142,9 +142,9 @@ export class EditWarehouseComponent implements OnInit {
   }
 
   createManageWarehouseUserModel(id: number): ManageWarehouseUserModel {
-    if (this.farm && this.warehouse) {
+    if (this.familyTree && this.warehouse) {
       const data: ManageWarehouseUserModel = {
-        farmId: this.farm.id,
+        farmId: this.familyTree.id,
         warehouseId: this.warehouse.id,
         userId: id,
       };

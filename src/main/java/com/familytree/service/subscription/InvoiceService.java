@@ -1,7 +1,7 @@
 package com.familytree.service.subscription;
 
 import com.familytree.config.ApplicationProperties;
-import com.familytree.domain.farm.*;
+import com.familytree.domain.familytree.*;
 import com.familytree.domain.subscription.Invoice;
 import com.familytree.domain.subscription.Invoice_;
 import com.familytree.domain.subscription.Subscription;
@@ -16,7 +16,7 @@ import com.familytree.security.SecurityUtils;
 import com.familytree.service.dto.subscription.InvoiceCriteria;
 import com.familytree.service.dto.subscription.InvoiceDTO;
 import com.familytree.service.dto.subscription.InvoiceItemDTO;
-import com.familytree.service.farm.OwnershipService;
+import com.familytree.service.familytree.OwnershipService;
 import com.familytree.service.lookup.*;
 import com.familytree.service.mapper.subscription.InvoiceMapper;
 import com.familytree.service.util.CommonUtil;
@@ -82,7 +82,7 @@ public class InvoiceService extends QueryService<Invoice> {
 
     @Transactional(readOnly = true)
     public Page<InvoiceDTO> list(InvoiceCriteria invoiceCriteria, Pageable pageable) {
-        Farm farm = ownershipService.getToWriteByFarmId(invoiceCriteria.getFarmId().getEquals());
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(invoiceCriteria.getFamilyTreeId().getEquals());
 
         Specification<Invoice> specification = createSpecification(invoiceCriteria);
         Page<Invoice> all = invoiceRepository.findAll(specification, pageable);
@@ -90,19 +90,19 @@ public class InvoiceService extends QueryService<Invoice> {
     }
 
     @Transactional(readOnly = true)
-    public InvoiceDTO get(Long farmId, Long invoiceId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public InvoiceDTO get(Long familyTreeId, Long invoiceId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         return invoiceRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrue(invoiceId, farm.getId())
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrue(invoiceId, familyTree.getId())
             .map(invoiceMapper::toDto)
             .orElseThrow(() -> new BadRequestException("not_found"));
     }
 
     @Transactional(readOnly = true)
-    public byte[] print(Long farmId, Long invoiceId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public byte[] print(Long familyTreeId, Long invoiceId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         return invoiceRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrue(invoiceId, farm.getId())
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrue(invoiceId, familyTree.getId())
             .map(this::generatePrintInvoice)
             .orElseThrow(() -> new BadRequestException("not_found"));
     }
@@ -182,20 +182,20 @@ public class InvoiceService extends QueryService<Invoice> {
     }
 
     @Transactional
-    public Invoice create(Farm farm, Double amount, Lookup type) {
+    public Invoice create(FamilyTree familyTree, Double amount, Lookup type) {
         Lookup status = lookupService.getEntityByCodeAndCategory(InvoiceStatusEnum.Unpaid.value(), LookupCategory.InvoiceStatus.value());
 
         Invoice invoice = new Invoice();
-        invoice.setFarm(farm);
+        invoice.setFamilyTree(familyTree);
         invoice.setStatus(status);
         invoice.setType(type);
         invoice.setAmount(amount + ((applicationProperties.getSubscription().getVatPercentage() / 100) * amount));
         invoice.setAmountVat(((applicationProperties.getSubscription().getVatPercentage() / 100) * amount));
         invoice.setVatPercentage(applicationProperties.getSubscription().getVatPercentage());
         invoice.setCreationDate(Instant.now());
-        invoice.setCustomerName(farm.getNameAr());
-        invoice.setCustomerAddress(farm.getLocation());
-        invoice.setCustomerVatNumber(farm.getVatNumber());
+        invoice.setCustomerName(familyTree.getNameAr());
+        invoice.setCustomerAddress("");
+        invoice.setCustomerVatNumber("");
         invoice.setVatNumber(applicationProperties.getSubscription().getVatNumber());
         return invoice;
     }
@@ -231,7 +231,7 @@ public class InvoiceService extends QueryService<Invoice> {
             .findByInvoice_IdAndRecordActivityIsTrueAndStatus_Code(invoiceId, SubscriptionStatusEnum.WaitingForPayment.value())
             .orElseThrow(() -> new BadRequestException("not_found"));
 
-        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFarm().getId());
+        Optional<Subscription> activeSubscription = subscriptionRepository.findActiveSubscription(subscription.getFamilyTree().getId());
 
         if (activeSubscription.isPresent()) {
             Instant endDate = activeSubscription.get().getEndDate();
@@ -281,7 +281,7 @@ public class InvoiceService extends QueryService<Invoice> {
     private Specification<Invoice> createSpecification(InvoiceCriteria criteria) {
         Specification<Invoice> specification = Specification.where(null);
 
-        specification = specification.and(buildReferringEntitySpecification(criteria.getFarmId(), Invoice_.farm, Farm_.id));
+        specification = specification.and(buildReferringEntitySpecification(criteria.getFamilyTreeId(), Invoice_.familyTree, FamilyTree_.id));
 
         if (criteria.getInvoiceNumber() != null) {
             specification = specification.and(buildSpecification(criteria.getInvoiceNumber(), Invoice_.invoiceNumber));

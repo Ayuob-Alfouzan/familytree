@@ -13,21 +13,21 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long>, JpaSpecificationExecutor<Subscription> {
-    boolean existsByFarm_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
-        Long farmId,
+    boolean existsByFamilyTree_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
+        Long familyTreeId,
         String statusCode,
         Instant endDateCutOff
     );
 
-    boolean existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(Long farmId, List<String> statusCodes);
+    boolean existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(Long familyTreeId, List<String> statusCodes);
 
     @Query(
         "select s " +
         "from Subscription s " +
         "left join Lookup l on l.id = s.status.id " +
-        "where s.farm.id = :farmId and l.code = 'ACTIVE' and s.startDate <= CURRENT_TIMESTAMP and s.endDate >= CURRENT_TIMESTAMP and s.recordActivity = true "
+        "where s.familyTree.id = :familyTreeId and l.code = 'ACTIVE' and s.startDate <= CURRENT_TIMESTAMP and s.endDate >= CURRENT_TIMESTAMP and s.recordActivity = true "
     )
-    Optional<Subscription> findActiveSubscription(@Param("farmId") Long farmId);
+    Optional<Subscription> findActiveSubscription(@Param("familyTreeId") Long familyTreeId);
 
     @Modifying
     @Query("update Subscription set status.id = 32 where endDate < CURRENT_TIMESTAMP and status.id = 31 ")
@@ -35,7 +35,7 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 
     Optional<Subscription> findByInvoice_IdAndRecordActivityIsTrueAndStatus_Code(Long invoiceId, String statusCode);
 
-    Optional<Subscription> findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(Long id, Long farmId, List<String> statusCodes);
-    List<Subscription> findByFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(Long farmId, List<String> statusCodes);
-    Optional<Subscription> findByIdAndFarm_IdAndRecordActivityIsTrue(Long id, Long farmId);
+    Optional<Subscription> findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(Long id, Long familyTreeId, List<String> statusCodes);
+    List<Subscription> findByFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(Long familyTreeId, List<String> statusCodes);
+    Optional<Subscription> findByIdAndFamilyTree_IdAndRecordActivityIsTrue(Long id, Long familyTreeId);
 }

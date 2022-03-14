@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from 'app/core/util/toast.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
-import { EditFarmModel, FarmModel } from '../models/farm.model';
+import { EditFarmModel, FarmModel } from '../models/familyTree.model';
 import { EditFarmService } from './edit.service';
 
 @Component({
-  selector: 'jhi-edit-farm',
+  selector: 'jhi-edit-familyTree',
   templateUrl: './edit.component.html',
 })
 export class EditFarmComponent implements OnInit {
@@ -22,7 +22,7 @@ export class EditFarmComponent implements OnInit {
     vatNumber: [null, [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
   });
 
-  farm?: FarmModel;
+  familyTree?: FarmModel;
 
   submitting = false;
 
@@ -39,12 +39,12 @@ export class EditFarmComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
-      this.setForm(data.farm);
+      this.setForm(data.familyTree);
     });
   }
 
   setForm(farmData: FarmModel): void {
-    this.farm = farmData;
+    this.familyTree = farmData;
 
     this.form.get('id')?.setValue(farmData.id);
     this.form.get('nameAr')?.setValue(farmData.nameAr);
@@ -76,7 +76,7 @@ export class EditFarmComponent implements OnInit {
 
       this.service.edit(this.createEditFarmModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'farm-management']);
+          this.router.navigate(['/', 'familyTree-management']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyEdited');
         },

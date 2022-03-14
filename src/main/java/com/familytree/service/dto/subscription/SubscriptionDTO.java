@@ -7,7 +7,7 @@ import java.util.List;
 public class SubscriptionDTO {
 
     private Long id;
-    private Long farmId;
+    private Long familyTreeId;
     private Long invoiceId;
     private InvoiceDTO invoice;
     private LookupDTO status;
@@ -28,12 +28,12 @@ public class SubscriptionDTO {
         this.id = id;
     }
 
-    public Long getFarmId() {
-        return farmId;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(Long farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public Long getInvoiceId() {
@@ -126,35 +126,20 @@ public class SubscriptionDTO {
 
     @Override
     public String toString() {
-        return (
-            "SubscriptionDTO{" +
-            "id=" +
-            id +
-            ", farmId=" +
-            farmId +
-            ", invoiceId=" +
-            invoiceId +
-            ", invoice=" +
-            invoice +
-            ", status=" +
-            status +
-            ", packageDTO=" +
-            packageDTO +
-            ", startDate=" +
-            startDate +
-            ", endDate=" +
-            endDate +
-            ", rangeStart=" +
-            rangeStart +
-            ", rangeEnd=" +
-            rangeEnd +
-            ", recordActivity=" +
-            recordActivity +
-            ", canUpgrade=" +
-            canUpgrade +
-            ", subscriptionUpgradeRequests=" +
-            subscriptionUpgradeRequests +
-            '}'
-        );
+        return "SubscriptionDTO{" +
+            "id=" + id +
+            ", familyTreeId=" + familyTreeId +
+            ", invoiceId=" + invoiceId +
+            ", invoice=" + invoice +
+            ", status=" + status +
+            ", packageDTO=" + packageDTO +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", rangeStart=" + rangeStart +
+            ", rangeEnd=" + rangeEnd +
+            ", recordActivity=" + recordActivity +
+            ", canUpgrade=" + canUpgrade +
+            ", subscriptionUpgradeRequests=" + subscriptionUpgradeRequests +
+            '}';
     }
 }

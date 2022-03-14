@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long>, JpaSpecificationExecutor<Invoice> {
-    Optional<Invoice> findByIdAndFarm_IdAndRecordActivityIsTrue(Long id, Long farmId);
+    Optional<Invoice> findByIdAndFamilyTree_IdAndRecordActivityIsTrue(Long id, Long familyTreeId);
     Optional<Invoice> findByIdAndRecordActivityIsTrueAndStatus_Code(Long id, String statusCode);
 
     @Modifying

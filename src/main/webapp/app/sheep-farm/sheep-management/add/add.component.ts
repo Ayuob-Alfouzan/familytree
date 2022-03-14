@@ -9,14 +9,14 @@ import { first } from 'rxjs/operators';
 import { AddSheepService } from './add.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { AddSheepModel, SimpleSheepModel } from 'app/sheep-farm/models/sheep.model';
+import { AddSheepModel, SimpleSheepModel } from 'app/sheep-familyTree/models/sheep.model';
 
 @Component({
   selector: 'jhi-add-sheep',
   templateUrl: './add.component.html',
 })
 export class AddSheepComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
 
   form = this.fb.group({
     number: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
@@ -68,12 +68,12 @@ export class AddSheepComponent implements OnInit {
         this.sheepGenderes = data.lookups.find((x: LookupCategoryModel) => x.lookupName === LookupEnum.SheepGender).lookupList;
       }
 
-      if (this.farm) {
-        this.service.listSimple(this.farm.farmId, ['RAM']).subscribe(
+      if (this.familyTree) {
+        this.service.listSimple(this.familyTree.farmId, ['RAM']).subscribe(
           result => (this.fathers = result),
           error => this.errorHandler(error)
         );
-        this.service.listSimple(this.farm.farmId, ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
+        this.service.listSimple(this.familyTree.farmId, ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
           result => (this.mothers = result),
           error => this.errorHandler(error)
         );
@@ -87,7 +87,7 @@ export class AddSheepComponent implements OnInit {
 
       this.service.add(this.createAddModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'list']);
+          this.router.navigate(['/', 'sheep-familyTree', 'list']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },
@@ -104,9 +104,9 @@ export class AddSheepComponent implements OnInit {
   }
 
   createAddModel(): AddSheepModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: AddSheepModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         number: this.form.get('number')?.value,
         name: this.form.get('name')?.value,
         type: this.form.get('type')?.value.code,

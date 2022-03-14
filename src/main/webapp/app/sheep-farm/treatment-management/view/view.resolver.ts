@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { SheepTreatmentModel } from 'app/sheep-farm/models/treatment.model';
+import { SheepTreatmentModel } from 'app/sheep-familyTree/models/treatment.model';
 import { Observable } from 'rxjs';
 import { ViewSheepTreatmentService } from './view.service';
 

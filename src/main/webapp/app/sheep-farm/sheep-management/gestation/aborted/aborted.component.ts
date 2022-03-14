@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { AbortedGestationService } from './aborted.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { AbortedGestationModel, GestationModel } from 'app/sheep-farm/models/gestation.model';
+import { AbortedGestationModel, GestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -15,7 +15,7 @@ import * as dayjs from 'dayjs';
   templateUrl: './aborted.component.html',
 })
 export class AbortedGestationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: GestationModel;
 
   form = this.fb.group({
@@ -41,8 +41,8 @@ export class AbortedGestationComponent implements OnInit {
     this.route.data.pipe(first()).subscribe(data => {
       this.item = data.item;
 
-      if (!this.item || !this.farm) {
-        this.router.navigate(['/', 'sheep-farm']);
+      if (!this.item || !this.familyTree) {
+        this.router.navigate(['/', 'sheep-familyTree']);
       }
 
       this.form.get('gestationId')?.setValue(this.item?.id);
@@ -55,7 +55,7 @@ export class AbortedGestationComponent implements OnInit {
 
       this.service.aborted(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'view', this.item?.ewe.id]);
+          this.router.navigate(['/', 'sheep-familyTree', 'view', this.item?.ewe.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyUpdated');
         },

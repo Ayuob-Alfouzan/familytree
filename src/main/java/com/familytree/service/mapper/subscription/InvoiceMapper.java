@@ -11,7 +11,7 @@ import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring", uses = { LookupMapper.class })
 public interface InvoiceMapper extends EntityMapper<InvoiceDTO, Invoice> {
-    @Mapping(source = "farm.id", target = "farmId")
+    @Mapping(source = "familyTree.id", target = "familyTreeId")
     @Mapping(source = "subscription.id", target = "subscriptionId")
     @Mapping(source = "amount", target = "amount", qualifiedByName = "roundDouble")
     @Mapping(source = "amountVat", target = "amountVat", qualifiedByName = "roundDouble")

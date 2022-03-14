@@ -180,10 +180,10 @@ public class UserService {
     @Transactional
     public List<SuitableUserDTO> findSuitableUsers(FindSuitableUserRequestVM vm) {
         return suitableUserMapper.toDto(
-            userRepository.findByTypeAndEmailContainingIgnoreCaseAndRecordActivityIsTrueAndFarmUsers_Farm_IdNot(
+            userRepository.findByTypeAndEmailContainingIgnoreCaseAndRecordActivityIsTrueAndFamilyTreeUsers_FamilyTree_IdNot(
                 Constants.USER_KEY,
                 vm.getEmail(),
-                vm.getFarmId()
+                vm.getFamilyTreeId()
             )
         );
     }

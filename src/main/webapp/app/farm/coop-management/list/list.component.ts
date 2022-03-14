@@ -11,7 +11,7 @@ import { NgbdSortableHeaderDirective, SortEvent } from '../../sortable.directive
 import { first } from 'rxjs/operators';
 import { LookupCategoryModel, LookupModel } from 'app/shared/models/lookup.model';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
-import { WarehouseDashboardModel } from 'app/farm/models/warehouse.model';
+import { WarehouseDashboardModel } from 'app/familyTree/models/warehouse.model';
 import { LanguageService } from 'app/shared/language/language.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class ListCoopComponent implements OnInit {
   adding = false;
   updating = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   pigeonStatuses = [];
@@ -57,13 +57,13 @@ export class ListCoopComponent implements OnInit {
     this.route.paramMap.pipe(first()).subscribe(paramMap => {
       const warehouseId = paramMap.get('warehouseId');
 
-      if (this.farm != null && warehouseId != null) {
+      if (this.familyTree != null && warehouseId != null) {
         if (this.service.warehouseId && this.service.warehouseId !== +warehouseId) {
           this.service.resetDefauleState();
         }
         this.service.warehouseId = +warehouseId;
 
-        if (this.farm.type.code === 'MAIN') {
+        if (this.familyTree.type.code === 'MAIN') {
           this.isMain = true;
         }
       } else {
@@ -147,7 +147,7 @@ export class ListCoopComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteCoopModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteCoopModel = {
         warehouseId: this.service.warehouseId,
         coopId: id,
@@ -160,7 +160,7 @@ export class ListCoopComponent implements OnInit {
   }
 
   createChangeStatusModel(id: number, isMale: boolean, newStatus: string): ChangeCoopStatusModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: ChangeCoopStatusModel = {
         warehouseId: this.service.warehouseId,
         coopId: id,
@@ -175,7 +175,7 @@ export class ListCoopComponent implements OnInit {
   }
 
   createAddModel(): AddCoopModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: AddCoopModel = {
         warehouseId: this.service.warehouseId,
         name: this.form.get('name')?.value,

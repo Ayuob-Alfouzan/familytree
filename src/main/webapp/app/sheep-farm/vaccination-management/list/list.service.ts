@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ToastService } from 'app/core/util/toast.service';
-import { SheepVaccinationCriteria, SheepVaccinationModel } from 'app/sheep-farm/models/vaccination.model';
+import { SheepVaccinationCriteria, SheepVaccinationModel } from 'app/sheep-familyTree/models/vaccination.model';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
 import { Observable } from 'rxjs';

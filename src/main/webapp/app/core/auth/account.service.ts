@@ -101,9 +101,9 @@ export class AccountService {
     return this._selectedFarm;
   }
 
-  set selectedFarm(farm: FarmModel | null) {
-    this._selectedFarm = farm;
-    this.localStorage.store('selectedFarm', farm);
+  set selectedFarm(familyTree: FarmModel | null) {
+    this._selectedFarm = familyTree;
+    this.localStorage.store('selectedFarm', familyTree);
   }
 
   private fetch(): Observable<Account> {

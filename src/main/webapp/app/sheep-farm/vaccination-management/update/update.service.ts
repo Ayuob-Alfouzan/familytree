@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { SheepVaccinationModel, UpdateSheepVaccinationModel } from 'app/sheep-farm/models/vaccination.model';
+import { SheepVaccinationModel, UpdateSheepVaccinationModel } from 'app/sheep-familyTree/models/vaccination.model';
 import { Observable } from 'rxjs';
 
 @Injectable()

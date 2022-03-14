@@ -8,7 +8,7 @@ import { LookupEnum } from 'app/shared/lookup/lookup.enum';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { first } from 'rxjs/operators';
 import { UpdateSheepVaccinationService } from './update.service';
-import { SimpleCoopModel } from 'app/farm/models/coop.model';
+import { SimpleCoopModel } from 'app/familyTree/models/coop.model';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
 import {
@@ -17,7 +17,7 @@ import {
   SheepVaccinationModel,
   UpdateSheepVaccinationModel,
   VaccinationDoseDateModel,
-} from 'app/sheep-farm/models/vaccination.model';
+} from 'app/sheep-familyTree/models/vaccination.model';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -25,7 +25,7 @@ import * as dayjs from 'dayjs';
   templateUrl: './update.component.html',
 })
 export class UpdateSheepVaccinationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item!: SheepVaccinationModel;
 
   form = this.fb.group({
@@ -113,7 +113,7 @@ export class UpdateSheepVaccinationComponent implements OnInit {
 
       this.service.add(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'view-sheep-vaccination', this.item.id]);
+          this.router.navigate(['/', 'sheep-familyTree', 'view-sheep-vaccination', this.item.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyUpdated');
         },
@@ -134,7 +134,7 @@ export class UpdateSheepVaccinationComponent implements OnInit {
   }
 
   createModel(): UpdateSheepVaccinationModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const doses: VaccinationDoseDateModel[] = [];
 
       for (let i = 0; i < this.form.get('numberOfDoses')?.value; i++) {

@@ -6,7 +6,7 @@ import { NgbdSortableHeaderDirective, SortEvent } from '../../../sortable.direct
 import { LanguageService } from 'app/shared/language/language.service';
 import { SheepModel } from '../../../models/sheep.model';
 import { ConfirmModalComponent } from 'app/shared/components/confirm-modal/confirm-modal.component';
-import { DeleteCopulationModel, FalseCopulationModel } from 'app/sheep-farm/models/copulation.model';
+import { DeleteCopulationModel, FalseCopulationModel } from 'app/sheep-familyTree/models/copulation.model';
 import { ToastService } from 'app/core/util/toast.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ListCopulationComponent implements OnChanges {
 
   currentLanguage = this.languageService.onLangChange();
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   deleting = false;
@@ -36,7 +36,7 @@ export class ListCopulationComponent implements OnChanges {
   ) {}
 
   ngOnChanges(): void {
-    if (this.farm != null && this.parent != null) {
+    if (this.familyTree != null && this.parent != null) {
       if (this.parent.gender.code === 'FEMALE') {
         if (!this.service.eweId || this.service.eweId !== this.parent.id) {
           this.service.resetDefauleState();
@@ -51,7 +51,7 @@ export class ListCopulationComponent implements OnChanges {
         this.service.ramId = this.parent.id;
       }
 
-      this.isMain = this.farm.type.code === 'MAIN';
+      this.isMain = this.familyTree.type.code === 'MAIN';
     }
   }
 
@@ -94,7 +94,7 @@ export class ListCopulationComponent implements OnChanges {
   }
 
   createDeleteModel(copulationId: number): DeleteCopulationModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteCopulationModel = {
         copulationId,
       };
@@ -106,7 +106,7 @@ export class ListCopulationComponent implements OnChanges {
   }
 
   createFalseCopulationModel(copulationId: number): FalseCopulationModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: FalseCopulationModel = {
         copulationId,
       };

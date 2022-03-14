@@ -5,7 +5,7 @@
     <button
       type="button"
       *ngIf="parent.status.code === 'HALE' || parent.status.code === 'SICK'"
-      [routerLink]="['/', 'sheep-farm', 'add']"
+      [routerLink]="['/', 'sheep-familyTree', 'add']"
       class="btn btn-success"
     >
       <span jhiTranslate="sheepFarm.addButton"></span>
@@ -114,7 +114,7 @@
               {{ currentLanguage | async | showLanguage: item.category }}
             </td>
             <td>
-              <a class="mx-md-3" [routerLink]="['/', 'sheep-farm', 'view', item.id]">
+              <a class="mx-md-3" [routerLink]="['/', 'sheep-familyTree', 'view', item.id]">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
             </td>

@@ -10,9 +10,9 @@ import { first } from 'rxjs/operators';
 import { UpdateSheepTreatmentService } from './update.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepTreatmentModel, UpdateSheepTreatmentModel } from 'app/sheep-farm/models/treatment.model';
+import { SheepTreatmentModel, UpdateSheepTreatmentModel } from 'app/sheep-familyTree/models/treatment.model';
 import * as dayjs from 'dayjs';
-import { SimpleSheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SimpleSheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
@@ -20,7 +20,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   templateUrl: './update.component.html',
 })
 export class UpdateSheepTreatmentComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item!: SheepTreatmentModel;
 
   form = this.fb.group({
@@ -67,8 +67,8 @@ export class UpdateSheepTreatmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm) {
-      this.service.listSimple(this.farm.farmId).subscribe(result => {
+    if (this.familyTree) {
+      this.service.listSimple(this.familyTree.farmId).subscribe(result => {
         this.sheep = result;
       });
     } else {
@@ -168,7 +168,7 @@ export class UpdateSheepTreatmentComponent implements OnInit {
 
       this.service.update(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'list-sheep-treatment']);
+          this.router.navigate(['/', 'sheep-familyTree', 'list-sheep-treatment']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyUpdated');
         },
@@ -185,7 +185,7 @@ export class UpdateSheepTreatmentComponent implements OnInit {
   }
 
   createModel(): UpdateSheepTreatmentModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: UpdateSheepTreatmentModel = {
         sheepTreatmentId: this.item.id,
         type: this.form.get('type')?.value.code,

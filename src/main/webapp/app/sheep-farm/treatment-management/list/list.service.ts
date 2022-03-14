@@ -4,7 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ToastService } from 'app/core/util/toast.service';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
-import { SheepTreatmentCriteria, SheepTreatmentModel } from 'app/sheep-farm/models/treatment.model';
+import { SheepTreatmentCriteria, SheepTreatmentModel } from 'app/sheep-familyTree/models/treatment.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

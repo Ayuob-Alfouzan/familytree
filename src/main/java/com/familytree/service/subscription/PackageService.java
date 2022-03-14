@@ -1,15 +1,13 @@
 package com.familytree.service.subscription;
 
 import com.familytree.config.ApplicationProperties;
-import com.familytree.domain.farm.*;
+import com.familytree.domain.familytree.*;
 import com.familytree.domain.subscription.Package;
 import com.familytree.domain.subscription.Subscription;
-import com.familytree.repository.farm.CoopRepository;
-import com.familytree.repository.farm.SheepRepository;
 import com.familytree.repository.subscription.PackageRepository;
 import com.familytree.repository.subscription.SubscriptionRepository;
 import com.familytree.service.dto.subscription.PackageDTO;
-import com.familytree.service.farm.OwnershipService;
+import com.familytree.service.familytree.OwnershipService;
 import com.familytree.service.lookup.*;
 import com.familytree.service.mapper.subscription.PackageMapper;
 import com.familytree.service.util.exception.BadRequestException;
@@ -38,10 +36,6 @@ public class PackageService extends QueryService<Package> {
 
     private final OwnershipService ownershipService;
 
-    private final CoopRepository coopRepository;
-
-    private final SheepRepository sheepRepository;
-
     private final SubscriptionRepository subscriptionRepository;
 
     public PackageService(
@@ -50,8 +44,6 @@ public class PackageService extends QueryService<Package> {
         PackageMapper packageMapper,
         LookupService lookupService,
         OwnershipService ownershipService,
-        CoopRepository coopRepository,
-        SheepRepository sheepRepository,
         SubscriptionRepository subscriptionRepository
     ) {
         this.applicationProperties = applicationProperties;
@@ -59,24 +51,22 @@ public class PackageService extends QueryService<Package> {
         this.packageMapper = packageMapper;
         this.lookupService = lookupService;
         this.ownershipService = ownershipService;
-        this.coopRepository = coopRepository;
-        this.sheepRepository = sheepRepository;
         this.subscriptionRepository = subscriptionRepository;
     }
 
     @Transactional(readOnly = true)
-    public List<PackageDTO> listPackagesByFarmType(String farmTypeCode) {
+    public List<PackageDTO> listPackagesByFamilyTreeType(String familyTreeTypeCode) {
         return packageMapper.toDto(
-            packageRepository.findByFarmType_CodeAndRecordActivityIsTrueAndCanRenewIsTrue(farmTypeCode.toUpperCase())
+            packageRepository.findByFamilyTreeType_CodeAndRecordActivityIsTrueAndCanRenewIsTrue(familyTreeTypeCode.toUpperCase())
         );
     }
 
     @Transactional(readOnly = true)
-    public List<PackageDTO> listSuitable(Long farmId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public List<PackageDTO> listSuitable(Long familyTreeId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
 
-        boolean hasActiveSubscription = subscriptionRepository.existsByFarm_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
-            farmId,
+        boolean hasActiveSubscription = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
+            familyTreeId,
             SubscriptionStatusEnum.Active.value(),
             Instant.now().plus(applicationProperties.getSubscription().getCanRenewBeforeDays(), ChronoUnit.DAYS)
         );
@@ -84,44 +74,44 @@ public class PackageService extends QueryService<Package> {
         if (hasActiveSubscription) {
             throw new BadRequestException("subscription.has_active_subscription");
         } else {
-            boolean hasWaitingForPaymentSubscription = subscriptionRepository.existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(
-                farmId,
+            boolean hasWaitingForPaymentSubscription = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(
+                familyTreeId,
                 Collections.singletonList(SubscriptionStatusEnum.WaitingForPayment.value())
             );
 
             if (hasWaitingForPaymentSubscription) {
                 throw new BadRequestException("subscription.has_waiting_for_payment_subscription");
             } else {
-                if (farm.getType().getCode().equalsIgnoreCase(FarmTypeEnum.Pigeon.value())) {
-                    int numberOfCoops = coopRepository.countByWarehouse_Farm_IdAndRecordActivityIsTrue(farm.getId());
-                    return packageMapper.toDto(
-                        packageRepository.findByFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
-                            farm.getType().getCode(),
-                            (long) numberOfCoops
-                        )
-                    );
-                } else if (farm.getType().getCode().equalsIgnoreCase(FarmTypeEnum.Sheep.value())) {
-                    int numberOfSheep = sheepRepository.countByFarm_IdAndRecordActivityIsTrue(farm.getId());
-                    return packageMapper.toDto(
-                        packageRepository.findByFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
-                            farm.getType().getCode(),
-                            (long) numberOfSheep
-                        )
-                    );
-                } else {
+//                if (familyTree.getType().getCode().equalsIgnoreCase(FamilyTreeTypeEnum.Pigeon.value())) {
+//                    int numberOfCoops = coopRepository.countByWarehouse_FamilyTree_IdAndRecordActivityIsTrue(familyTree.getId());
+//                    return packageMapper.toDto(
+//                        packageRepository.findByFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+//                            familyTree.getType().getCode(),
+//                            (long) numberOfCoops
+//                        )
+//                    );
+//                } else if (familyTree.getType().getCode().equalsIgnoreCase(FamilyTreeTypeEnum.Sheep.value())) {
+//                    int numberOfSheep = sheepRepository.countByFamilyTree_IdAndRecordActivityIsTrue(familyTree.getId());
+//                    return packageMapper.toDto(
+//                        packageRepository.findByFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+//                            familyTree.getType().getCode(),
+//                            (long) numberOfSheep
+//                        )
+//                    );
+//                } else {
                     throw new BadRequestException("error.not_found");
-                }
+//                }
             }
         }
     }
 
     @Transactional(readOnly = true)
-    public List<PackageDTO> listSuitableForUpgrade(Long farmId, Long subscriptionId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
+    public List<PackageDTO> listSuitableForUpgrade(Long familyTreeId, Long subscriptionId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
         Subscription subscription = subscriptionRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(
                 subscriptionId,
-                farm.getId(),
+                familyTree.getId(),
                 Collections.singletonList(SubscriptionStatusEnum.Active.value())
             )
             .orElseThrow(() -> new BadRequestException("not_found"));
@@ -137,8 +127,8 @@ public class PackageService extends QueryService<Package> {
             throw new BadRequestException("subscription.near_expiry");
         } else {
             return packageMapper.toDto(
-                packageRepository.findByFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
-                    farm.getType().getCode(),
+                packageRepository.findByFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+                    familyTree.getType().getCode(),
                     subscription.getRangeEnd() + 1
                 )
             );
@@ -146,10 +136,10 @@ public class PackageService extends QueryService<Package> {
     }
 
     @Transactional(readOnly = true)
-    public Package suitableForRenew(Long farmId, Long subscriptionId) {
-        Farm farm = ownershipService.getToWriteByFarmId(farmId);
-        boolean hasWaitingForPayment = subscriptionRepository.existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(
-            farmId,
+    public Package suitableForRenew(Long familyTreeId, Long subscriptionId) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(familyTreeId);
+        boolean hasWaitingForPayment = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(
+            familyTreeId,
             Collections.singletonList(SubscriptionStatusEnum.WaitingForPayment.value())
         );
 
@@ -158,9 +148,9 @@ public class PackageService extends QueryService<Package> {
         }
 
         Subscription subscription = subscriptionRepository
-            .findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_CodeIn(
+            .findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_CodeIn(
                 subscriptionId,
-                farm.getId(),
+                familyTree.getId(),
                 Collections.singletonList(SubscriptionStatusEnum.Active.value())
             )
             .orElseThrow(() -> new BadRequestException("not_found"));
@@ -179,9 +169,9 @@ public class PackageService extends QueryService<Package> {
     }
 
     @Transactional(readOnly = true)
-    public Package isSuitable(Farm farm, Long packageId) {
-        boolean hasActiveSubscription = subscriptionRepository.existsByFarm_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
-            farm.getId(),
+    public Package isSuitable(FamilyTree familyTree, Long packageId) {
+        boolean hasActiveSubscription = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeAndEndDateGreaterThanAndRecordActivityIsTrue(
+            familyTree.getId(),
             SubscriptionStatusEnum.Active.value(),
             Instant.now().plus(applicationProperties.getSubscription().getCanRenewBeforeDays(), ChronoUnit.DAYS)
         );
@@ -189,20 +179,20 @@ public class PackageService extends QueryService<Package> {
         if (hasActiveSubscription) {
             throw new BadRequestException("subscription.has_active_subscription");
         } else {
-            boolean hasWaitingForPaymentSubscription = subscriptionRepository.existsByFarm_IdAndStatus_CodeInAndRecordActivityIsTrue(
-                farm.getId(),
+            boolean hasWaitingForPaymentSubscription = subscriptionRepository.existsByFamilyTree_IdAndStatus_CodeInAndRecordActivityIsTrue(
+                familyTree.getId(),
                 Collections.singletonList(SubscriptionStatusEnum.WaitingForPayment.value())
             );
 
             if (hasWaitingForPaymentSubscription) {
                 throw new BadRequestException("subscription.has_waiting_for_payment_subscription");
             } else {
-                int numberOfCoops = coopRepository.countByWarehouse_Farm_IdAndRecordActivityIsTrue(farm.getId());
+                int numberOfCoops = 0;//coopRepository.countByWarehouse_FamilyTree_IdAndRecordActivityIsTrue(familyTree.getId());
 
                 return packageRepository
-                    .findByIdAndFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+                    .findByIdAndFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
                         packageId,
-                        farm.getType().getCode(),
+                        familyTree.getType().getCode(),
                         (long) numberOfCoops
                     )
                     .orElseThrow(() -> new BadRequestException("subscription.not_suitable_package"));
@@ -223,9 +213,9 @@ public class PackageService extends QueryService<Package> {
             throw new BadRequestException("subscription.near_expiry");
         } else {
             return packageRepository
-                .findByIdAndFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+                .findByIdAndFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
                     packageId,
-                    FarmTypeEnum.Pigeon.value(),
+                    FamilyTreeTypeEnum.Pigeon.value(),
                     subscription.getRangeEnd() + 1
                 )
                 .orElseThrow(() -> new BadRequestException("not_found"));
@@ -233,7 +223,7 @@ public class PackageService extends QueryService<Package> {
     }
 
     @Transactional(readOnly = true)
-    public Package getTrialPackage(String farmTypeCode) {
-        return packageRepository.findByFarmType_CodeAndRecordActivityIsTrueAndCanRenewIsFalse(farmTypeCode);
+    public Package getTrialPackage(String familyTreeTypeCode) {
+        return packageRepository.findByFamilyTreeType_CodeAndRecordActivityIsTrueAndCanRenewIsFalse(familyTreeTypeCode);
     }
 }

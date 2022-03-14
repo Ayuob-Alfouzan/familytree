@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { DashboardModel } from '../../farm-management/models/farm.model';
+import { DashboardModel } from '../../familyTree-management/models/familyTree.model';
 import { AccountService } from 'app/core/auth/account.service';
-import { FarmService } from '../farm.service';
+import { FarmService } from '../familyTree.service';
 
 @Injectable()
 export class DashboardResolver implements Resolve<DashboardModel> {

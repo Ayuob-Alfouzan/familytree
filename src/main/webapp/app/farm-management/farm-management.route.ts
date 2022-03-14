@@ -5,8 +5,8 @@ import { LookupResolver } from 'app/shared/lookup/lookup.resolver';
 import { AddFarmComponent } from './add/add.component';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
 import { EditFarmComponent } from './edit/edit.component';
-import { FarmResolver } from './farm-management.resolver';
-import { EditFarmUserComponent } from './edit-user/edit-farm-user.component';
+import { FarmResolver } from './familyTree-management.resolver';
+import { EditFarmUserComponent } from './edit-user/edit-familyTree-user.component';
 import { ListOwnedFarmComponent } from './list-owned/list-owned.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { SubscriptionComponent } from './subscription/list/subscription.component';
@@ -44,7 +44,7 @@ export const farmRoutes: Route[] = [
     component: EditFarmComponent,
     canActivate: [UserRouteAccessService],
     resolve: {
-      farm: FarmResolver,
+      familyTree: FarmResolver,
     },
     data: {
       authorities: [Authority.USER],
@@ -55,7 +55,7 @@ export const farmRoutes: Route[] = [
     component: EditFarmUserComponent,
     canActivate: [UserRouteAccessService],
     resolve: {
-      farm: FarmResolver,
+      familyTree: FarmResolver,
     },
     data: {
       authorities: [Authority.USER],

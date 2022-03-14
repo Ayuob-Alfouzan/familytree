@@ -3,7 +3,6 @@ package com.familytree.service.util;
 import static com.familytree.config.Constants.ARABIC_LANGUAGE_TRANSLATION_KEY;
 
 import com.familytree.domain.account.User;
-import com.familytree.domain.farm.SheepTreatment;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -110,56 +109,5 @@ public class MailService {
         var.put("token", user.getToken());
 
         sendEmailFromTemplate(var, user.getEmail(), "mail/resetPasswordEmail", "رمز التحقق | OTP Code");
-    }
-
-    @Async
-    public void sendLambingEmail(List<String> emails, String number, String name, Integer numberOfLambs) {
-        log.debug("Sending lambing emails to '{}'", emails);
-
-        HashMap<String, Object> var = new HashMap<>();
-        var.put("number", number);
-        var.put("name", name);
-        var.put("numberOfLambs", numberOfLambs);
-
-        emails.forEach(x -> sendEmailFromTemplate(var, x, "mail/lambingEmail", "Lambing Notification | تنبيه ولادة"));
-    }
-
-    @Async
-    public void sendTreatmentNotificationEmail(List<String> emails, List<SheepTreatment> sheepTreatments) {
-        log.debug("Sending treatment notification emails to '{}'", emails);
-        List<HashMap<String, String>> treatments = new ArrayList<>();
-
-        sheepTreatments.forEach(
-            it -> {
-                HashMap<String, String> var = new HashMap<>();
-                var.put("type", it.getType().getAr());
-                var.put("name", it.getName());
-                var.put("doseType", it.getDoseType().getAr());
-
-                if (it.getAllSheep()) {
-                    var.put("givenTo", "يعطى لكل الغنم");
-                } else if (it.getSpecificSheep()) {
-                    var.put("givenTo", "يعطى لغنم محددة");
-                } else if (it.getSheepType() != null) {
-                    var.put("givenTo", it.getSheepType().getAr());
-                }
-                treatments.add(var);
-            }
-        );
-
-        HashMap<String, Object> var = new HashMap<>();
-        var.put("treatments", treatments);
-
-        emails.forEach(x -> sendEmailFromTemplate(var, x, "mail/treatmentNotificationEmail", "Treatments Remainder | تذكير بعلاجات"));
-    }
-
-    @Async
-    public void sendVaccineNotificationEmail(List<String> emails, List<HashMap<String, String>> vaccines) {
-        log.debug("Sending vaccine notification emails to '{}'", emails);
-
-        HashMap<String, Object> var = new HashMap<>();
-        var.put("vaccines", vaccines);
-
-        emails.forEach(x -> sendEmailFromTemplate(var, x, "mail/vaccineNotificationEmail", "Vaccines Remainder | تذكير باللقاحات"));
     }
 }

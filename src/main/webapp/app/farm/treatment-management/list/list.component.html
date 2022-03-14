@@ -1,23 +1,23 @@
 <div class="d-flex flex-column body-card">
   <div class="d-flex justify-content-between flex-column flex-lg-row">
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.treatment.title"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.treatment.title"></h3>
 
-    <button type="button" [routerLink]="['/', 'farm', 'add-treatment', service.warehouseId]" class="btn btn-success" *ngIf="isMain">
-      <span jhiTranslate="farm.treatment.addButton"></span>
+    <button type="button" [routerLink]="['/', 'familyTree', 'add-treatment', service.warehouseId]" class="btn btn-success" *ngIf="isMain">
+      <span jhiTranslate="familyTree.treatment.addButton"></span>
     </button>
   </div>
 
   <form>
     <!-- FILTERs -->
     <div class="form-group form-inline mt-4">
-      <label jhiTranslate="farm.fromFilter" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.fromFilter" class="col-md-2"></label>
       <div class="col-md-4 input-group">
         <input
           type="text"
           class="form-control"
           id="fromFilter"
           [(ngModel)]="service.dateGraterThanOrEqual"
-          placeholder="{{ 'farm.fromFilterPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.fromFilterPlaceholder' | translate }}"
           name="fromFilter"
           ngbDatepicker
           #fromFilter="ngbDatepicker"
@@ -29,14 +29,14 @@
         </div>
       </div>
 
-      <label jhiTranslate="farm.toFilter" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.toFilter" class="col-md-2"></label>
       <div class="col-md-4 input-group">
         <input
           type="text"
           class="form-control"
           id="toFilter"
           [(ngModel)]="service.dateLessThanOrEqual"
-          placeholder="{{ 'farm.toFilterPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.toFilterPlaceholder' | translate }}"
           name="toFilter"
           ngbDatepicker
           #toFilter="ngbDatepicker"
@@ -48,13 +48,13 @@
         </div>
       </div>
 
-      <label jhiTranslate="farm.treatment.type" class="col-md-2 mt-md-3"></label>
+      <label jhiTranslate="familyTree.treatment.type" class="col-md-2 mt-md-3"></label>
       <div class="col-md-4 mt-md-3">
         <jhi-dropdown
           [data]="treatmentTypes"
           name="typeCode"
           [(ngModel)]="service.typeCode"
-          placeholder="farm.treatment.typeFilterPlaceholder"
+          placeholder="familyTree.treatment.typeFilterPlaceholder"
         >
         </jhi-dropdown>
       </div>
@@ -63,7 +63,7 @@
         <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
 
-          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+          <span jhiTranslate="familyTree.listFilterButton" *ngIf="!service.loading"></span>
         </button>
       </div>
 
@@ -73,7 +73,7 @@
           (click)="service.clearFilters()"
           [disabled]="service.loading"
           class="btn btn-primary"
-          jhiTranslate="farm.clearFilterButton"
+          jhiTranslate="familyTree.clearFilterButton"
         ></button>
       </div>
     </div>
@@ -82,11 +82,11 @@
       <table class="table table-hover mt-4">
         <thead class="thead-dark">
           <tr>
-            <th style="width: 10%" scope="col" jhiTranslate="farm.treatment.type" jhiSortable="type" (sort)="onSort($event)"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.treatment.firstDoseDate" jhiSortable="type" (sort)="onSort($event)"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.treatment.secondDoseDate"></th>
-            <th style="width: 30%" scope="col" jhiTranslate="farm.treatment.description"></th>
-            <th style="width: 12%" scope="col" jhiTranslate="farm.treatment.givenTo"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="familyTree.treatment.type" jhiSortable="type" (sort)="onSort($event)"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.treatment.firstDoseDate" jhiSortable="type" (sort)="onSort($event)"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.treatment.secondDoseDate"></th>
+            <th style="width: 30%" scope="col" jhiTranslate="familyTree.treatment.description"></th>
+            <th style="width: 12%" scope="col" jhiTranslate="familyTree.treatment.givenTo"></th>
             <th style="width: 8%" scope="col"></th>
           </tr>
         </thead>
@@ -97,7 +97,7 @@
             <td>{{ item.secondDoseDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ item.description }}</td>
             <td>
-              <p *ngIf="item.allWarehouse">{{ 'farm.treatment.allWarehouse' | translate }}</p>
+              <p *ngIf="item.allWarehouse">{{ 'familyTree.treatment.allWarehouse' | translate }}</p>
               <span *ngIf="!item.allWarehouse">
                 <p *ngFor="let coop of item.coops; let i = index" class="mb-0">
                   <span>{{ i + 1 }} {{ coop.name }}</span>
@@ -113,7 +113,7 @@
         </tbody>
         <caption>
           {{
-            'global.numberOfRecords' | translate: { fieldName: 'farm.treatment.title' | translate }
+            'global.numberOfRecords' | translate: { fieldName: 'familyTree.treatment.title' | translate }
           }}
           {{
             service.totalRecords
@@ -133,4 +133,4 @@
   </form>
 </div>
 
-<jhi-confirm-modal #confirmDeleteModal messageKey="farm.treatment.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>
+<jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.treatment.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { LambedGestationService } from './lambed.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { GestationModel, LambedGestationDetailsModel, LambedGestationModel } from 'app/sheep-farm/models/gestation.model';
+import { GestationModel, LambedGestationDetailsModel, LambedGestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import * as dayjs from 'dayjs';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
@@ -17,7 +17,7 @@ import { LookupEnum } from 'app/shared/lookup/lookup.enum';
   templateUrl: './lambed.component.html',
 })
 export class LambedGestationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: GestationModel;
 
   form = this.fb.group({
@@ -47,7 +47,7 @@ export class LambedGestationComponent implements OnInit {
     this.route.data.pipe(first()).subscribe(data => {
       this.item = data.item;
 
-      if (this.item && this.farm) {
+      if (this.item && this.familyTree) {
         this.form.get('gestationId')?.setValue(this.item.id);
         this.form.get('numberOfLambs')?.setValue(this.item.numberOfLambs);
 
@@ -69,7 +69,7 @@ export class LambedGestationComponent implements OnInit {
           }
         });
       } else {
-        this.router.navigate(['/', 'sheep-farm']);
+        this.router.navigate(['/', 'sheep-familyTree']);
       }
     });
   }
@@ -80,7 +80,7 @@ export class LambedGestationComponent implements OnInit {
 
       this.service.lambed(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'view', this.item?.ewe.id]);
+          this.router.navigate(['/', 'sheep-familyTree', 'view', this.item?.ewe.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },

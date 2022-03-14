@@ -8,12 +8,12 @@ import { AccountService } from 'app/core/auth/account.service';
 import { ToastService } from 'app/core/util/toast.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { first } from 'rxjs/operators';
-import { AddUserModel, FarmModel, RemoveUserModel } from '../models/farm.model';
-import { EditFarmUserService } from './edit-farm-user.service';
+import { AddUserModel, FarmModel, RemoveUserModel } from '../models/familyTree.model';
+import { EditFarmUserService } from './edit-familyTree-user.service';
 
 @Component({
-  selector: 'jhi-edit-farm-user',
-  templateUrl: './edit-farm-user.component.html',
+  selector: 'jhi-edit-familyTree-user',
+  templateUrl: './edit-familyTree-user.component.html',
 })
 export class EditFarmUserComponent implements OnInit {
   faUserMinus = faUserMinus;
@@ -22,7 +22,7 @@ export class EditFarmUserComponent implements OnInit {
     email: [null, [Validators.required, Validators.email]],
   });
 
-  farm?: FarmModel;
+  familyTree?: FarmModel;
 
   submitting = false;
   main = false;
@@ -42,7 +42,7 @@ export class EditFarmUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
-      this.farm = data.farm;
+      this.familyTree = data.familyTree;
       this.setForm();
     });
 
@@ -55,8 +55,8 @@ export class EditFarmUserComponent implements OnInit {
   }
 
   setForm(): void {
-    if (this.farm && this.account) {
-      this.farm.farmUsers = this.farm.farmUsers.filter(x => x.userId !== this.account?.id);
+    if (this.familyTree && this.account) {
+      this.familyTree.familyTreeUsers = this.familyTree.familyTreeUsers.filter(x => x.userId !== this.account?.id);
     }
   }
 
@@ -65,7 +65,7 @@ export class EditFarmUserComponent implements OnInit {
 
     this.service.removeUser(this.createRemoveFarmUserModel(userId)).subscribe(
       result => {
-        this.farm = result;
+        this.familyTree = result;
         this.setForm();
         this.toastService.success('global.message.successfullyRemoved');
         this.submitting = false;
@@ -84,7 +84,7 @@ export class EditFarmUserComponent implements OnInit {
 
       this.service.addUser(this.createAddFarmUserModel('NORMAL')).subscribe(
         result => {
-          this.farm = result;
+          this.familyTree = result;
           this.setForm();
           this.toastService.success('global.message.successfullyAdded');
           this.submitting = false;
@@ -109,7 +109,7 @@ export class EditFarmUserComponent implements OnInit {
 
       this.service.addUser(this.createAddFarmUserModel('MAIN')).subscribe(
         result => {
-          this.farm = result;
+          this.familyTree = result;
           this.setForm();
           this.toastService.success('global.message.successfullyAdded');
           this.submitting = false;
@@ -134,9 +134,9 @@ export class EditFarmUserComponent implements OnInit {
   }
 
   createAddFarmUserModel(userType: string): AddUserModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: AddUserModel = {
-        id: this.farm.id,
+        id: this.familyTree.id,
         userEmail: this.form.get('email')?.value,
         farmUserType: userType,
       };
@@ -147,9 +147,9 @@ export class EditFarmUserComponent implements OnInit {
   }
 
   createRemoveFarmUserModel(id: number): RemoveUserModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: RemoveUserModel = {
-        id: this.farm.id,
+        id: this.familyTree.id,
         userId: id,
       };
       return data;

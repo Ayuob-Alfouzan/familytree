@@ -1,13 +1,13 @@
 <div class="d-flex flex-column body-card">
-  <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.addHeader"></h3>
+  <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.addHeader"></h3>
 
   <form role="form" [formGroup]="form">
     <div class="row justify-content-center py-4">
-      <label jhiTranslate="farm.subscription.first"></label>
+      <label jhiTranslate="familyTree.subscription.first"></label>
     </div>
 
     <div class="row justify-content-center py-4 text-danger" *ngIf="!packages">
-      <label jhiTranslate="farm.subscription.noSuitablePackages"></label>
+      <label jhiTranslate="familyTree.subscription.noSuitablePackages"></label>
     </div>
 
     <div class="radio-group row px-3 a">
@@ -36,19 +36,19 @@
     </div>
 
     <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'packageId':['required']">
-      {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'farm.subscription.package' | translate } }}
+      {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'familyTree.subscription.package' | translate } }}
     </small>
 
     <div class="row justify-content-center py-4">
       <button type="submit" (click)="upgrade()" [disabled]="submitting" class="btn btn-success mx-2" *ngIf="packages">
         <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
 
-        <span jhiTranslate="farm.subscription.addButton" *ngIf="!submitting"></span>
+        <span jhiTranslate="familyTree.subscription.addButton" *ngIf="!submitting"></span>
       </button>
 
       <button
         type="button"
-        [routerLink]="['/', 'farm-management', 'subscription', farmId]"
+        [routerLink]="['/', 'familyTree-management', 'subscription', farmId]"
         [disabled]="submitting"
         class="btn btn-light mx-2"
         jhiTranslate="global.cancel"

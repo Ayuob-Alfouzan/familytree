@@ -30,58 +30,58 @@ public class SubscriptionResource {
         return ResponseEntity.ok(subscriptionService.list(criteria, pageable));
     }
 
-    @GetMapping("/get-current/{farmId}")
+    @GetMapping("/get-current/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionDTO> getActive(@PathVariable Long farmId) {
-        return ResponseEntity.ok(subscriptionService.getCurrentSubscription(farmId));
+    public ResponseEntity<SubscriptionDTO> getActive(@PathVariable Long familyTreeId) {
+        return ResponseEntity.ok(subscriptionService.getCurrentSubscription(familyTreeId));
     }
 
-    @GetMapping("/get/{farmId}/{subscriptionId}")
+    @GetMapping("/get/{familyTreeId}/{subscriptionId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionDTO> get(@PathVariable Long farmId, @PathVariable Long subscriptionId) {
-        return ResponseEntity.ok(subscriptionService.get(farmId, subscriptionId));
+    public ResponseEntity<SubscriptionDTO> get(@PathVariable Long familyTreeId, @PathVariable Long subscriptionId) {
+        return ResponseEntity.ok(subscriptionService.get(familyTreeId, subscriptionId));
     }
 
-    @PostMapping("/add/{farmId}/{packageId}")
+    @PostMapping("/add/{familyTreeId}/{packageId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionDTO> add(@PathVariable Long farmId, @PathVariable Long packageId) {
-        return ResponseEntity.ok(subscriptionService.create(farmId, packageId));
+    public ResponseEntity<SubscriptionDTO> add(@PathVariable Long familyTreeId, @PathVariable Long packageId) {
+        return ResponseEntity.ok(subscriptionService.create(familyTreeId, packageId));
     }
 
-    @GetMapping("/subscription-action/{farmId}")
+    @GetMapping("/subscription-action/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionActionResponseVM> canSubscribe(@PathVariable Long farmId) {
-        return ResponseEntity.ok(subscriptionService.subscriptionAction(farmId));
+    public ResponseEntity<SubscriptionActionResponseVM> canSubscribe(@PathVariable Long familyTreeId) {
+        return ResponseEntity.ok(subscriptionService.subscriptionAction(familyTreeId));
     }
 
-    @PostMapping("/cancel/{farmId}/{subscriptionId}")
+    @PostMapping("/cancel/{familyTreeId}/{subscriptionId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionDTO> cancel(@PathVariable Long farmId, @PathVariable Long subscriptionId) {
-        return ResponseEntity.ok(subscriptionService.cancel(farmId, subscriptionId));
+    public ResponseEntity<SubscriptionDTO> cancel(@PathVariable Long familyTreeId, @PathVariable Long subscriptionId) {
+        return ResponseEntity.ok(subscriptionService.cancel(familyTreeId, subscriptionId));
     }
 
-    @PostMapping("/upgrade/{farmId}/{subscriptionId}/{packageId}")
+    @PostMapping("/upgrade/{familyTreeId}/{subscriptionId}/{packageId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<SubscriptionDTO> upgrade(
-        @PathVariable Long farmId,
+        @PathVariable Long familyTreeId,
         @PathVariable Long subscriptionId,
         @PathVariable Long packageId
     ) {
-        return ResponseEntity.ok(subscriptionService.upgrade(farmId, subscriptionId, packageId));
+        return ResponseEntity.ok(subscriptionService.upgrade(familyTreeId, subscriptionId, packageId));
     }
 
-    @PostMapping("/cancel-upgrade/{farmId}/{subscriptionUpgradeRequestId}")
+    @PostMapping("/cancel-upgrade/{familyTreeId}/{subscriptionUpgradeRequestId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<SubscriptionUpgradeRequestDTO> cancelUpgrade(
-        @PathVariable Long farmId,
+        @PathVariable Long familyTreeId,
         @PathVariable Long subscriptionUpgradeRequestId
     ) {
-        return ResponseEntity.ok(subscriptionService.cancelUpgrade(farmId, subscriptionUpgradeRequestId));
+        return ResponseEntity.ok(subscriptionService.cancelUpgrade(familyTreeId, subscriptionUpgradeRequestId));
     }
 
-    @PostMapping("/renew/{farmId}/{subscriptionId}")
+    @PostMapping("/renew/{familyTreeId}/{subscriptionId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<SubscriptionDTO> renew(@PathVariable Long farmId, @PathVariable Long subscriptionId) {
-        return ResponseEntity.ok(subscriptionService.renew(farmId, subscriptionId));
+    public ResponseEntity<SubscriptionDTO> renew(@PathVariable Long familyTreeId, @PathVariable Long subscriptionId) {
+        return ResponseEntity.ok(subscriptionService.renew(familyTreeId, subscriptionId));
     }
 }

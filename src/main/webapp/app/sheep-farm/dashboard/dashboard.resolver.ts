@@ -3,7 +3,7 @@ import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DashboardModel } from '../models/sheep.model';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepFarmService } from '../sheep-farm.service';
+import { SheepFarmService } from '../sheep-familyTree.service';
 
 @Injectable()
 export class DashboardResolver implements Resolve<DashboardModel> {

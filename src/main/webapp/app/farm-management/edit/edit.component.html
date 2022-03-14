@@ -1,62 +1,62 @@
 <div class="d-flex flex-column body-card">
-  <h3 class="text-primary mt-md-2" jhiTranslate="farm.editFarmHeader"></h3>
+  <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.editFarmHeader"></h3>
 
   <form role="form" [formGroup]="form">
     <div class="form-group">
       <div class="row">
-        <label jhiTranslate="farm.nameAr" class="col-md-2 required"></label>
+        <label jhiTranslate="familyTree.nameAr" class="col-md-2 required"></label>
         <div class="col-md-4 input">
           <input
             type="text"
             class="form-control"
             id="nameAr"
             formControlName="nameAr"
-            placeholder="{{ 'farm.nameArPlaceholder' | translate }}"
+            placeholder="{{ 'familyTree.nameArPlaceholder' | translate }}"
           />
 
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'nameAr':['required']">
-            {{ 'global.message.error.required' | translate: { fieldName: 'farm.nameAr' | translate } }}
+            {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.nameAr' | translate } }}
           </small>
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'nameAr':['minlength', 'maxlength']:['required']">
-            {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.nameAr' | translate } }}
+            {{ 'global.message.error.pattern' | translate: { fieldName: 'familyTree.nameAr' | translate } }}
           </small>
         </div>
 
-        <label jhiTranslate="farm.nameEn" class="col-md-2 required"></label>
+        <label jhiTranslate="familyTree.nameEn" class="col-md-2 required"></label>
         <div class="col-md-4 input">
           <input
             type="text"
             class="form-control"
             id="nameEn"
             formControlName="nameEn"
-            placeholder="{{ 'farm.nameEnPlaceholder' | translate }}"
+            placeholder="{{ 'familyTree.nameEnPlaceholder' | translate }}"
           />
 
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'nameEn':['required']">
-            {{ 'global.message.error.required' | translate: { fieldName: 'farm.nameEn' | translate } }}
+            {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.nameEn' | translate } }}
           </small>
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'nameEn':['minlength', 'maxlength']:['required']">
-            {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.nameEn' | translate } }}
+            {{ 'global.message.error.pattern' | translate: { fieldName: 'familyTree.nameEn' | translate } }}
           </small>
         </div>
       </div>
 
       <div class="row mt-md-3">
-        <label jhiTranslate="farm.location" class="col-md-2 required"></label>
+        <label jhiTranslate="familyTree.location" class="col-md-2 required"></label>
         <div class="col-md-4 input">
           <input
             type="text"
             class="form-control"
             id="location"
             formControlName="location"
-            placeholder="{{ 'farm.locationPlaceholder' | translate }}"
+            placeholder="{{ 'familyTree.locationPlaceholder' | translate }}"
           />
 
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'location':['required']">
-            {{ 'global.message.error.required' | translate: { fieldName: 'farm.location' | translate } }}
+            {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.location' | translate } }}
           </small>
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'location':['minlength', 'maxlength']:['required']">
-            {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.location' | translate } }}
+            {{ 'global.message.error.pattern' | translate: { fieldName: 'familyTree.location' | translate } }}
           </small>
         </div>
       </div>
@@ -64,25 +64,25 @@
       <div class="row mt-md-3">
         <div class="col-md-6 checkbox">
           <input type="checkbox" class="form-check-input" id="notRegisteredInVat" formControlName="notRegisteredInVat" />
-          <label class="form-check-label text-muted" jhiTranslate="farm.notRegisteredInVat"></label>
+          <label class="form-check-label text-muted" jhiTranslate="familyTree.notRegisteredInVat"></label>
         </div>
 
         <ng-container *ngIf="!form.get('notRegisteredInVat')?.value">
-          <label jhiTranslate="farm.vatNumber" class="col-md-2 required"></label>
+          <label jhiTranslate="familyTree.vatNumber" class="col-md-2 required"></label>
           <div class="col-md-4 input">
             <input
               type="text"
               class="form-control"
               id="vatNumber"
               formControlName="vatNumber"
-              placeholder="{{ 'farm.vatNumberPlaceholder' | translate }}"
+              placeholder="{{ 'familyTree.vatNumberPlaceholder' | translate }}"
             />
 
             <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'vatNumber':['required']">
-              {{ 'global.message.error.required' | translate: { fieldName: 'farm.vatNumber' | translate } }}
+              {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.vatNumber' | translate } }}
             </small>
             <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'vatNumber':['minlength', 'maxlength']:['required']">
-              {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.vatNumber' | translate } }}
+              {{ 'global.message.error.pattern' | translate: { fieldName: 'familyTree.vatNumber' | translate } }}
             </small>
           </div>
         </ng-container>
@@ -93,14 +93,14 @@
           <button type="submit" (click)="edit()" [disabled]="submitting" class="btn btn-success">
             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
 
-            <span jhiTranslate="farm.editButton" *ngIf="!submitting"></span>
+            <span jhiTranslate="familyTree.editButton" *ngIf="!submitting"></span>
           </button>
         </div>
 
         <div class="col-md-2 mx-md-2 form-btn">
           <button
             type="button"
-            [routerLink]="['/', 'farm-management']"
+            [routerLink]="['/', 'familyTree-management']"
             [disabled]="submitting"
             class="btn btn-light"
             jhiTranslate="global.cancel"

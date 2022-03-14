@@ -5,7 +5,7 @@ import {
   AddSheepVaccinationHistoryModel,
   DeleteSheepVaccinationHistoryModel,
   SheepVaccinationModel,
-} from 'app/sheep-farm/models/vaccination.model';
+} from 'app/sheep-familyTree/models/vaccination.model';
 import { Observable } from 'rxjs';
 
 @Injectable()

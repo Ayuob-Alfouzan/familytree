@@ -6,7 +6,7 @@ import java.time.Instant;
 public class InvoiceDTO {
 
     private Long id;
-    private Long farmId;
+    private Long familyTreeId;
     private LookupDTO status;
     private LookupDTO type;
     private Long invoiceNumber;
@@ -27,12 +27,12 @@ public class InvoiceDTO {
         this.id = id;
     }
 
-    public Long getFarmId() {
-        return farmId;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(Long farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public LookupDTO getStatus() {
@@ -125,36 +125,20 @@ public class InvoiceDTO {
 
     @Override
     public String toString() {
-        return (
-            "InvoiceDTO{" +
-            "id=" +
-            id +
-            ", farmId=" +
-            farmId +
-            ", status=" +
-            status +
-            ", type=" +
-            type +
-            ", invoiceNumber=" +
-            invoiceNumber +
-            ", amount=" +
-            amount +
-            ", amountVat=" +
-            amountVat +
-            ", vatPercentage=" +
-            vatPercentage +
-            ", creationDate=" +
-            creationDate +
-            ", paymentDate=" +
-            paymentDate +
-            ", customerName='" +
-            customerName +
-            '\'' +
-            ", recordActivity=" +
-            recordActivity +
-            ", subscriptionId=" +
-            subscriptionId +
-            '}'
-        );
+        return "InvoiceDTO{" +
+            "id=" + id +
+            ", familyTreeId=" + familyTreeId +
+            ", status=" + status +
+            ", type=" + type +
+            ", invoiceNumber=" + invoiceNumber +
+            ", amount=" + amount +
+            ", amountVat=" + amountVat +
+            ", vatPercentage=" + vatPercentage +
+            ", creationDate=" + creationDate +
+            ", paymentDate=" + paymentDate +
+            ", customerName='" + customerName + '\'' +
+            ", recordActivity=" + recordActivity +
+            ", subscriptionId=" + subscriptionId +
+            '}';
     }
 }

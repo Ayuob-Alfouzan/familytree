@@ -1,22 +1,22 @@
 <div class="d-flex flex-column body-card">
   <div class="d-flex justify-content-between flex-column flex-lg-row">
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.listOwnedTitle"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.listOwnedTitle"></h3>
 
     <button type="button" [routerLink]="['.', 'add']" class="btn btn-success">
-      <span jhiTranslate="farm.addButton"></span>
+      <span jhiTranslate="familyTree.addButton"></span>
     </button>
   </div>
 
   <form>
     <div class="form-group form-inline mt-4">
-      <label jhiTranslate="farm.filter" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.filter" class="col-md-2"></label>
       <div class="col-md-4">
         <input
           type="text"
           class="form-control"
           id="name"
           [(ngModel)]="service.searchTerm"
-          placeholder="{{ 'farm.listFilterPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.listFilterPlaceholder' | translate }}"
           name="name"
         />
       </div>
@@ -25,7 +25,7 @@
         <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
 
-          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+          <span jhiTranslate="familyTree.listFilterButton" *ngIf="!service.loading"></span>
         </button>
       </div>
     </div>
@@ -34,9 +34,9 @@
       <table class="table table-hover mt-4">
         <thead class="thead-dark">
           <tr>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.name" jhiSortable="farm.nameAr" (sort)="onSort($event)"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.location"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.type"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.name" jhiSortable="familyTree.nameAr" (sort)="onSort($event)"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.location"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.type"></th>
             <th style="width: 40%" scope="col"></th>
           </tr>
         </thead>
@@ -50,13 +50,13 @@
                 type="button"
                 [routerLink]="['.', 'invoice', item.id]"
                 class="btn btn-primary btn-sm py-0"
-                jhiTranslate="farm.manageInvoices"
+                jhiTranslate="familyTree.manageInvoices"
               ></button>
               <button
                 type="button"
                 [routerLink]="['.', 'subscription', item.id]"
                 class="btn btn-primary btn-sm py-0"
-                jhiTranslate="farm.manageSubscriptions"
+                jhiTranslate="familyTree.manageSubscriptions"
               ></button>
               <a class="mx-md-2" [routerLink]="['.', 'edit', item.id]">
                 <fa-icon [icon]="faEdit"></fa-icon>
@@ -73,7 +73,7 @@
 
         <caption>
           {{
-            'global.numberOfRecords' | translate: { fieldName: 'farm.listOwnedTitle' | translate }
+            'global.numberOfRecords' | translate: { fieldName: 'familyTree.listOwnedTitle' | translate }
           }}
           {{
             service.totalRecords
@@ -93,6 +93,6 @@
   </form>
 </div>
 
-<jhi-confirm-modal #confirmDeleteModal messageKey="farm.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>
+<jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>
 
-<jhi-list-farm></jhi-list-farm>
+<jhi-list-familyTree></jhi-list-familyTree>

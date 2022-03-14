@@ -8,7 +8,7 @@ import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
-  selector: 'jhi-list-farm',
+  selector: 'jhi-list-familyTree',
   templateUrl: './list.component.html',
 })
 export class ListFarmComponent implements OnInit {

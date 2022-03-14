@@ -9,7 +9,7 @@ import { NgbdSortableHeaderDirective, SortEvent } from '../../sortable.directive
 import { first } from 'rxjs/operators';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
-import { DeleteTreatmentModel } from 'app/farm/models/treatment.model';
+import { DeleteTreatmentModel } from 'app/familyTree/models/treatment.model';
 import { LanguageService } from 'app/shared/language/language.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class ListTreatmentComponent implements OnInit {
   deleting = false;
   updating = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   treatmentTypes = [];
@@ -43,13 +43,13 @@ export class ListTreatmentComponent implements OnInit {
     this.route.paramMap.pipe(first()).subscribe(paramMap => {
       const warehouseId = paramMap.get('warehouseId');
 
-      if (this.farm != null && warehouseId != null) {
+      if (this.familyTree != null && warehouseId != null) {
         if (this.service.warehouseId && this.service.warehouseId !== +warehouseId) {
           this.service.resetDefauleState();
         }
         this.service.warehouseId = +warehouseId;
 
-        if (this.farm.type.code === 'MAIN') {
+        if (this.familyTree.type.code === 'MAIN') {
           this.isMain = true;
         }
       } else {
@@ -84,7 +84,7 @@ export class ListTreatmentComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteTreatmentModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteTreatmentModel = {
         warehouseId: this.service.warehouseId,
         treatmentId: id,

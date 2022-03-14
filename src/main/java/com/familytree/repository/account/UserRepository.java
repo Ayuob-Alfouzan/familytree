@@ -18,9 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     Optional<User> findOneByIdAndRecordActivityIsTrue(Long id);
     User findByEmailIgnoreCaseAndRecordActivityIsTrueAndActivatedIsTrue(String email);
 
-    List<User> findByTypeAndEmailContainingIgnoreCaseAndRecordActivityIsTrueAndFarmUsers_Farm_IdNot(
+    List<User> findByTypeAndEmailContainingIgnoreCaseAndRecordActivityIsTrueAndFamilyTreeUsers_FamilyTree_IdNot(
         String typeCode,
         String emailSubstring,
-        Long farmId
+        Long familyTreeId
     );
 }

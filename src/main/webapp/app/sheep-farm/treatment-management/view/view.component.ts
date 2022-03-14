@@ -4,14 +4,14 @@ import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { first } from 'rxjs/operators';
 import { LookupModel } from 'app/shared/models/lookup.model';
-import { SheepTreatmentModel } from 'app/sheep-farm/models/treatment.model';
+import { SheepTreatmentModel } from 'app/sheep-familyTree/models/treatment.model';
 
 @Component({
   selector: 'jhi-view-sheep-treatment',
   templateUrl: './view.component.html',
 })
 export class ViewSheepTreatmentComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: SheepTreatmentModel;
 
   currentLanguage = this.languageService.onLangChange();

@@ -21,7 +21,7 @@ export class ListSheepChildrenComponent implements OnInit, OnChanges {
 
   currentLanguage = this.languageService.onLangChange();
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   sheepStatuses = [];
@@ -50,9 +50,9 @@ export class ListSheepChildrenComponent implements OnInit, OnChanges {
       }
     });
 
-    if (this.farm != null) {
-      this.service.farmId = +this.farm.farmId;
-      this.isMain = this.farm.type.code === 'MAIN';
+    if (this.familyTree != null) {
+      this.service.farmId = +this.familyTree.farmId;
+      this.isMain = this.familyTree.type.code === 'MAIN';
     }
   }
 
@@ -63,8 +63,8 @@ export class ListSheepChildrenComponent implements OnInit, OnChanges {
           this.service.resetDefauleState();
         }
 
-        if (this.farm != null && !this.service.farmId) {
-          this.service.farmId = +this.farm.farmId;
+        if (this.familyTree != null && !this.service.farmId) {
+          this.service.farmId = +this.familyTree.farmId;
         }
         this.service.motherId = this.parent.id;
       } else if (this.parent.gender.code === 'MALE') {
@@ -72,8 +72,8 @@ export class ListSheepChildrenComponent implements OnInit, OnChanges {
           this.service.resetDefauleState();
         }
 
-        if (this.farm != null && !this.service.farmId) {
-          this.service.farmId = +this.farm.farmId;
+        if (this.familyTree != null && !this.service.farmId) {
+          this.service.farmId = +this.familyTree.farmId;
         }
         this.service.fatherId = this.parent.id;
       }

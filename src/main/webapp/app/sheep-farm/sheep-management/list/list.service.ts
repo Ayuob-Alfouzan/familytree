@@ -4,7 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ToastService } from 'app/core/util/toast.service';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
-import { DeleteSheepModel, SheepCriteria, SheepModel, SimpleSheepModel } from 'app/sheep-farm/models/sheep.model';
+import { DeleteSheepModel, SheepCriteria, SheepModel, SimpleSheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

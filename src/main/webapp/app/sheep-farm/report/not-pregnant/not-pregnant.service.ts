@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { ToastService } from 'app/core/util/toast.service';
 import { Pageable } from 'app/shared/models/page.model';
-import { SheepCriteria, SheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SheepCriteria, SheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

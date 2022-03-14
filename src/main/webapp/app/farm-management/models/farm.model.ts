@@ -30,7 +30,7 @@ export interface FarmModel {
   location: string;
   vatNumber: string;
   recordActivity: boolean;
-  farmUsers: FarmUserModel[];
+  familyTreeUsers: FarmUserModel[];
 }
 
 export interface FarmUserModel {

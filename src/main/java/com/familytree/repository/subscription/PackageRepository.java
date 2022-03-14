@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PackageRepository extends JpaRepository<Package, Long>, JpaSpecificationExecutor<Package> {
-    List<Package> findByFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
-        String farmTypeCode,
+    List<Package> findByFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+        String familyTreeTypeCode,
         Long numberOfCoops
     );
 
-    List<Package> findByFarmType_CodeAndRecordActivityIsTrueAndCanRenewIsTrue(String farmTypeCode);
+    List<Package> findByFamilyTreeType_CodeAndRecordActivityIsTrueAndCanRenewIsTrue(String familyTreeTypeCode);
 
-    Package findByFarmType_CodeAndRecordActivityIsTrueAndCanRenewIsFalse(String farmTypeCode);
+    Package findByFamilyTreeType_CodeAndRecordActivityIsTrueAndCanRenewIsFalse(String familyTreeTypeCode);
 
-    Optional<Package> findByIdAndFarmType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
+    Optional<Package> findByIdAndFamilyTreeType_CodeAndRangeEndGreaterThanEqualAndRecordActivityIsTrueAndCanRenewIsTrue(
         Long packageId,
-        String farmTypeCode,
+        String familyTreeTypeCode,
         Long numberOfCoops
     );
 }

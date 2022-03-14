@@ -8,14 +8,14 @@ import { ConfirmedCopulationService } from './confirmed.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
 import * as dayjs from 'dayjs';
-import { ConfirmCopulationModel, CopulationModel } from 'app/sheep-farm/models/copulation.model';
+import { ConfirmCopulationModel, CopulationModel } from 'app/sheep-familyTree/models/copulation.model';
 
 @Component({
   selector: 'jhi-confirmed-copulation',
   templateUrl: './confirmed.component.html',
 })
 export class ConfirmedCopulationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: CopulationModel;
 
   form = this.fb.group({
@@ -42,11 +42,11 @@ export class ConfirmedCopulationComponent implements OnInit {
     this.route.data.pipe(first()).subscribe(data => {
       this.item = data.item;
 
-      if (this.item && this.farm) {
+      if (this.item && this.familyTree) {
         this.form.get('copulationId')?.setValue(this.item.id);
         this.form.get('impregnationDate')?.setValue(dayjs(this.item.impregnationDate).startOf('day'));
       } else {
-        this.router.navigate(['/', 'sheep-farm']);
+        this.router.navigate(['/', 'sheep-familyTree']);
       }
     });
   }
@@ -57,7 +57,7 @@ export class ConfirmedCopulationComponent implements OnInit {
 
       this.service.confirmed(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'view', this.item?.ewe.id]);
+          this.router.navigate(['/', 'sheep-familyTree', 'view', this.item?.ewe.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyUpdated');
         },

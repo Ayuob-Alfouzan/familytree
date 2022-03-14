@@ -1,65 +1,14 @@
-id;category;code;ar;en;ur;record_order
-1;FARM_TYPE;PIGEON;حمام;Pigeon;کبوتر;1
-2;FARM_USER_TYPE;MAIN;رئيسي;Main;مرکزی;1
-3;FARM_USER_TYPE;NORMAL;عادي;Normal;نارمل;2
-4;FINANCIAL_TRANSACTION_TYPE;EXPENSE;مصروف;Expense;خرچہ;1
-5;FINANCIAL_TRANSACTION_TYPE;INCOME;دخل;Income;آمدنی;1
-6;PIGEON_STATUS;HALE;سليم;Hale;ہیل;1
-7;PIGEON_STATUS;SICK;مريض;Sick;بیمار;2
-8;PIGEON_STATUS;DEAD;نافق;Dead;مردہ;3
-9;EGG_STATUS;NEW;جديد;New;نئی;1
-10;EGG_STATUS;HATCH;فقس;Hatched;ہیچ;2
-11;EGG_STATUS;SPOIL;تالف;Spoil;بگاڑ;4
-12;EGG_STATUS;PULLED;مسحوب;Pulled;کھینچا گیا۔;3
-13;CHICK_STATUS;NEW;حي;Alive;نئی;1
-14;CHICK_STATUS;DEAD;ميت;Dead;مردہ;4
-15;CHICK_STATUS;KILLED;ذبح;Killed;مارا گیا۔;2
-16;CHICK_STATUS;PRODUCTION;إنتاج;Production;پروڈکشن;3
-17;TREATMENT_TYPE;VACCINE;لقاح;Vaccine;ویکسین۔;3
-18;TREATMENT_TYPE;MEDICINE;علاج;Medicine;دوائی;1
-19;TREATMENT_TYPE;VITAMIN;فيتامين;Vitamin;وٹامن۔;2
-20;INCOME_TYPE;SELLING;بيع;Selling;سیلنگ_چیکس۔;1
-21;INCOME_TYPE;OTHER;غير ذلك;Other;دیگر;2
-22;EXPENSE_TYPE;SALARY;رواتب;Salary;سالاری;1
-23;EXPENSE_TYPE;FEED;أعلاف;Feed;کھانا کھلانا;2
-24;EXPENSE_TYPE;TREATMENT;علاجات;Treatment;علاج;3
-25;EXPENSE_TYPE;OTHER;غير ذلك;Other;دیگر;5
-26;INVOICE_STATUS;UNPAID;غير مدفوعة;Unpaid; بلا معاوضہ۔;1
-27;INVOICE_STATUS;PAID;مدفوعة;Paid; ادا کیا۔;2
-28;INVOICE_STATUS;CANCELLED;ملغية;Cancelled; منسوخ;3
-29;INVOICE_STATUS;EXPIRED;منتهية الصلاحية;Expired; میعاد ختم;4
-30;SUBSCRIPTION_STATUS;WAITING_FOR_PAYMENT;بإنتظار الدفع;Waiting for payment;ادائیگی کا انتظار ہے۔;1
-31;SUBSCRIPTION_STATUS;ACTIVE;فعال;Active;فعال;2
-32;SUBSCRIPTION_STATUS;EXPIRED;منتهي الصلاحية;Expired;میعاد ختم;3
-33;SUBSCRIPTION_STATUS;CANCELLED;ملغي;Cancelled; منسوخ;4
-34;INVOICE_TYPE;SUBSCRIPTION;اشتراك;Subscription;سبسکرپشن;1
-35;INVOICE_TYPE;SUBSCRIPTION_UPGRADE;ترقية اشتراك;Subscription Upgrade;سبسکرپشن اپ گریڈ۔;2
-36;FARM_TYPE;SHEEP;غنم;Sheep;بھیڑ;2
-37;SHEEP_CATEGORY;NAIMI;نعيمي;Naimi;نعیمی;1
-38;SHEEP_CATEGORY;NAJDI;نجدي;Najdi;نجدی;2
-39;SHEEP_CATEGORY;HARREY;حري;Harrey;حرى;3
-40;SHEEP_TYPE;EWE;شاة;Ewe;بھیڑ;1
-41;SHEEP_STATUS;HALE;سليم;Hale;ہیل;1
-42;SHEEP_STATUS;SICK;مريض;Sick;بیمار;2
-43;SHEEP_STATUS;DEAD;نافق;Dead;مردہ;3
-44;SHEEP_TYPE;RAM;فحل;Ram;مینڈھا;2
-45;SHEEP_GENDER;MALE;ذكر;Male;;1
-46;SHEEP_GENDER;FEMALE;أنثى;Female;;1
-47;SHEEP_STATUS;SOLD;مباع;Sold;;4
-48;SHEEP_STATUS;STOLEN;مسروق;Stolen;;5
-49;GESTATION_STATUS;HALE;سليم;Hale;ہیل;1
-51;GESTATION_STATUS;LAMBED;مولود;Lambed;;2
-52;GESTATION_STATUS;ABORTED;اصعاد;Aborted;;3
-53;COPULATION_STATUS;NEW;جديد;New;;1
-54;COPULATION_STATUS;CONFIRMED;مؤكد;Confirmed;;2
-55;COPULATION_STATUS;FALSE;خطأ;False;;3
-56;SHEEP_TYPE;PREGNANT;دافع;Pregnant;;3
-57;SHEEP_TYPE;LAMBED;خلفة;Lambed;;4
-58;SHEEP_TYPE;LAMB;بهم;Lamb;;5
-59;SHEEP_TYPE;SPRING_LAMB;مفطوم;Spring Lamb;;6
-60;SHEEP_TYPE;6-12;جذع;6-12 months;;7
-61;EXPENSE_TYPE;WATER;ماء;Water;;4
-62;SHEEP_VACCINATION_TYPE;OTHER;أخرى;Other;;1
-63;SHEEP_TREATMENT_TYPE;OTHER;أخرى;Other;;1
-64;SHEEP_TREATMENT_DOSE_TYPE;ONCE_PER_DAY;مرة باليوم;Once per Day;;1
-65;SHEEP_TREATMENT_DOSE_TYPE;TWICE_PER_DAY;مرتين باليوم;Twice per Day;;2
+id;category;code;ar;en;record_order
+1;FAMILY_TREE_TYPE;NORMAL;عادي;Normal;1
+2;FAMILY_TREE_USER_TYPE;MAIN;رئيسي;Main;1
+3;FAMILY_TREE_USER_TYPE;NORMAL;عادي;Normal;2
+4;INVOICE_STATUS;UNPAID;غير مدفوعة;Unpaid;1
+5;INVOICE_STATUS;PAID;مدفوعة;Paid;2
+6;INVOICE_STATUS;CANCELLED;ملغية;Cancelled;3
+7;INVOICE_STATUS;EXPIRED;منتهية الصلاحية;Expired;4
+8;SUBSCRIPTION_STATUS;WAITING_FOR_PAYMENT;بإنتظار الدفع;Waiting for payment;1
+9;SUBSCRIPTION_STATUS;ACTIVE;فعال;Active;2
+10;SUBSCRIPTION_STATUS;EXPIRED;منتهي الصلاحية;Expired;3
+11;SUBSCRIPTION_STATUS;CANCELLED;ملغي;Cancelled;4
+12;INVOICE_TYPE;SUBSCRIPTION;اشتراك;Subscription;1
+13;INVOICE_TYPE;SUBSCRIPTION_UPGRADE;ترقية اشتراك;Subscription Upgrade;2

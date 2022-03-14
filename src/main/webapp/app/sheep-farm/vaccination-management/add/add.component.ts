@@ -10,14 +10,14 @@ import { first } from 'rxjs/operators';
 import { AddSheepVaccinationService } from './add.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { AddSheepVaccinationModel, VaccinationDoseDateModel } from 'app/sheep-farm/models/vaccination.model';
+import { AddSheepVaccinationModel, VaccinationDoseDateModel } from 'app/sheep-familyTree/models/vaccination.model';
 
 @Component({
   selector: 'jhi-add-sheep-vaccination',
   templateUrl: './add.component.html',
 })
 export class AddSheepVaccinationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
 
   form = this.fb.group({
     type: [null, [Validators.required]],
@@ -46,7 +46,7 @@ export class AddSheepVaccinationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.farm) {
+    if (!this.familyTree) {
       this.router.navigate(['/']);
     }
 
@@ -92,7 +92,7 @@ export class AddSheepVaccinationComponent implements OnInit {
 
       this.service.add(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'list-sheep-vaccination']);
+          this.router.navigate(['/', 'sheep-familyTree', 'list-sheep-vaccination']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },
@@ -113,7 +113,7 @@ export class AddSheepVaccinationComponent implements OnInit {
   }
 
   createModel(): AddSheepVaccinationModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const doses: VaccinationDoseDateModel[] = [];
 
       for (let i = 0; i < this.form.get('numberOfDoses')?.value; i++) {
@@ -126,7 +126,7 @@ export class AddSheepVaccinationComponent implements OnInit {
       }
 
       const data: AddSheepVaccinationModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         type: this.form.get('type')?.value.code,
         name: this.form.get('name')?.value,
         sheepVaccinationDoses: doses,

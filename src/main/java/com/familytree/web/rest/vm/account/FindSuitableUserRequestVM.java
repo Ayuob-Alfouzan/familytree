@@ -6,18 +6,18 @@ import org.hibernate.validator.constraints.Length;
 public class FindSuitableUserRequestVM {
 
     @NotNull
-    private Long farmId;
+    private Long familyTreeId;
 
     @NotNull
     @Length(min = 7)
     private String email;
 
-    public Long getFarmId() {
-        return farmId;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setFarmId(Long farmId) {
-        this.farmId = farmId;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     public String getEmail() {
@@ -30,6 +30,9 @@ public class FindSuitableUserRequestVM {
 
     @Override
     public String toString() {
-        return "FindSuitableUserRequestVM{" + "farmId=" + farmId + ", email='" + email + '\'' + '}';
+        return "FindSuitableUserRequestVM{" +
+            "familyTreeId=" + familyTreeId +
+            ", email='" + email + '\'' +
+            '}';
     }
 }

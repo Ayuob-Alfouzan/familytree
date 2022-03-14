@@ -15,7 +15,7 @@
           <div class="card-widget-body">
             <div class="dot bg-success mx-3"></div>
             <div class="text">
-              <h6 class="mb-0" jhiTranslate="farm.numberOfUsers"></h6>
+              <h6 class="mb-0" jhiTranslate="familyTree.numberOfUsers"></h6>
               <span class="text-gray-500">{{ dashboardData.numberOfUsers }}</span>
             </div>
           </div>
@@ -27,12 +27,12 @@
           <div class="card-widget-body">
             <div class="dot bg-success mx-3"></div>
             <div class="text">
-              <h6 class="mb-0" jhiTranslate="farm.numberOfWarehouses"></h6>
+              <h6 class="mb-0" jhiTranslate="familyTree.numberOfWarehouses"></h6>
               <span class="text-gray-500">{{ dashboardData.numberOfWarehouses }}</span>
             </div>
           </div>
           <div class="icon bg-success">
-            <a [routerLink]="['/', 'farm', 'warehouse']" class="text-white">
+            <a [routerLink]="['/', 'familyTree', 'warehouse']" class="text-white">
               <fa-icon [icon]="faEye"></fa-icon>
             </a>
           </div>
@@ -45,7 +45,7 @@
           <div class="card-widget-body">
             <div class="dot mx-3" [ngClass]="dashboardData.financialStatus < 0 ? 'bg-danger' : 'bg-success'"></div>
             <div class="text">
-              <h6 class="mb-0" jhiTranslate="farm.financialStatus"></h6>
+              <h6 class="mb-0" jhiTranslate="familyTree.financialStatus"></h6>
               <span class="text-gray-500">{{ dashboardData.financialStatus }}</span>
             </div>
           </div>
@@ -57,7 +57,7 @@
           <div class="card-widget-body">
             <div class="dot bg-danger mx-3"></div>
             <div class="text">
-              <h6 class="mb-0" jhiTranslate="farm.numberOfExpenseFinancialTransactions"></h6>
+              <h6 class="mb-0" jhiTranslate="familyTree.numberOfExpenseFinancialTransactions"></h6>
               <span class="text-gray-500">{{ dashboardData.numberOfExpenseFinancialTransactions }}</span>
             </div>
           </div>
@@ -74,7 +74,7 @@
           <div class="card-widget-body">
             <div class="dot bg-success mx-3"></div>
             <div class="text">
-              <h6 class="mb-0" jhiTranslate="farm.numberOfIncomeFinancialTransactions"></h6>
+              <h6 class="mb-0" jhiTranslate="familyTree.numberOfIncomeFinancialTransactions"></h6>
               <span class="text-gray-500">{{ dashboardData.numberOfIncomeFinancialTransactions }}</span>
             </div>
           </div>

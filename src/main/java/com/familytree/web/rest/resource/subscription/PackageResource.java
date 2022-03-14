@@ -26,26 +26,26 @@ public class PackageResource {
         this.packageMapper = packageMapper;
     }
 
-    @GetMapping("/list/{farmTypeCode}")
-    public ResponseEntity<List<PackageDTO>> list(@PathVariable String farmTypeCode) {
-        return ResponseEntity.ok(packageService.listPackagesByFarmType(farmTypeCode));
+    @GetMapping("/list/{familyTreeTypeCode}")
+    public ResponseEntity<List<PackageDTO>> list(@PathVariable String familyTreeTypeCode) {
+        return ResponseEntity.ok(packageService.listPackagesByFamilyTreeType(familyTreeTypeCode));
     }
 
-    @GetMapping("/list-suitable/{farmId}")
+    @GetMapping("/list-suitable/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<List<PackageDTO>> listSuitable(@PathVariable Long farmId) {
-        return ResponseEntity.ok(packageService.listSuitable(farmId));
+    public ResponseEntity<List<PackageDTO>> listSuitable(@PathVariable Long familyTreeId) {
+        return ResponseEntity.ok(packageService.listSuitable(familyTreeId));
     }
 
-    @GetMapping("/list-suitable-for-upgrade/{farmId}/{subscriptionId}")
+    @GetMapping("/list-suitable-for-upgrade/{familyTreeId}/{subscriptionId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<List<PackageDTO>> listSuitableForUpgrade(@PathVariable Long farmId, @PathVariable Long subscriptionId) {
-        return ResponseEntity.ok(packageService.listSuitableForUpgrade(farmId, subscriptionId));
+    public ResponseEntity<List<PackageDTO>> listSuitableForUpgrade(@PathVariable Long familyTreeId, @PathVariable Long subscriptionId) {
+        return ResponseEntity.ok(packageService.listSuitableForUpgrade(familyTreeId, subscriptionId));
     }
 
-    @GetMapping("/suitable-for-renew/{farmId}/{subscriptionId}")
+    @GetMapping("/suitable-for-renew/{familyTreeId}/{subscriptionId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<PackageDTO> suitableForRenew(@PathVariable Long farmId, @PathVariable Long subscriptionId) {
-        return ResponseEntity.ok(packageMapper.toDto(packageService.suitableForRenew(farmId, subscriptionId)));
+    public ResponseEntity<PackageDTO> suitableForRenew(@PathVariable Long familyTreeId, @PathVariable Long subscriptionId) {
+        return ResponseEntity.ok(packageMapper.toDto(packageService.suitableForRenew(familyTreeId, subscriptionId)));
     }
 }

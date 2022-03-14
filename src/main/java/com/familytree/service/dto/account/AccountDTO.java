@@ -2,9 +2,9 @@ package com.familytree.service.dto.account;
 
 import com.familytree.config.Constants;
 import com.familytree.domain.account.User;
-import com.familytree.domain.farm.FarmUser;
+import com.familytree.domain.familytree.FamilyTreeUser;
 import com.familytree.security.AuthoritiesConstants;
-import com.familytree.service.dto.farm.FarmUserDTO;
+import com.familytree.service.dto.familytree.FamilyTreeUserDTO;
 import com.familytree.service.dto.util.LookupDTO;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +24,7 @@ public class AccountDTO {
     private byte[] thumbnail;
     private String fileContentType;
     private List<String> authorities;
-    private List<FarmUserDTO> farmList;
+    private List<FamilyTreeUserDTO> familyTreeList;
 
     public AccountDTO(User user) {
         this.id = user.getId();
@@ -44,22 +44,21 @@ public class AccountDTO {
             this.authorities = Collections.singletonList(AuthoritiesConstants.ADMIN);
         }
 
-        if (user.getFarmUsers() != null && user.getFarmUsers().size() > 0) {
-            this.farmList =
+        if (user.getFamilyTreeUsers() != null && user.getFamilyTreeUsers().size() > 0) {
+            this.familyTreeList =
                 user
-                    .getFarmUsers()
+                    .getFamilyTreeUsers()
                     .stream()
-                    .filter(FarmUser::getRecordActivity)
+                    .filter(FamilyTreeUser::getRecordActivity)
                     .map(
                         it -> {
-                            FarmUserDTO farmUserDTO = new FarmUserDTO();
-                            farmUserDTO.setFarmId(it.getFarm().getId());
-                            farmUserDTO.setFarmNameAr(it.getFarm().getNameAr());
-                            farmUserDTO.setFarmNameEn(it.getFarm().getNameEn());
-                            farmUserDTO.setFarmType(new LookupDTO(it.getFarm().getType()));
-                            farmUserDTO.setId(it.getId());
-                            farmUserDTO.setType(new LookupDTO(it.getType()));
-                            return farmUserDTO;
+                            FamilyTreeUserDTO familyTreeUserDTO = new FamilyTreeUserDTO();
+                            familyTreeUserDTO.setFamilyTreeId(it.getFamilyTree().getId());
+                            familyTreeUserDTO.setFamilyTreeNameAr(it.getFamilyTree().getNameAr());
+                            familyTreeUserDTO.setFamilyTreeType(new LookupDTO(it.getFamilyTree().getType()));
+                            familyTreeUserDTO.setId(it.getId());
+                            familyTreeUserDTO.setType(new LookupDTO(it.getType()));
+                            return familyTreeUserDTO;
                         }
                     )
                     .collect(Collectors.toList());
@@ -74,12 +73,12 @@ public class AccountDTO {
         this.id = id;
     }
 
-    public List<FarmUserDTO> getFarmList() {
-        return farmList;
+    public List<FamilyTreeUserDTO> getFamilyTreeList() {
+        return familyTreeList;
     }
 
-    public void setFarmList(List<FarmUserDTO> farmList) {
-        this.farmList = farmList;
+    public void setFamilyTreeList(List<FamilyTreeUserDTO> familyTreeList) {
+        this.familyTreeList = familyTreeList;
     }
 
     public String getFirstName() {
@@ -164,41 +163,19 @@ public class AccountDTO {
 
     @Override
     public String toString() {
-        return (
-            "AccountDTO{" +
-            "id=" +
-            id +
-            ", firstName='" +
-            firstName +
-            '\'' +
-            ", lastName='" +
-            lastName +
-            '\'' +
-            ", email='" +
-            email +
-            '\'' +
-            ", type='" +
-            type +
-            '\'' +
-            ", mobileNumberCountryCode='" +
-            mobileNumberCountryCode +
-            '\'' +
-            ", mobileNumber='" +
-            mobileNumber +
-            '\'' +
-            ", langKey='" +
-            langKey +
-            '\'' +
-            ", thumbnail=" +
-            Arrays.toString(thumbnail) +
-            ", fileContentType='" +
-            fileContentType +
-            '\'' +
-            ", authorities=" +
-            authorities +
-            ", farmList=" +
-            farmList +
-            '}'
-        );
+        return "AccountDTO{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", type='" + type + '\'' +
+            ", mobileNumberCountryCode='" + mobileNumberCountryCode + '\'' +
+            ", mobileNumber='" + mobileNumber + '\'' +
+            ", langKey='" + langKey + '\'' +
+            ", thumbnail=" + Arrays.toString(thumbnail) +
+            ", fileContentType='" + fileContentType + '\'' +
+            ", authorities=" + authorities +
+            ", familyTreeList=" + familyTreeList +
+            '}';
     }
 }

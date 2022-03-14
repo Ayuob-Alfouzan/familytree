@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between flex-column flex-lg-row">
     <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.vaccination.title"></h3>
 
-    <button type="button" [routerLink]="['/', 'sheep-farm', 'add-sheep-vaccination']" class="btn btn-success" *ngIf="isMain">
+    <button type="button" [routerLink]="['/', 'sheep-familyTree', 'add-sheep-vaccination']" class="btn btn-success" *ngIf="isMain">
       <span jhiTranslate="sheepFarm.vaccination.addButton"></span>
     </button>
   </div>
@@ -24,7 +24,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.sheepVaccinationDoses ? item.sheepVaccinationDoses.length : 0 }}</td>
             <td>
-              <a [class.disabled]="deleting" class="href mx-md-3" [routerLink]="['/', 'sheep-farm', 'view-sheep-vaccination', item?.id]">
+              <a [class.disabled]="deleting" class="href mx-md-3" [routerLink]="['/', 'sheep-familyTree', 'view-sheep-vaccination', item?.id]">
                 <fa-icon [icon]="faEye"></fa-icon>
               </a>
               <a *ngIf="isMain" [class.disabled]="deleting" class="href mx-md-3" (click)="delete(item.id)">

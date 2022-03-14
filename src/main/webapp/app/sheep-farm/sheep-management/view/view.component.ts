@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepModel, SheepStatusModel } from 'app/sheep-farm/models/sheep.model';
+import { SheepModel, SheepStatusModel } from 'app/sheep-familyTree/models/sheep.model';
 import { first } from 'rxjs/operators';
 import { ListGestationComponent } from '../gestation/list/list.component';
 import { LookupModel } from 'app/shared/models/lookup.model';
@@ -15,7 +15,7 @@ import { ViewSheepService } from './view.service';
 export class ViewSheepComponent implements OnInit {
   @ViewChild(ListGestationComponent) listGestationComponent?: ListGestationComponent;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: SheepModel;
   itemStatus?: SheepStatusModel;
 

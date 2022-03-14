@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { ConfirmCopulationModel, CopulationModel } from 'app/sheep-farm/models/copulation.model';
+import { ConfirmCopulationModel, CopulationModel } from 'app/sheep-familyTree/models/copulation.model';
 import { Observable } from 'rxjs';
 
 @Injectable()

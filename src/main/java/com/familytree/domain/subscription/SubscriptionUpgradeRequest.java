@@ -1,6 +1,6 @@
 package com.familytree.domain.subscription;
 
-import com.familytree.domain.farm.Farm;
+import com.familytree.domain.familytree.FamilyTree;
 import com.familytree.domain.util.AbstractAuditingEntity;
 import com.familytree.domain.util.Lookup;
 import java.io.Serializable;
@@ -19,8 +19,8 @@ public class SubscriptionUpgradeRequest extends AbstractAuditingEntity implement
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "farm_id", nullable = false)
-    private Farm farm;
+    @JoinColumn(name = "family_tree_id", nullable = false)
+    private FamilyTree familyTree;
 
     @ManyToOne
     @JoinColumn(name = "subscription_id", nullable = false)
@@ -50,12 +50,12 @@ public class SubscriptionUpgradeRequest extends AbstractAuditingEntity implement
         this.id = id;
     }
 
-    public Farm getFarm() {
-        return farm;
+    public FamilyTree getFamilyTree() {
+        return familyTree;
     }
 
-    public void setFarm(Farm farm) {
-        this.farm = farm;
+    public void setFamilyTree(FamilyTree familyTree) {
+        this.familyTree = familyTree;
     }
 
     public Lookup getStatus() {

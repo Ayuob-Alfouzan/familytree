@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface SubscriptionUpgradeRequestRepository
     extends JpaRepository<SubscriptionUpgradeRequest, Long>, JpaSpecificationExecutor<SubscriptionUpgradeRequest> {
     Optional<SubscriptionUpgradeRequest> findByInvoice_IdAndRecordActivityIsTrueAndStatus_Code(Long invoiceId, String statusCode);
-    Optional<SubscriptionUpgradeRequest> findByIdAndFarm_IdAndRecordActivityIsTrueAndStatus_Code(Long id, Long farmId, String statusCode);
+    Optional<SubscriptionUpgradeRequest> findByIdAndFamilyTree_IdAndRecordActivityIsTrueAndStatus_Code(Long id, Long familyTreeId, String statusCode);
 }

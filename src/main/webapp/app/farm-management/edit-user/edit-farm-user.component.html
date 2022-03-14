@@ -1,24 +1,24 @@
 <div class="d-flex flex-column body-card">
-  <h3 class="text-primary mt-md-2" jhiTranslate="farm.farmUsersTitle"></h3>
+  <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.farmUsersTitle"></h3>
 
   <form [formGroup]="form">
     <div class="form-group form-inline">
-      <label jhiTranslate="farm.email" class="col-md-4 required"></label>
+      <label jhiTranslate="familyTree.email" class="col-md-4 required"></label>
       <div class="col-md-8">
         <input
           type="email"
           class="form-control"
           id="email"
           formControlName="email"
-          placeholder="{{ 'farm.addByEmailPlaceholder' | translate }}"
+          placeholder="{{ 'familyTree.addByEmailPlaceholder' | translate }}"
           name="email"
         />
 
         <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['required']">
-          {{ 'global.message.error.required' | translate: { fieldName: 'farm.email' | translate } }}
+          {{ 'global.message.error.required' | translate: { fieldName: 'familyTree.email' | translate } }}
         </small>
         <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'email':['email']:['required']">
-          {{ 'global.message.error.pattern' | translate: { fieldName: 'farm.email' | translate } }}
+          {{ 'global.message.error.pattern' | translate: { fieldName: 'familyTree.email' | translate } }}
         </small>
       </div>
 
@@ -26,7 +26,7 @@
         <button type="button" (click)="addNormalUser()" [disabled]="submitting && !main" class="btn btn-success">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting && !main"></span>
 
-          <span jhiTranslate="farm.addNormalUserButton" *ngIf="!submitting || (submitting && main)"></span>
+          <span jhiTranslate="familyTree.addNormalUserButton" *ngIf="!submitting || (submitting && main)"></span>
         </button>
       </div>
 
@@ -34,7 +34,7 @@
         <button type="button" (click)="addMainUser()" [disabled]="submitting && main" class="btn btn-success">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting && main"></span>
 
-          <span jhiTranslate="farm.addMainUserButton" *ngIf="!submitting || (submitting && !main)"></span>
+          <span jhiTranslate="familyTree.addMainUserButton" *ngIf="!submitting || (submitting && !main)"></span>
         </button>
       </div>
     </div>
@@ -43,14 +43,14 @@
       <table class="table table-hover mt-4">
         <thead class="thead-dark">
           <tr>
-            <th style="width: 25%" scope="col" jhiTranslate="farm.userName"></th>
-            <th style="width: 25%" scope="col" jhiTranslate="farm.email"></th>
-            <th style="width: 25%" scope="col" jhiTranslate="farm.userType"></th>
+            <th style="width: 25%" scope="col" jhiTranslate="familyTree.userName"></th>
+            <th style="width: 25%" scope="col" jhiTranslate="familyTree.email"></th>
+            <th style="width: 25%" scope="col" jhiTranslate="familyTree.userType"></th>
             <th style="width: 25%" scope="col"></th>
           </tr>
         </thead>
-        <tbody *ngIf="farm?.farmUsers" [class.loading]="submitting">
-          <tr *ngFor="let item of farm?.farmUsers">
+        <tbody *ngIf="familyTree?.familyTreeUsers" [class.loading]="submitting">
+          <tr *ngFor="let item of familyTree?.familyTreeUsers">
             <td>{{ item.userFirstName + ' ' + item.userLastName }}</td>
             <td>{{ item.userEmail }}</td>
             <td>{{ currentLanguage | async | showLanguage: item.type }}</td>

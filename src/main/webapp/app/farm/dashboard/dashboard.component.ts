@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { AccountService } from 'app/core/auth/account.service';
 import { first } from 'rxjs/operators';
-import { DashboardModel } from '../../farm-management/models/farm.model';
+import { DashboardModel } from '../../familyTree-management/models/familyTree.model';
 
 @Component({
-  selector: 'jhi-farm-dashboard',
+  selector: 'jhi-familyTree-dashboard',
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
   dashboardData?: DashboardModel;
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
   faEye = faEye;
   isCollapsed = window.innerWidth < 400 || false;
@@ -22,8 +22,8 @@ export class DashboardComponent implements OnInit {
     this.route.data.pipe(first()).subscribe(data => {
       this.dashboardData = data.dashboardData;
 
-      if (this.farm != null) {
-        if (this.farm.type.code === 'MAIN') {
+      if (this.familyTree != null) {
+        if (this.familyTree.type.code === 'MAIN') {
           this.isMain = true;
         }
       } else {

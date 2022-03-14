@@ -24,7 +24,7 @@ export class SubscriptionComponent implements OnInit {
   subscriptionStatuses = [];
 
   cancelling = false;
-  cancelMessage = 'farm.subscription.cancelActiveMessage';
+  cancelMessage = 'familyTree.subscription.cancelActiveMessage';
 
   constructor(
     public service: SubscriptionService,
@@ -76,9 +76,9 @@ export class SubscriptionComponent implements OnInit {
 
   cancel(id: number, statusCode: string): void {
     if (statusCode === 'ACTIVE') {
-      this.cancelMessage = 'farm.subscription.cancelActiveMessage';
+      this.cancelMessage = 'familyTree.subscription.cancelActiveMessage';
     } else {
-      this.cancelMessage = 'farm.subscription.cancelWaitingMessage';
+      this.cancelMessage = 'familyTree.subscription.cancelWaitingMessage';
     }
 
     this.confirmDeleteModal?.open(id);

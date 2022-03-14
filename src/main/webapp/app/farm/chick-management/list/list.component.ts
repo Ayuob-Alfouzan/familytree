@@ -36,7 +36,7 @@ export class ListChickComponent implements OnInit {
   deleting = false;
   adding = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   chickStatuses?: LookupModel[];
@@ -56,13 +56,13 @@ export class ListChickComponent implements OnInit {
     this.route.paramMap.pipe(first()).subscribe(paramMap => {
       const coopId = paramMap.get('coopId');
 
-      if (this.farm != null && coopId != null) {
+      if (this.familyTree != null && coopId != null) {
         if (this.service.coopId && this.service.coopId !== +coopId) {
           this.service.resetDefauleState();
         }
         this.service.coopId = +coopId;
 
-        if (this.farm.type.code === 'MAIN') {
+        if (this.familyTree.type.code === 'MAIN') {
           this.isMain = true;
         }
       } else {
@@ -137,7 +137,7 @@ export class ListChickComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteChickModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteChickModel = {
         coopId: this.service.coopId,
         chickId: id,

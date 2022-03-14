@@ -1,35 +1,35 @@
 <div class="d-flex flex-column body-card">
   <div class="d-flex justify-content-between flex-column flex-lg-row">
-    <h3 class="text-primary mt-md-2" jhiTranslate="farm.subscription.listTitle"></h3>
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.subscription.listTitle"></h3>
 
     <button
       type="button"
-      [routerLink]="['/', 'farm-management', 'subscription', 'add', service.farmId]"
+      [routerLink]="['/', 'familyTree-management', 'subscription', 'add', service.farmId]"
       class="btn btn-success"
       *ngIf="service.subscriptionAction?.canSubscribe"
     >
-      <span jhiTranslate="farm.subscription.addNewButton"></span>
+      <span jhiTranslate="familyTree.subscription.addNewButton"></span>
     </button>
 
     <button
       type="button"
-      [routerLink]="['/', 'farm-management', 'subscription', 'renew', service.farmId, service.subscriptionAction?.renewSubscriptionId]"
+      [routerLink]="['/', 'familyTree-management', 'subscription', 'renew', service.farmId, service.subscriptionAction?.renewSubscriptionId]"
       class="btn btn-success"
       *ngIf="service.subscriptionAction?.canRenew"
     >
-      <span jhiTranslate="farm.subscription.renewButton"></span>
+      <span jhiTranslate="familyTree.subscription.renewButton"></span>
     </button>
   </div>
 
   <form>
     <div class="form-group form-inline mt-4">
-      <label jhiTranslate="farm.status" class="col-md-2"></label>
+      <label jhiTranslate="familyTree.status" class="col-md-2"></label>
       <div class="col-md-4">
         <jhi-dropdown
           [data]="subscriptionStatuses"
           name="statusCode"
           [(ngModel)]="service.statusCode"
-          placeholder="farm.subscription.statusFilterPlaceholder"
+          placeholder="familyTree.subscription.statusFilterPlaceholder"
         >
         </jhi-dropdown>
       </div>
@@ -38,7 +38,7 @@
         <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
 
-          <span jhiTranslate="farm.listFilterButton" *ngIf="!service.loading"></span>
+          <span jhiTranslate="familyTree.listFilterButton" *ngIf="!service.loading"></span>
         </button>
       </div>
 
@@ -48,7 +48,7 @@
           (click)="service.clearFilters()"
           [disabled]="service.loading"
           class="btn btn-primary"
-          jhiTranslate="farm.clearFilterButton"
+          jhiTranslate="familyTree.clearFilterButton"
         ></button>
       </div>
     </div>
@@ -57,11 +57,11 @@
       <table class="table table-hover mt-4">
         <thead class="thead-dark">
           <tr>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.subscription.startDate"></th>
-            <th style="width: 20%" scope="col" jhiTranslate="farm.subscription.endDate"></th>
-            <th style="width: 15%" scope="col" jhiTranslate="farm.status"></th>
-            <th style="width: 10%" scope="col" jhiTranslate="farm.subscription.package"></th>
-            <th style="width: 15%" scope="col" jhiTranslate="farm.subscription.rangeEnd"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.subscription.startDate"></th>
+            <th style="width: 20%" scope="col" jhiTranslate="familyTree.subscription.endDate"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="familyTree.status"></th>
+            <th style="width: 10%" scope="col" jhiTranslate="familyTree.subscription.package"></th>
+            <th style="width: 15%" scope="col" jhiTranslate="familyTree.subscription.rangeEnd"></th>
             <th style="width: 20%" scope="col"></th>
           </tr>
         </thead>
@@ -77,9 +77,9 @@
                 *ngIf="item.canUpgrade"
                 type="button"
                 [disabled]="cancelling"
-                [routerLink]="['/', 'farm-management', 'subscription', 'upgrade', service.farmId, item.id]"
+                [routerLink]="['/', 'familyTree-management', 'subscription', 'upgrade', service.farmId, item.id]"
                 class="btn btn-primary btn-sm py-0"
-                jhiTranslate="farm.subscription.upgradeButton"
+                jhiTranslate="familyTree.subscription.upgradeButton"
               ></button>
 
               <button
@@ -91,7 +91,7 @@
               >
                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="cancelling"></span>
 
-                <span jhiTranslate="farm.subscription.cancelButton" *ngIf="!cancelling"></span>
+                <span jhiTranslate="familyTree.subscription.cancelButton" *ngIf="!cancelling"></span>
               </button>
 
               <a class="mx-md-2" [routerLink]="['..', 'view', service.farmId, item.id]">
@@ -103,7 +103,7 @@
 
         <caption>
           {{
-            'global.numberOfRecords' | translate: { fieldName: 'farm.subscription.listTitle' | translate }
+            'global.numberOfRecords' | translate: { fieldName: 'familyTree.subscription.listTitle' | translate }
           }}
           {{
             service.totalRecords

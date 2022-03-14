@@ -7,8 +7,8 @@ import { first } from 'rxjs/operators';
 import { AddGestationService } from './add.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepModel, SimpleSheepModel } from 'app/sheep-farm/models/sheep.model';
-import { AddGestationModel } from 'app/sheep-farm/models/gestation.model';
+import { SheepModel, SimpleSheepModel } from 'app/sheep-familyTree/models/sheep.model';
+import { AddGestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -16,7 +16,7 @@ import * as dayjs from 'dayjs';
   templateUrl: './add.component.html',
 })
 export class AddGestationComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   item?: SheepModel;
 
   form = this.fb.group({
@@ -47,7 +47,7 @@ export class AddGestationComponent implements OnInit {
     this.route.data.pipe(first()).subscribe(data => {
       this.item = data.item;
 
-      if (this.item && this.farm) {
+      if (this.item && this.familyTree) {
         let listType: string;
         if (this.item.gender.code === 'FEMALE') {
           this.form.get('ewe')?.setValue(this.item);
@@ -57,7 +57,7 @@ export class AddGestationComponent implements OnInit {
           listType = 'FEMALE';
         }
 
-        this.service.listSimple(this.farm.farmId, listType === 'MALE' ? ['RAM'] : ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
+        this.service.listSimple(this.familyTree.farmId, listType === 'MALE' ? ['RAM'] : ['EWE', 'PREGNANT', 'LAMBED']).subscribe(
           result => {
             if (listType === 'FEMALE') {
               this.ewes = result;
@@ -70,7 +70,7 @@ export class AddGestationComponent implements OnInit {
           }
         );
       } else {
-        this.router.navigate(['/', 'sheep-farm']);
+        this.router.navigate(['/', 'sheep-familyTree']);
       }
     });
   }
@@ -81,7 +81,7 @@ export class AddGestationComponent implements OnInit {
 
       this.service.add(this.createAddModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'view', this.item?.id]);
+          this.router.navigate(['/', 'sheep-familyTree', 'view', this.item?.id]);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },
@@ -98,7 +98,7 @@ export class AddGestationComponent implements OnInit {
   }
 
   createAddModel(): AddGestationModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: AddGestationModel = {
         eweId: this.form.get('ewe')?.value.id,
         ramId: this.form.get('ram')?.value.id,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { GestationModel, LambedGestationModel } from 'app/sheep-farm/models/gestation.model';
+import { GestationModel, LambedGestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import { Observable } from 'rxjs';
 
 @Injectable()

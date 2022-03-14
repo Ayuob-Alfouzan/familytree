@@ -92,7 +92,7 @@
     <div class="d-flex justify-content-between flex-lg-row">
       <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.fatherHeader"></h3>
 
-      <button type="button" [routerLink]="['/', 'sheep-farm', 'view', item.father.id]" class="btn btn-success">
+      <button type="button" [routerLink]="['/', 'sheep-familyTree', 'view', item.father.id]" class="btn btn-success">
         <span jhiTranslate="sheepFarm.viewButton"></span>
       </button>
     </div>
@@ -127,7 +127,7 @@
     <div class="d-flex justify-content-between flex-lg-row">
       <h3 class="text-primary mt-md-2" jhiTranslate="sheepFarm.motherHeader"></h3>
 
-      <button type="button" [routerLink]="['/', 'sheep-farm', 'view', item.mother.id]" class="btn btn-success">
+      <button type="button" [routerLink]="['/', 'sheep-familyTree', 'view', item.mother.id]" class="btn btn-success">
         <span jhiTranslate="sheepFarm.viewButton"></span>
       </button>
     </div>
@@ -178,11 +178,11 @@
   <section class="text-center">
     <button
       type="button"
-      [routerLink]="['/', 'sheep-farm', 'update', item?.id]"
+      [routerLink]="['/', 'sheep-familyTree', 'update', item?.id]"
       class="btn btn-primary"
       jhiTranslate="sheepFarm.updateButton"
     ></button>
 
-    <button type="button" [routerLink]="['/', 'sheep-farm', 'list']" class="btn btn-light" jhiTranslate="global.back"></button>
+    <button type="button" [routerLink]="['/', 'sheep-familyTree', 'list']" class="btn btn-light" jhiTranslate="global.back"></button>
   </section>
 </div>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { FarmModel } from './models/farm.model';
+import { FarmModel } from './models/familyTree.model';
 import { AccountService } from 'app/core/auth/account.service';
-import { FarmManagementService } from './farm-management.service';
+import { FarmManagementService } from './familyTree-management.service';
 
 @Injectable()
 export class FarmResolver implements Resolve<FarmModel> {

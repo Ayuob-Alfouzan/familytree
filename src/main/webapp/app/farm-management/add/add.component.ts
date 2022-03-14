@@ -8,11 +8,11 @@ import { LanguageService } from 'app/shared/language/language.service';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
 import { LookupCategoryModel } from 'app/shared/models/lookup.model';
 import { first } from 'rxjs/operators';
-import { AddFarmModel } from '../models/farm.model';
+import { AddFarmModel } from '../models/familyTree.model';
 import { AddFarmService } from './add.service';
 
 @Component({
-  selector: 'jhi-add-farm',
+  selector: 'jhi-add-familyTree',
   templateUrl: './add.component.html',
 })
 export class AddFarmComponent implements OnInit {
@@ -66,7 +66,7 @@ export class AddFarmComponent implements OnInit {
       this.service.add(this.createAddFarmModel()).subscribe(
         () => {
           this.accountService.identity(true).subscribe();
-          this.router.navigate(['/', 'farm-management']);
+          this.router.navigate(['/', 'familyTree-management']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },

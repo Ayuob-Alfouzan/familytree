@@ -9,6 +9,6 @@ export class HomeService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   getFarmDashboard(): Observable<FarmDashboardModel> {
-    return this.http.get<FarmDashboardModel>(this.applicationConfigService.getEndpointFor(`api/farm/global-dashboard`));
+    return this.http.get<FarmDashboardModel>(this.applicationConfigService.getEndpointFor(`api/familyTree/global-dashboard`));
   }
 }

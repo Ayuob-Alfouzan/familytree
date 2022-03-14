@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AccountService } from 'app/core/auth/account.service';
-import { SheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { ListSheepService } from '../list/list.service';
 import { ViewSheepService } from './view.service';
 

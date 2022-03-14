@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { farmRoutes } from './sheep-farm.route';
+import { farmRoutes } from './sheep-familyTree.route';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { FarmResolver } from './sheep-farm.resolver';
+import { FarmResolver } from './sheep-familyTree.resolver';
 import { NgbdSortableHeaderDirective } from './sortable.directive';
 import { DashboardResolver } from './dashboard/dashboard.resolver';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SheepFarmService } from './sheep-farm.service';
+import { SheepFarmService } from './sheep-familyTree.service';
 import { ListSheepComponent } from './sheep-management/list/list.component';
 import { ListSheepService } from './sheep-management/list/list.service';
 import { AddSheepComponent } from './sheep-management/add/add.component';

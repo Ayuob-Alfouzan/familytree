@@ -1,4 +1,0 @@
-id;farm_id;user_id;type_id;record_activity;created_by;created_date
-1;1;1;2;1;0;2020-01-01
-2;1;2;3;1;0;2020-01-01
-3;2;1;2;1;0;2020-01-01

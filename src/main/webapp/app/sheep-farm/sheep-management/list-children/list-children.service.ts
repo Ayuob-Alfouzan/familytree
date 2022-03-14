@@ -4,7 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ToastService } from 'app/core/util/toast.service';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
-import { SheepCriteria, SheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SheepCriteria, SheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -199,7 +199,7 @@ export class ListSheepChildrenService {
 
   private createBody(): SheepCriteria {
     if (this._state.farmId === 0) {
-      throw new Error('No farm');
+      throw new Error('No familyTree');
     }
 
     const body: SheepCriteria = {

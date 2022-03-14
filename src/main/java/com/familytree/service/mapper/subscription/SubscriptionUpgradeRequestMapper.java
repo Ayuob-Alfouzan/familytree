@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = { LookupMapper.class, InvoiceMapper.class, PackageMapper.class })
 public interface SubscriptionUpgradeRequestMapper extends EntityMapper<SubscriptionUpgradeRequestDTO, SubscriptionUpgradeRequest> {
-    @Mapping(source = "farm.id", target = "farmId")
+    @Mapping(source = "familyTree.id", target = "familyTreeId")
     @Mapping(source = "aPackage", target = "packageDTO")
     SubscriptionUpgradeRequestDTO toDto(SubscriptionUpgradeRequest subscriptionUpgradeRequest);
 }

@@ -4,7 +4,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { ToastService } from 'app/core/util/toast.service';
 import { LookupModel } from 'app/shared/models/lookup.model';
 import { Pageable } from 'app/shared/models/page.model';
-import { GestationCriteria, GestationModel, DeleteGestationModel } from 'app/sheep-farm/models/gestation.model';
+import { GestationCriteria, GestationModel, DeleteGestationModel } from 'app/sheep-familyTree/models/gestation.model';
 import { Dayjs } from 'dayjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

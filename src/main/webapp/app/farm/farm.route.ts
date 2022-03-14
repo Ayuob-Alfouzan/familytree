@@ -3,7 +3,7 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { LookupResolver } from 'app/shared/lookup/lookup.resolver';
 import { LookupEnum } from 'app/shared/lookup/lookup.enum';
-import { FarmResolver } from './farm.resolver';
+import { FarmResolver } from './familyTree.resolver';
 import { ListWarehouseComponent } from './warehouse-management/list/list.component';
 import { EditWarehouseComponent } from './warehouse-management/edit/edit-warehouse.component';
 import { WarehouseResolver } from './warehouse-management/warehouse.resolver';
@@ -34,7 +34,7 @@ export const farmRoutes: Route[] = [
     },
     resolve: {
       warehouse: WarehouseResolver,
-      farm: FarmResolver,
+      familyTree: FarmResolver,
     },
   },
   {

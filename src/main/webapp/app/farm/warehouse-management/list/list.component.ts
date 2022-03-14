@@ -29,7 +29,7 @@ export class ListWarehouseComponent implements OnInit {
   deleting = false;
   adding = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   constructor(
@@ -42,10 +42,10 @@ export class ListWarehouseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm != null) {
-      this.service.farmId = this.farm.farmId;
+    if (this.familyTree != null) {
+      this.service.farmId = this.familyTree.farmId;
 
-      if (this.farm.type.code === 'MAIN') {
+      if (this.familyTree.type.code === 'MAIN') {
         this.isMain = true;
       }
     } else {
@@ -96,9 +96,9 @@ export class ListWarehouseComponent implements OnInit {
   }
 
   createDeleteModel(id: number): DeleteWarehouseModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: DeleteWarehouseModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         warehouseId: id,
       };
 
@@ -109,9 +109,9 @@ export class ListWarehouseComponent implements OnInit {
   }
 
   createAddModel(): AddWarehouseModel {
-    if (this.farm != null) {
+    if (this.familyTree != null) {
       const data: AddWarehouseModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         number: this.form.get('number')?.value,
       };
 

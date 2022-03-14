@@ -10,9 +10,9 @@ import { first } from 'rxjs/operators';
 import { AddSheepTreatmentService } from './add.service';
 import { LanguageService } from 'app/shared/language/language.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { AddSheepTreatmentModel } from 'app/sheep-farm/models/treatment.model';
+import { AddSheepTreatmentModel } from 'app/sheep-familyTree/models/treatment.model';
 import * as dayjs from 'dayjs';
-import { SimpleSheepModel } from 'app/sheep-farm/models/sheep.model';
+import { SimpleSheepModel } from 'app/sheep-familyTree/models/sheep.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
@@ -20,7 +20,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   templateUrl: './add.component.html',
 })
 export class AddSheepTreatmentComponent implements OnInit {
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
 
   form = this.fb.group({
     type: [null, [Validators.required]],
@@ -66,8 +66,8 @@ export class AddSheepTreatmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm) {
-      this.service.listSimple(this.farm.farmId).subscribe(result => {
+    if (this.familyTree) {
+      this.service.listSimple(this.familyTree.farmId).subscribe(result => {
         this.sheep = result;
       });
     } else {
@@ -132,7 +132,7 @@ export class AddSheepTreatmentComponent implements OnInit {
 
       this.service.add(this.createModel()).subscribe(
         () => {
-          this.router.navigate(['/', 'sheep-farm', 'list-sheep-treatment']);
+          this.router.navigate(['/', 'sheep-familyTree', 'list-sheep-treatment']);
           this.submitting = false;
           this.toastService.success('global.message.successfullyAdded');
         },
@@ -149,9 +149,9 @@ export class AddSheepTreatmentComponent implements OnInit {
   }
 
   createModel(): AddSheepTreatmentModel {
-    if (this.farm) {
+    if (this.familyTree) {
       const data: AddSheepTreatmentModel = {
-        farmId: this.farm.farmId,
+        farmId: this.familyTree.farmId,
         type: this.form.get('type')?.value.code,
         name: this.form.get('name')?.value,
         doseType: this.form.get('doseType')?.value.code,

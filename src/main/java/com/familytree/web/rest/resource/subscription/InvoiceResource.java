@@ -34,17 +34,17 @@ public class InvoiceResource {
         return ResponseEntity.ok(invoiceService.list(invoiceCriteria, pageable));
     }
 
-    @GetMapping("/get/{farmId}/{invoiceId}")
+    @GetMapping("/get/{familyTreeId}/{invoiceId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<InvoiceDTO> get(@PathVariable Long farmId, @PathVariable Long invoiceId) {
-        return ResponseEntity.ok(invoiceService.get(farmId, invoiceId));
+    public ResponseEntity<InvoiceDTO> get(@PathVariable Long familyTreeId, @PathVariable Long invoiceId) {
+        return ResponseEntity.ok(invoiceService.get(familyTreeId, invoiceId));
     }
 
-    @GetMapping("/print/{farmId}/{invoiceId}")
+    @GetMapping("/print/{familyTreeId}/{invoiceId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public void print(@PathVariable("farmId") Long farmId, @PathVariable("invoiceId") Long invoiceId, HttpServletResponse response)
+    public void print(@PathVariable("familyTreeId") Long familyTreeId, @PathVariable("invoiceId") Long invoiceId, HttpServletResponse response)
         throws IOException {
-        byte[] pdf = invoiceService.print(farmId, invoiceId);
+        byte[] pdf = invoiceService.print(familyTreeId, invoiceId);
 
         response.setHeader("Content-Type", "application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=invoice-" + invoiceId + ".pdf");

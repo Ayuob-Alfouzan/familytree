@@ -24,7 +24,7 @@ export class ListSheepTreatmentComponent implements OnInit {
   currentLanguage = this.languageService.onLangChange();
   deleting = false;
 
-  farm = this.accountService.selectedFarm;
+  familyTree = this.accountService.selectedFarm;
   isMain = false;
 
   sheepTreatmentTypes = [];
@@ -39,14 +39,14 @@ export class ListSheepTreatmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.farm != null) {
-      if (this.service.farmId && this.service.farmId !== +this.farm.farmId) {
+    if (this.familyTree != null) {
+      if (this.service.farmId && this.service.farmId !== +this.familyTree.farmId) {
         this.service.resetDefauleState();
       }
 
-      this.service.farmId = +this.farm.farmId;
+      this.service.farmId = +this.familyTree.farmId;
 
-      if (this.farm.type.code === 'MAIN') {
+      if (this.familyTree.type.code === 'MAIN') {
         this.isMain = true;
       }
     } else {
