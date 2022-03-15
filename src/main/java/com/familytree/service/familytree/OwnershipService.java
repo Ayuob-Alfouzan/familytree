@@ -3,6 +3,7 @@ package com.familytree.service.familytree;
 import com.familytree.domain.familytree.*;
 import com.familytree.domain.subscription.Subscription;
 import com.familytree.repository.familytree.*;
+import com.familytree.repository.graph.PersonRepository;
 import com.familytree.repository.subscription.SubscriptionRepository;
 import com.familytree.security.SecurityUtils;
 import com.familytree.service.lookup.FamilyTreeUserTypeEnum;
@@ -17,12 +18,16 @@ public class OwnershipService {
 
     private final SubscriptionRepository subscriptionRepository;
 
+    private final PersonRepository personRepository;
+
     public OwnershipService(
         FamilyTreeRepository familyTreeRepository,
-        SubscriptionRepository subscriptionRepository
+        SubscriptionRepository subscriptionRepository,
+        PersonRepository personRepository
     ) {
         this.familyTreeRepository = familyTreeRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.personRepository = personRepository;
     }
 
     @Transactional(readOnly = true)
@@ -66,17 +71,17 @@ public class OwnershipService {
             .orElseThrow(() -> new BadRequestException("not_found"));
     }
 
-//    @Transactional(readOnly = true)
-//    public void checkSheepPackageLimitationForSheepFamilyTree(Long familyTreeId, int numberOfSheepToAdd) {
-//        Subscription subscription = checkHasActiveSubscription(familyTreeId);
-//
-//        int numberOfSheep = sheepRepository.countByFamilyTree_IdAndRecordActivityIsTrue(familyTreeId);
-//        numberOfSheep += numberOfSheepToAdd;
-//
-//        if (numberOfSheep > subscription.getRangeEnd()) {
-//            throw new BadRequestException("subscription.range_end_reached");
-//        }
-//    }
+    @Transactional(readOnly = true)
+    public void checkFamilyTreePackageLimitation(Long familyTreeId, int numberOfPersonsToAdd) {
+        Subscription subscription = checkHasActiveSubscription(familyTreeId);
+
+        int numberOfPersons = personRepository.findByFamilyTreeIdAndRecordActivityIsTrue(familyTreeId);
+        numberOfPersons += numberOfPersonsToAdd;
+
+        if (numberOfPersons > subscription.getRangeEnd()) {
+            throw new BadRequestException("subscription.range_end_reached");
+        }
+    }
 
     @Transactional(readOnly = true)
     public Subscription checkHasActiveSubscription(Long familyTreeId) {

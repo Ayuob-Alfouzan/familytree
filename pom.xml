@@ -391,6 +391,12 @@
             <artifactId>poi-ooxml</artifactId>
             <version>4.0.0</version>
         </dependency>
+
+        <!-- neo4j -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-neo4j</artifactId>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 

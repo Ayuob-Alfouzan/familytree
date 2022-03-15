@@ -47,7 +47,7 @@
                                  referencedTableName="lookup"/>
     </changeSet>
 
-    <changeSet id="20211011212202" author="ayuob">
+    <changeSet id="20211011212203" author="ayuob">
         <loadUpdateData
             primaryKey="id"
             tableName="package"
@@ -108,7 +108,7 @@
                                  referencedTableName="lookup"/>
     </changeSet>
 
-    <changeSet id="20211011210300" author="ayuob">
+    <changeSet id="20211011210301" author="ayuob">
         <loadUpdateData
             primaryKey="id"
             tableName="invoice"

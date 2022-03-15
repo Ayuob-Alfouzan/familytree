@@ -15,7 +15,6 @@ public class UserDTO {
     private String fileContentType;
     private Boolean recordActivity;
     private Boolean mostResetPassword;
-    private Long organizationId;
 
     public Long getId() {
         return id;
@@ -119,13 +118,5 @@ public class UserDTO {
 
     public void setMostResetPassword(Boolean mostResetPassword) {
         this.mostResetPassword = mostResetPassword;
-    }
-
-    public Long getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
     }
 }

@@ -7,8 +7,6 @@ public class FamilyTreeListDTO {
     private Long id;
     private LookupDTO type;
     private String nameAr;
-    private String nameEn;
-    private String location;
     private Boolean recordActivity;
 
     public Long getId() {
@@ -35,22 +33,6 @@ public class FamilyTreeListDTO {
         this.nameAr = nameAr;
     }
 
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public Boolean getRecordActivity() {
         return recordActivity;
     }
@@ -62,23 +44,7 @@ public class FamilyTreeListDTO {
     @Override
     public String toString() {
         return (
-            "FamilyTreeListDTO{" +
-            "id=" +
-            id +
-            ", type=" +
-            type +
-            ", nameAr='" +
-            nameAr +
-            '\'' +
-            ", nameEn='" +
-            nameEn +
-            '\'' +
-            ", location='" +
-            location +
-            '\'' +
-            ", recordActivity=" +
-            recordActivity +
-            '}'
+            "FamilyTreeListDTO{" + "id=" + id + ", type=" + type + ", nameAr='" + nameAr + '\'' + ", recordActivity=" + recordActivity + '}'
         );
     }
 }
