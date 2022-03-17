@@ -1,9 +1,12 @@
 package com.familytree.service.familytree;
 
+import com.familytree.domain.enumeration.Gender;
+import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.Person;
 import com.familytree.repository.graph.PersonRepository;
 import com.familytree.service.util.exception.BadRequestException;
 import com.familytree.web.rest.vm.familytree.*;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -142,5 +145,16 @@ public class TreeService {
     @Transactional
     public void deletePerson(DeletePersonVM person) {
         personRepository.delete(personRepository.findById(person.getId()).orElseThrow(() -> new BadRequestException("not_found")));
+    }
+
+    @Transactional
+    public void addPerson() {
+        Person person = new Person();
+        person.setFamilyTreeId(1851L);
+        person.setName("mhsds j");
+        person.setDateOfBirth("2022-01-01");
+        person.setGender(Gender.MALE);
+        person.setStatus(LifeStatus.ALIVE);
+        personRepository.save(person);
     }
 }

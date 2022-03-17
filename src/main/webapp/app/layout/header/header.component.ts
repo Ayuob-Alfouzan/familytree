@@ -44,13 +44,16 @@ export class HeaderComponent implements OnInit {
   }
 
   selectFamilyTree(selectedFamilyTree: FamilyTreeModel): void {
+    console.log('11');
     this.selectedFamilyTree = selectedFamilyTree;
     this.accountService.selectedFamilyTree = selectedFamilyTree;
-
-    if (this.router.url === '/family-tree/dashboard') {
-      this.router.navigate(['/', 'family-tree', 'dashboard']).then(() => {
+    console.log('22');
+    if (this.router.url === '/family-tree') {
+      this.router.navigate(['/', 'family-tree']).then(() => {
         window.location.reload();
       });
+    } else {
+      this.router.navigate(['/', 'family-tree']);
     }
   }
 

@@ -39,24 +39,17 @@ export class HomeComponent implements OnInit {
   }
 
   selectFamilyTree(selectedFamilyTree: FamilyTreeModel): void {
+    console.log('11');
     this.accountService.selectedFamilyTree = selectedFamilyTree;
-
-    if (selectedFamilyTree.familyTreeType.code === 'PIGEON') {
-      if (this.router.url === '/familyTree/dashboard') {
-        this.router.navigate(['/', 'familyTree', 'dashboard']).then(() => {
-          window.location.reload();
-        });
-      } else {
-        this.router.navigate(['/', 'familyTree', 'dashboard']);
-      }
+    console.log('22');
+    if (this.router.url === '/family-tree') {
+      console.log('33');
+      this.router.navigate(['/', 'family-tree']).then(() => {
+        window.location.reload();
+      });
     } else {
-      if (this.router.url === '/sheep-family-tree/list') {
-        this.router.navigate(['/', 'sheep-familyTree', 'list']).then(() => {
-          window.location.reload();
-        });
-      } else {
-        this.router.navigate(['/', 'sheep-family-tree', 'list']);
-      }
+      console.log('44');
+      this.router.navigate(['/', 'family-tree']);
     }
   }
 

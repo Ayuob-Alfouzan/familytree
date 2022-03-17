@@ -1,6 +1,9 @@
 package com.familytree.web.rest.resource.familytree;
 
+import com.familytree.domain.enumeration.Gender;
+import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.Person;
+import com.familytree.repository.graph.PersonRepository;
 import com.familytree.security.AuthoritiesConstants;
 import com.familytree.service.familytree.TreeService;
 import com.familytree.web.rest.vm.familytree.*;
@@ -10,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,12 +23,14 @@ public class TreeResource {
     private final Logger log = LoggerFactory.getLogger(TreeResource.class);
 
     private final TreeService treeService;
+    private final PersonRepository personRepository;
 
-    public TreeResource(TreeService treeService) {
+    public TreeResource(TreeService treeService, PersonRepository personRepository) {
         this.treeService = treeService;
+        this.personRepository = personRepository;
     }
 
-    @GetMapping("/get-family/{familyId}")
+    @GetMapping("/get-family/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<TreeResponseVM> getFamilyTree(@Valid @PathVariable Long familyTreeId) throws URISyntaxException {
         return ResponseEntity.ok().body(new TreeResponseVM(treeService.getTree(familyTreeId)));
@@ -54,5 +60,12 @@ public class TreeResource {
     public ResponseEntity<Boolean> deletePerson(@RequestBody @Valid DeletePersonVM person) throws URISyntaxException {
         treeService.deletePerson(person);
         return ResponseEntity.ok().body(true);
+    }
+
+    @PostMapping("/adda-person")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    @Transactional
+    public void addPerson() {
+        treeService.addPerson();
     }
 }

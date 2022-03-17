@@ -51,6 +51,10 @@ import { PricingComponent } from './static/pricing/pricing.component';
           loadChildren: () => import('./family-tree-management/family-tree-management.module').then(m => m.FamilyTreeManagementModule),
         },
         {
+          path: 'family-tree',
+          loadChildren: () => import('./family-tree/family-tree.module').then(m => m.FamilyTreeModule),
+        },
+        {
           path: 'contact-us',
           component: ContactUsComponent,
         },
