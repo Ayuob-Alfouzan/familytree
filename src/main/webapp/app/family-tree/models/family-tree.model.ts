@@ -33,6 +33,8 @@ export interface DataModel {
 
 export interface FTHierarchyNode<Datum> extends d3.HierarchyNode<Datum> {
   _children?: this[] | undefined;
+  x?: number;
+  y?: number;
   x0?: number;
   y0?: number;
 }

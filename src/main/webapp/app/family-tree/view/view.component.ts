@@ -32,17 +32,17 @@ export class ViewFamilyTreeComponent implements OnInit {
         name: 'Level 2: B',
         parent: 'Top Level',
       },
-      {
-        name: 'Level 2: C',
-        parent: 'Top Level',
-      },
+      // {
+      //   name: 'Level 2: C',
+      //   parent: 'Top Level',
+      // },
     ],
   };
 
   margin = { top: 20, right: 90, bottom: 30, left: 90 };
   width = 960 - this.margin.left - this.margin.right;
   height = 500 - this.margin.top - this.margin.bottom;
-  treemap = d3.tree<DataModel>().size([this.height, this.width]);
+  treemap!: d3.TreeLayout<DataModel>;
   svg!: d3.Selection<SVGGElement, any, HTMLElement, any>;
   root!: FTHierarchyNode<DataModel>;
   i = 0;
@@ -59,9 +59,10 @@ export class ViewFamilyTreeComponent implements OnInit {
       .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
     // declares a tree layout and assigns the size
+    this.treemap = d3.tree<DataModel>().size([this.height, this.width]);
 
     // Assigns parent, children, height, depth
-    this.root = d3.hierarchy(this.treeData, d => d.children);
+    this.root = d3.hierarchy<DataModel>(this.treeData, d => d.children);
     this.root.x0 = this.height / 2;
     this.root.y0 = 0;
 
@@ -78,27 +79,20 @@ export class ViewFamilyTreeComponent implements OnInit {
     const nodes = treeData.descendants() as FTHierarchyPointNode<DataModel>[];
 
     // Normalize for fixed-depth.
-    nodes.forEach(function (d) {
-      d.y = d.depth * 180;
-    });
+    nodes.forEach(d => (d.y = d.depth * 180));
 
+    // ****************** Nodes section ***************************
     // Update the nodes...
-    const node: d3.Selection<
-      SVGGElement,
-      FTHierarchyPointNode<DataModel>,
-      SVGGElement,
-      FTHierarchyPointNode<DataModel>
-    > = this.svg.selectAll('g.node');
-    const data: d3.Selection<SVGGElement, FTHierarchyPointNode<DataModel>, SVGGElement, FTHierarchyPointNode<DataModel>> = node.data(
-      nodes,
-      (d: any) => d.id || (d.id = ++this.i)
-    );
+    const node: d3.Selection<any, FTHierarchyPointNode<DataModel>, SVGGElement, FTHierarchyPointNode<DataModel>> = this.svg
+      .selectAll('g.node')
+      .data(nodes, (d: any) => d.id || (d.id = ++this.i));
 
-    const nodeEnter = data
+    // Enter any new modes at the parent's previous position.
+    const nodeEnter = node
       .enter()
       .append('g')
       .attr('class', 'node')
-      .attr('transform', d => `translate(${source.y0 ? source.y0 : 0},${source.x0 ? source.x0 : 0})`)
+      .attr('transform', d => `translate(${source.y0 !== undefined ? source.y0 : 0},${source.x0 !== undefined ? source.x0 : 0})`)
       .on('click', (x, y) => this.click(x, y));
 
     nodeEnter
@@ -117,6 +111,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       });
 
     const duration = 750;
+
     // UPDATE
     const nodeUpdate = nodeEnter.merge(node);
 
@@ -134,11 +129,11 @@ export class ViewFamilyTreeComponent implements OnInit {
       .attr('cursor', 'pointer');
 
     // Remove any exiting nodes
-    const nodeExit = data
+    const nodeExit = node
       .exit<FTHierarchyPointNode<DataModel>>()
       .transition()
       .duration(duration)
-      .attr('transform', d => `translate(${d.y},${d.x})`)
+      .attr('transform', d => `translate(${source.y !== undefined ? source.y : d.y},${source.x !== undefined ? source.x : d.x})`)
       .remove();
 
     // // On exit reduce the node circles size to 0
@@ -148,7 +143,8 @@ export class ViewFamilyTreeComponent implements OnInit {
     nodeExit.select('text').style('fill-opacity', 1e-6);
 
     // ****************** links section ***************************
-    const link: d3.Selection<any, any, SVGGElement, any> = this.svg.selectAll('path.link').data(this.root.links(), (d: any) => d.id);
+    const links = treeData.descendants().slice(1);
+    const link: d3.Selection<any, any, SVGGElement, any> = this.svg.selectAll('path.link').data(links, (d: any) => d.id);
 
     // Enter any new links at the parent's previous position.
     const linkEnter = link
@@ -156,7 +152,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .insert('path', 'g')
       .attr('class', 'link')
       .attr('d', d => {
-        if (source.x0 && source.y0) {
+        if (source.x0 !== undefined && source.y0 !== undefined) {
           const o = { x: source.x0, y: source.y0 };
           return this.diagonal(o, o);
         } else {
@@ -171,16 +167,20 @@ export class ViewFamilyTreeComponent implements OnInit {
     linkUpdate
       .transition()
       .duration(duration)
-      .attr('d', d => this.diagonal(d.source, d.target));
+      .attr('d', d => this.diagonal(d, d.parent));
 
     // Remove any exiting links
     link
       .exit()
       .transition()
       .duration(duration)
-      .attr('d', (d: any) => {
-        const o = { x: d.x, y: d.y };
-        return this.diagonal(o, o);
+      .attr('d', d => {
+        if (source.x !== undefined && source.y !== undefined) {
+          const o = { x: source.x, y: source.y };
+          return this.diagonal(o, o);
+        } else {
+          return null;
+        }
       })
       .remove();
 
@@ -215,8 +215,6 @@ export class ViewFamilyTreeComponent implements OnInit {
   }
 
   addaPerson(): void {
-    this.service.get().subscribe(() => {
-      console.log('1');
-    });
+    this.service.get().subscribe();
   }
 }
