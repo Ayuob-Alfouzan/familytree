@@ -508,7 +508,7 @@ div.tree-container {
 }
 
 .node ellipse {
-  fill: none;
+  fill: #fff;
   stroke-width: 1px;
 }
 
@@ -518,6 +518,10 @@ div.tree-container {
 
 .node ellipse.female {
   stroke: pink;
+}
+
+.node ellipse.have-children {
+  fill: lightgray;
 }
 
 .link {

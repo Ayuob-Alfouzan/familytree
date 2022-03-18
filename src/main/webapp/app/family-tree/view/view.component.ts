@@ -106,7 +106,10 @@ export class ViewFamilyTreeComponent implements OnInit {
       .select('ellipse.node')
       .attr('rx', 30)
       .attr('ry', 20)
-      .style('fill', d => (d._children ? 'lightsteelblue' : '#fff'))
+      .classed('have-children', d => {
+        console.log(d);
+        return d._children ? true : false;
+      })
       .attr('cursor', 'pointer');
 
     // Remove any exiting nodes
