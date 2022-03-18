@@ -106,10 +106,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .select('ellipse.node')
       .attr('rx', 30)
       .attr('ry', 20)
-      .classed('have-children', d => {
-        console.log(d);
-        return d._children ? true : false;
-      })
+      .classed('have-children', d => (d._children ? true : false))
       .attr('cursor', 'pointer');
 
     // Remove any exiting nodes
@@ -188,8 +185,23 @@ export class ViewFamilyTreeComponent implements OnInit {
       d._children = undefined;
     }
     this.update(d);
+
+    // collapse others on the same level // TODO fix node and link exit location
+    if (d.children && d.parent) {
+      // this.collapseOthers(d.id, d.parent);
+    }
   }
 
+  collapseOthers(id: string | undefined, parent: FTHierarchyNode<PersonModel>): void {
+    if (id !== undefined && parent.children) {
+      parent.children.forEach(d => {
+        if (d.id !== undefined && d.id !== id) {
+          this.collapse(d);
+          this.update(d);
+        }
+      });
+    }
+  }
   collapse(d: FTHierarchyNode<PersonModel>): void {
     if (d.children) {
       d._children = d.children;
