@@ -3,6 +3,7 @@ package com.familytree.service.dto.familytree;
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.Person;
+import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ public class PersonDTO {
     private Long id;
     private Long familyTreeId;
     private String name;
-    private String dateOfBirth;
+    private Instant dateOfBirth;
     private Gender gender;
     private Boolean recordActivity;
     private LifeStatus status;
@@ -48,11 +49,11 @@ public class PersonDTO {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public Instant getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Instant dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

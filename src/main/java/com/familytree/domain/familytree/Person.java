@@ -2,6 +2,7 @@ package com.familytree.domain.familytree;
 
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,8 @@ public class Person {
     @NotNull
     private String name;
 
-    private String dateOfBirth;
+    @NotNull
+    private Instant dateOfBirth;
 
     @NotNull
     private Gender gender;
@@ -128,11 +130,11 @@ public class Person {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public Instant getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Instant dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

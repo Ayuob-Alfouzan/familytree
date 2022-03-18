@@ -12,3 +12,7 @@ id;category;code;ar;en;record_order
 11;SUBSCRIPTION_STATUS;CANCELLED;ملغي;Cancelled;4
 12;INVOICE_TYPE;SUBSCRIPTION;اشتراك;Subscription;1
 13;INVOICE_TYPE;SUBSCRIPTION_UPGRADE;ترقية اشتراك;Subscription Upgrade;2
+14;GENDER;MALE;ذكر;Male;1
+15;GENDER;FEMALE;أنثى;Female;1
+16;LIFE_STATUS;ALIVE;حي;Alive;2
+17;LIFE_STATUS;DEAD;ميت;Dead;1

@@ -114,7 +114,7 @@ export class AppModule {
 
     // Datepicker
     dayjs.locale('Riyadh');
-    dpConfig.minDate = { year: dayjs().subtract(10, 'year').year(), month: 1, day: 1 };
+    dpConfig.minDate = { year: dayjs().subtract(300, 'year').year(), month: 1, day: 1 };
     dpConfig.firstDayOfWeek = 7;
 
     // translation

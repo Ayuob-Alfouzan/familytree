@@ -1,0 +1,11 @@
+<ng-container *ngIf="person">
+  <ng-container *ngIf="page === 'VIEW'">
+    <jhi-view-person [person]="person" (action)="viewAction($event)"></jhi-view-person>
+  </ng-container>
+  <ng-container *ngIf="page === 'ADD'">
+    <jhi-add-person [person]="person" (action)="addAction($event)" (addedPerson)="gotAddedPerson($event)"></jhi-add-person>
+  </ng-container>
+</ng-container>
+<div *ngIf="!person">
+  <h3 class="text-primary mt-md-2"></h3>
+</div>

@@ -9,7 +9,7 @@
 
     <label jhiTranslate="person.dateOfBirth" class="col-md-4 p-0"></label>
     <div class="col-md-8 p-0">
-      <span>{{ person?.dateOfBirth }}</span>
+      <span>{{ person?.dateOfBirth | date: 'yyyy-MM-dd' }}</span>
     </div>
 
     <label jhiTranslate="person.gender" class="col-md-4 p-0"></label>
@@ -37,4 +37,11 @@
       <span>{{ person?.job }}</span>
     </div>
   </div>
+
+  <div class="mx-md-2 form-btn text-center" *ngIf="person?.gender?.toLowerCase() === 'male'">
+    <button type="submit" (click)="addChild()" class="btn btn-success" jhiTranslate="person.addChildButton"></button>
+  </div>
+</div>
+<div *ngIf="person === undefined">
+  <h3 class="text-primary mt-md-2"></h3>
 </div>

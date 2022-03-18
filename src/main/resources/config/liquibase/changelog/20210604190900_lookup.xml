@@ -25,7 +25,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="202107131641032" author="ayuob">
+    <changeSet id="202107131641033" author="ayuob">
         <loadUpdateData
             primaryKey="id"
             tableName="lookup"

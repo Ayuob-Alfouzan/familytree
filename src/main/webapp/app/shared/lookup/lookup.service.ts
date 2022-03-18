@@ -11,6 +11,8 @@ export class LookupService {
   private _familyTreeTypes: LookupModel[] = [];
   private _invoiceStatuses: LookupModel[] = [];
   private _subscriptionStatuses: LookupModel[] = [];
+  private _genders: LookupModel[] = [];
+  private _lifeStatuses: LookupModel[] = [];
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
@@ -26,6 +28,10 @@ export class LookupService {
         return this.loadInvoiceStatuses();
       case LookupEnum.SubscriptionStatus:
         return this.loadSubscriptionStatuses();
+      case LookupEnum.Gender:
+        return this.loadGenders();
+      case LookupEnum.LifeStatus:
+        return this.loadLifeStatuses();
       default:
         return of([] as LookupModel[]);
     }
@@ -52,6 +58,22 @@ export class LookupService {
       return of(this._subscriptionStatuses);
     } else {
       return this.getLookup(LookupEnum.SubscriptionStatus).pipe(tap(x => (this._subscriptionStatuses = x)));
+    }
+  }
+
+  private loadGenders(): Observable<LookupModel[]> {
+    if (this._genders.length > 0) {
+      return of(this._genders);
+    } else {
+      return this.getLookup(LookupEnum.Gender).pipe(tap(x => (this._genders = x)));
+    }
+  }
+
+  private loadLifeStatuses(): Observable<LookupModel[]> {
+    if (this._lifeStatuses.length > 0) {
+      return of(this._lifeStatuses);
+    } else {
+      return this.getLookup(LookupEnum.LifeStatus).pipe(tap(x => (this._lifeStatuses = x)));
     }
   }
 

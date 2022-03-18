@@ -9,6 +9,8 @@ import com.familytree.service.dto.familytree.PersonDTO;
 import com.familytree.service.mapper.familytree.PersonMapper;
 import com.familytree.service.util.exception.BadRequestException;
 import com.familytree.web.rest.vm.familytree.*;
+import java.time.Instant;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -42,32 +44,22 @@ public class TreeService {
     }
 
     @Transactional
-    public Person addPerson(AddPersonVM person) {
-        Person newPerson = personRepository.save(person.toEntity());
+    public Person addPerson(AddPersonVM requestVM) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(requestVM.getFamilyTreeId());
+        ownershipService.checkFamilyTreePackageLimitation(familyTree.getId(), 1);
 
-        if (person.getHeadOfHousehold() != null) {
-            personRepository
-                .findById(person.getHeadOfHousehold())
-                .ifPresent(
-                    it -> {
-                        it.getChildren().add(newPerson);
-                        personRepository.save(it);
-                    }
-                );
-        }
+        Person person = requestVM.toEntity();
 
-        if (person.getSpouse() != null) {
-            personRepository
-                .findById(person.getSpouse())
-                .ifPresent(
-                    it -> {
-                        it.getWives().add(newPerson);
-                        personRepository.save(it);
-                    }
-                );
-        }
+        personRepository
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), requestVM.getFatherId())
+            .ifPresent(
+                it -> {
+                    it.getChildren().add(person);
+                    personRepository.save(it);
+                }
+            );
 
-        return newPerson;
+        return person;
     }
 
     @Transactional
@@ -132,161 +124,161 @@ public class TreeService {
         Person grandfather = new Person();
         grandfather.setFamilyTreeId(1851L);
         grandfather.setName("عبدالله");
-        grandfather.setDateOfBirth("2022-01-01");
+        grandfather.setDateOfBirth(Instant.now());
         grandfather.setGender(Gender.MALE);
         grandfather.setStatus(LifeStatus.ALIVE);
 
         Person person1 = new Person();
         person1.setFamilyTreeId(1851L);
         person1.setName("صالح");
-        person1.setDateOfBirth("2022-01-01");
+        person1.setDateOfBirth(Instant.now());
         person1.setGender(Gender.MALE);
         person1.setStatus(LifeStatus.ALIVE);
 
         Person child11 = new Person();
         child11.setFamilyTreeId(1851L);
         child11.setName("امجاد");
-        child11.setDateOfBirth("2022-01-01");
+        child11.setDateOfBirth(Instant.now());
         child11.setGender(Gender.FEMALE);
         child11.setStatus(LifeStatus.ALIVE);
 
         Person child12 = new Person();
         child12.setFamilyTreeId(1851L);
         child12.setName("ايوب");
-        child12.setDateOfBirth("2022-01-01");
+        child12.setDateOfBirth(Instant.now());
         child12.setGender(Gender.MALE);
         child12.setStatus(LifeStatus.ALIVE);
 
         Person child13 = new Person();
         child13.setFamilyTreeId(1851L);
         child13.setName("معاذ");
-        child13.setDateOfBirth("2022-01-01");
+        child13.setDateOfBirth(Instant.now());
         child13.setGender(Gender.MALE);
         child13.setStatus(LifeStatus.ALIVE);
 
         Person child14 = new Person();
         child14.setFamilyTreeId(1851L);
         child14.setName("طارق");
-        child14.setDateOfBirth("2022-01-01");
+        child14.setDateOfBirth(Instant.now());
         child14.setGender(Gender.MALE);
         child14.setStatus(LifeStatus.ALIVE);
 
         Person child15 = new Person();
         child15.setFamilyTreeId(1851L);
         child15.setName("عبدالله");
-        child15.setDateOfBirth("2022-01-01");
+        child15.setDateOfBirth(Instant.now());
         child15.setGender(Gender.MALE);
         child15.setStatus(LifeStatus.ALIVE);
 
         Person child16 = new Person();
         child16.setFamilyTreeId(1851L);
         child16.setName("زياد");
-        child16.setDateOfBirth("2022-01-01");
+        child16.setDateOfBirth(Instant.now());
         child16.setGender(Gender.MALE);
         child16.setStatus(LifeStatus.ALIVE);
 
         Person child17 = new Person();
         child17.setFamilyTreeId(1851L);
         child17.setName("اشراق");
-        child17.setDateOfBirth("2022-01-01");
+        child17.setDateOfBirth(Instant.now());
         child17.setGender(Gender.FEMALE);
         child17.setStatus(LifeStatus.ALIVE);
 
         Person child18 = new Person();
         child18.setFamilyTreeId(1851L);
         child18.setName("امتنان");
-        child18.setDateOfBirth("2022-01-01");
+        child18.setDateOfBirth(Instant.now());
         child18.setGender(Gender.FEMALE);
         child18.setStatus(LifeStatus.ALIVE);
 
         Person child19 = new Person();
         child19.setFamilyTreeId(1851L);
         child19.setName("ايثار");
-        child19.setDateOfBirth("2022-01-01");
+        child19.setDateOfBirth(Instant.now());
         child19.setGender(Gender.FEMALE);
         child19.setStatus(LifeStatus.ALIVE);
 
         Person child110 = new Person();
         child110.setFamilyTreeId(1851L);
         child110.setName("ابتهاج");
-        child110.setDateOfBirth("2022-01-01");
+        child110.setDateOfBirth(Instant.now());
         child110.setGender(Gender.FEMALE);
         child110.setStatus(LifeStatus.ALIVE);
 
         Person child111 = new Person();
         child111.setFamilyTreeId(1851L);
         child111.setName("ابيان");
-        child111.setDateOfBirth("2022-01-01");
+        child111.setDateOfBirth(Instant.now());
         child111.setGender(Gender.FEMALE);
         child111.setStatus(LifeStatus.ALIVE);
 
         Person child121 = new Person();
         child121.setFamilyTreeId(1851L);
         child121.setName("لولو");
-        child121.setDateOfBirth("2022-01-01");
+        child121.setDateOfBirth(Instant.now());
         child121.setGender(Gender.FEMALE);
         child121.setStatus(LifeStatus.ALIVE);
 
         Person child131 = new Person();
         child131.setFamilyTreeId(1851L);
         child131.setName("ساره");
-        child131.setDateOfBirth("2022-01-01");
+        child131.setDateOfBirth(Instant.now());
         child131.setGender(Gender.FEMALE);
         child131.setStatus(LifeStatus.ALIVE);
 
         Person child132 = new Person();
         child132.setFamilyTreeId(1851L);
         child132.setName("عزام");
-        child132.setDateOfBirth("2022-01-01");
+        child132.setDateOfBirth(Instant.now());
         child132.setGender(Gender.MALE);
         child132.setStatus(LifeStatus.ALIVE);
 
         Person child141 = new Person();
         child141.setFamilyTreeId(1851L);
         child141.setName("وريف");
-        child141.setDateOfBirth("2022-01-01");
+        child141.setDateOfBirth(Instant.now());
         child141.setGender(Gender.FEMALE);
         child141.setStatus(LifeStatus.ALIVE);
 
         Person child142 = new Person();
         child142.setFamilyTreeId(1851L);
         child142.setName("البندري");
-        child142.setDateOfBirth("2022-01-01");
+        child142.setDateOfBirth(Instant.now());
         child142.setGender(Gender.FEMALE);
         child142.setStatus(LifeStatus.ALIVE);
 
         Person person2 = new Person();
         person2.setFamilyTreeId(1851L);
         person2.setName("يوسف");
-        person2.setDateOfBirth("2022-01-01");
+        person2.setDateOfBirth(Instant.now());
         person2.setGender(Gender.MALE);
         person2.setStatus(LifeStatus.ALIVE);
 
         Person child21 = new Person();
         child21.setFamilyTreeId(1851L);
         child21.setName("صبا");
-        child21.setDateOfBirth("2022-01-01");
+        child21.setDateOfBirth(Instant.now());
         child21.setGender(Gender.FEMALE);
         child21.setStatus(LifeStatus.ALIVE);
 
         Person child22 = new Person();
         child22.setFamilyTreeId(1851L);
         child22.setName("يعقوب");
-        child22.setDateOfBirth("2022-01-01");
+        child22.setDateOfBirth(Instant.now());
         child22.setGender(Gender.MALE);
         child22.setStatus(LifeStatus.ALIVE);
 
         Person person3 = new Person();
         person3.setFamilyTreeId(1851L);
         person3.setName("احمد");
-        person3.setDateOfBirth("2022-01-01");
+        person3.setDateOfBirth(Instant.now());
         person3.setGender(Gender.MALE);
         person3.setStatus(LifeStatus.ALIVE);
 
         Person person4 = new Person();
         person4.setFamilyTreeId(1851L);
         person4.setName("فهد");
-        person4.setDateOfBirth("2022-01-01");
+        person4.setDateOfBirth(Instant.now());
         person4.setGender(Gender.MALE);
         person4.setStatus(LifeStatus.ALIVE);
 

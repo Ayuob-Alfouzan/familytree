@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { ToastService } from 'app/core/util/toast.service';
@@ -13,6 +13,8 @@ export class ViewPersonComponent {
   @Input()
   person?: PersonModel;
 
+  @Output() action = new EventEmitter<string>();
+
   currentLanguage = this.languageService.onLangChange();
 
   constructor(
@@ -21,4 +23,10 @@ export class ViewPersonComponent {
     private languageService: LanguageService,
     private accountService: AccountService
   ) {}
+
+  addChild(): void {
+    if (this.person && this.person.gender.toLowerCase() === 'male') {
+      this.action.emit('ADD_CHILD');
+    }
+  }
 }

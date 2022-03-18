@@ -1,31 +1,8 @@
-export interface TreeResponseModel {
-  nodes: NodeResponseModel[];
-  links: LinkResponseModel[];
-}
-
-export interface NodeResponseModel {
-  id: string;
-  label: string;
-  gender: string;
-  description: string;
-  mobileNumber: string;
-  job: string;
-  imageUrl: string;
-  status: string;
-  dateOfBirth: string;
-}
-
-export interface LinkResponseModel {
-  source: string;
-  target: string;
-  relationship: string;
-}
-
 export interface PersonModel {
   id: number;
   familyTreeId: number;
   name: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   gender: string;
   recordActivity: boolean;
   status: string;
@@ -49,4 +26,16 @@ export interface FTHierarchyPointNode<Datum> extends d3.HierarchyPointNode<Datum
   _children?: this[] | undefined;
   x0?: number;
   y0?: number;
+}
+
+export interface AddPersonModel {
+  familyTreeId: number;
+  name: string;
+  dateOfBirth: string;
+  gender: string;
+  status: string;
+  description: string;
+  mobileNumber: string;
+  job: string;
+  fatherId: number;
 }

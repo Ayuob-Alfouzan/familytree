@@ -9,10 +9,13 @@ import { FamilyTreeResolver } from './family-tree.resolver';
 import { ViewFamilyTreeComponent } from './view/view.component';
 import { ViewFamilyTreeService } from './view/view.service';
 import { ViewPersonComponent } from './view-person/view-person.component';
+import { AddPersonComponent } from './add/add.component';
+import { AddPersonService } from './add/add.service';
+import { ActionComponent } from './action/action.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(familyTreeRoutes), NgMultiSelectDropDownModule.forRoot()],
-  declarations: [NgbdSortableHeaderDirective, ViewFamilyTreeComponent, ViewPersonComponent],
-  providers: [FamilyTreeService, FamilyTreeResolver, ViewFamilyTreeService],
+  declarations: [NgbdSortableHeaderDirective, ViewFamilyTreeComponent, ActionComponent, ViewPersonComponent, AddPersonComponent],
+  providers: [FamilyTreeService, FamilyTreeResolver, ViewFamilyTreeService, AddPersonService],
 })
 export class FamilyTreeModule {}

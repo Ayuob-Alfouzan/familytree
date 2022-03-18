@@ -24,7 +24,6 @@ export const familyTreeRoutes: Route[] = [
     canActivate: [UserRouteAccessService],
     data: {
       authorities: [Authority.USER],
-      lookup: [],
     },
   },
   {

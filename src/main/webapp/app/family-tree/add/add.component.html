@@ -1,0 +1,86 @@
+<div *ngIf="person !== undefined">
+  <h3 class="text-primary mt-md-2" jhiTranslate="person.addHeader"></h3>
+
+  <form role="form" [formGroup]="form">
+    <div class="form-group">
+      <div class="row">
+        <label jhiTranslate="person.name" class="col-md-4 required p-0"></label>
+        <div class="col-md-8 input p-0">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            placeholder="{{ 'person.namePlaceholder' | translate }}"
+          />
+
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'name':['required']">
+            {{ 'global.message.error.required' | translate: { fieldName: 'person.name' | translate } }}
+          </small>
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'name':['minlength', 'maxlength']:['required']">
+            {{ 'global.message.error.pattern' | translate: { fieldName: 'person.name' | translate } }}
+          </small>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <label jhiTranslate="person.dateOfBirth" class="col-md-4 p-0"></label>
+        <div class="col-md-8 input p-0">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="dateOfBirth"
+              formControlName="dateOfBirth"
+              placeholder="{{ 'person.dateOfBirthPlaceholder' | translate }}"
+              name="dateOfBirth"
+              ngbDatepicker
+              #dateOfBirth="ngbDatepicker"
+              [autoClose]="true"
+              [readonly]="true"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dateOfBirth.toggle()" type="button"></button>
+            </div>
+          </div>
+
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'dateOfBirth':['required']">
+            {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'person.dateOfBirth' | translate } }}
+          </small>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <label jhiTranslate="person.gender" class="col-md-4 required p-0"></label>
+        <div class="col-md-8 p-0">
+          <jhi-dropdown [data]="genders" formControlName="gender" placeholder="person.genderPlaceholder"> </jhi-dropdown>
+
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'gender':['required']">
+            {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'person.gender' | translate } }}
+          </small>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <label jhiTranslate="person.status" class="col-md-4 required p-0"></label>
+        <div class="col-md-8 p-0">
+          <jhi-dropdown [data]="lifeStatuses" formControlName="status" placeholder="person.statusPlaceholder"> </jhi-dropdown>
+
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'status':['required']">
+            {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'person.status' | translate } }}
+          </small>
+        </div>
+      </div>
+
+      <div class="mx-md-2 form-btn d-flex mt-1">
+        <button type="submit" (click)="add()" [disabled]="submitting" class="btn btn-success">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+          <span jhiTranslate="person.addButton" *ngIf="!submitting"></span>
+        </button>
+
+        <button type="button" (click)="cancel()" [disabled]="submitting" class="btn btn-light" jhiTranslate="global.cancel"></button>
+      </div>
+    </div>
+  </form>
+</div>

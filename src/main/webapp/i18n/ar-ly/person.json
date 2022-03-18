@@ -11,6 +11,13 @@
     "male": "ذكر",
     "female": "أنثى",
     "alive": "حي",
-    "dead": "ميت"
+    "dead": "ميت",
+    "addChildButton": "إضافة",
+    "addHeader": "إضافة",
+    "namePlaceholder": "أدخل الاسم",
+    "dateOfBirthPlaceholder": "أختر تاريخ الميلاد",
+    "genderPlaceholder": "أختر الجنس",
+    "statusPlaceholder": "أختر الحالة",
+    "addButton": "إضافة"
   }
 }

@@ -3,15 +3,21 @@ package com.familytree.web.rest.vm.familytree;
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.Person;
+import java.time.Instant;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 public class AddPersonVM {
 
     @NotNull
+    private Long familyTreeId;
+
+    @NotNull
+    @Length(min = 1, max = 20)
     private String name;
 
     @NotNull
-    private String dateOfBirth;
+    private Instant dateOfBirth;
 
     @NotNull
     private Gender gender;
@@ -19,13 +25,17 @@ public class AddPersonVM {
     @NotNull
     private LifeStatus status;
 
+    @Length(max = 30)
     private String description;
-    private String mobileNumber;
-    private String job;
-    private String imageUrl;
 
-    private Long headOfHousehold;
-    private Long spouse;
+    @Length(max = 10)
+    private String mobileNumber;
+
+    @Length(max = 30)
+    private String job;
+
+    @NotNull
+    private Long fatherId;
 
     public String getName() {
         return name;
@@ -35,11 +45,11 @@ public class AddPersonVM {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public Instant getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Instant dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -83,17 +93,9 @@ public class AddPersonVM {
         this.job = job;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public Person toEntity() {
         Person person = new Person();
-        person.setFamilyTreeId(1L);
+        person.setFamilyTreeId(getFamilyTreeId());
         person.setName(getName());
         person.setDateOfBirth(getDateOfBirth());
         person.setGender(getGender());
@@ -101,35 +103,37 @@ public class AddPersonVM {
         person.setDescription(getDescription());
         person.setMobileNumber(getMobileNumber());
         person.setJob(getJob());
-        person.setImageUrl(getImageUrl());
         return person;
     }
 
-    public Long getHeadOfHousehold() {
-        return headOfHousehold;
+    public Long getFatherId() {
+        return fatherId;
     }
 
-    public void setHeadOfHousehold(Long headOfHousehold) {
-        this.headOfHousehold = headOfHousehold;
+    public void setFatherId(Long fatherId) {
+        this.fatherId = fatherId;
     }
 
-    public Long getSpouse() {
-        return spouse;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setSpouse(Long spouse) {
-        this.spouse = spouse;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     @Override
     public String toString() {
         return (
             "AddPersonVM{" +
-            "name='" +
+            "familyTreeId=" +
+            familyTreeId +
+            ", name='" +
             name +
             '\'' +
-            ", dateOfBirth=" +
+            ", dateOfBirth='" +
             dateOfBirth +
+            '\'' +
             ", gender=" +
             gender +
             ", status=" +
@@ -143,13 +147,8 @@ public class AddPersonVM {
             ", job='" +
             job +
             '\'' +
-            ", imageUrl='" +
-            imageUrl +
-            '\'' +
-            ", headOfHousehold=" +
-            headOfHousehold +
-            ", spouse=" +
-            spouse +
+            ", fatherId=" +
+            fatherId +
             '}'
         );
     }

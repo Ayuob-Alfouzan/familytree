@@ -14,8 +14,8 @@ export class ViewFamilyTreeComponent implements OnInit {
   treeData!: PersonModel;
 
   margin = { top: 32, right: 32, bottom: 32, left: 32 };
-  width = 1200 - this.margin.left - this.margin.right;
-  height = 660 - this.margin.top - this.margin.bottom;
+  width = 880 - this.margin.left - this.margin.right;
+  height = 650 - this.margin.top - this.margin.bottom;
   treemap!: d3.TreeLayout<PersonModel>;
   svg!: d3.Selection<SVGGElement, any, HTMLElement, any>;
   root!: FTHierarchyNode<PersonModel>;
@@ -26,8 +26,15 @@ export class ViewFamilyTreeComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
       this.treeData = data.data;
-      this.selectedPerson = data.data;
+      // this.selectedPerson = data.data;
       this.setup();
+    });
+  }
+
+  refreshTreeData(): void {
+    this.service.get(this.treeData.familyTreeId).subscribe(result => {
+      this.treeData = result;
+      this.assignData();
     });
   }
 
@@ -43,6 +50,10 @@ export class ViewFamilyTreeComponent implements OnInit {
     // declares a tree layout and assigns the size
     this.treemap = d3.tree<PersonModel>().size([this.height, this.width]);
 
+    this.assignData();
+  }
+
+  assignData(): void {
     // Assigns parent, children, height, depth
     this.root = d3.hierarchy<PersonModel>(this.treeData, d => d.children);
     this.root.x0 = this.height / 2;
@@ -214,7 +225,7 @@ export class ViewFamilyTreeComponent implements OnInit {
     }
   }
 
-  addaPerson(): void {
-    this.service.get().subscribe();
+  gotAddedPerson(person: PersonModel): void {
+    this.refreshTreeData();
   }
 }

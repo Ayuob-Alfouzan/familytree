@@ -2,6 +2,7 @@ package com.familytree.web.rest.vm.familytree;
 
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
+import java.time.Instant;
 import javax.validation.constraints.NotNull;
 
 public class UpdatePersonVM {
@@ -13,7 +14,7 @@ public class UpdatePersonVM {
     private String name;
 
     @NotNull
-    private String dateOfBirth;
+    private Instant dateOfBirth;
 
     @NotNull
     private Gender gender;
@@ -42,11 +43,11 @@ public class UpdatePersonVM {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public Instant getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Instant dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
