@@ -39,16 +39,13 @@ export class HomeComponent implements OnInit {
   }
 
   selectFamilyTree(selectedFamilyTree: FamilyTreeModel): void {
-    console.log('11');
     this.accountService.selectedFamilyTree = selectedFamilyTree;
-    console.log('22');
+
     if (this.router.url === '/family-tree') {
-      console.log('33');
       this.router.navigate(['/', 'family-tree']).then(() => {
         window.location.reload();
       });
     } else {
-      console.log('44');
       this.router.navigate(['/', 'family-tree']);
     }
   }

@@ -1,0 +1,16 @@
+{
+  "person": {
+    "viewHeader": "بياناته",
+    "name": "الاسم",
+    "dateOfBirth": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "status": "الحالة",
+    "description": "الوصف",
+    "mobileNumber": "رقم الجوال",
+    "job": "الوظيفة",
+    "male": "ذكر",
+    "female": "أنثى",
+    "alive": "حي",
+    "dead": "ميت"
+  }
+}

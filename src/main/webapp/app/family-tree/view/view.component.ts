@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewFamilyTreeService } from './view.service';
 import * as d3 from 'd3';
 import { PersonModel, FTHierarchyNode, FTHierarchyPointNode } from '../models/family-tree.model';
-import { HierarchyPointNode, selection } from 'd3';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -11,6 +10,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './view.component.html',
 })
 export class ViewFamilyTreeComponent implements OnInit {
+  selectedPerson?: PersonModel;
   treeData!: PersonModel;
 
   margin = { top: 32, right: 32, bottom: 32, left: 32 };
@@ -26,6 +26,7 @@ export class ViewFamilyTreeComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
       this.treeData = data.data;
+      this.selectedPerson = data.data;
       this.setup();
     });
   }
@@ -73,7 +74,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .enter()
       .append('g')
       .attr('class', 'node')
-      .attr('transform', d => `translate(${source.y0 !== undefined ? source.y0 : 0},${source.x0 !== undefined ? source.x0 : 0})`)
+      .attr('transform', () => `translate(${source.y0 !== undefined ? source.y0 : 0},${source.x0 !== undefined ? source.x0 : 0})`)
       .on('click', (x, y) => this.click(x, y));
 
     nodeEnter
@@ -85,10 +86,11 @@ export class ViewFamilyTreeComponent implements OnInit {
     nodeEnter
       .append('text')
       .attr('dy', '.35em')
-      .attr('text-anchor', d => 'middle')
+      .attr('text-anchor', 'middle')
       .text(function (d) {
         return d.data.name;
-      });
+      })
+      .attr('cursor', 'pointer');
 
     const duration = 750;
 
@@ -132,7 +134,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .enter()
       .insert('path', 'g')
       .attr('class', 'link')
-      .attr('d', d => {
+      .attr('d', () => {
         if (source.x0 !== undefined && source.y0 !== undefined) {
           const o = { x: source.x0, y: source.y0 };
           return this.diagonal(o, o);
@@ -155,7 +157,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .exit()
       .transition()
       .duration(duration)
-      .attr('d', d => {
+      .attr('d', () => {
         if (source.x !== undefined && source.y !== undefined) {
           const o = { x: source.x, y: source.y };
           return this.diagonal(o, o);
@@ -177,6 +179,8 @@ export class ViewFamilyTreeComponent implements OnInit {
   }
 
   click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
+    this.selectedPerson = d.data;
+
     if (d.children) {
       d._children = d.children;
       d.children = undefined;

@@ -29,10 +29,10 @@ export interface PersonModel {
   gender: string;
   recordActivity: boolean;
   status: string;
-  description: string;
-  mobileNumber: string;
-  job: string;
-  imageUrl: string;
+  description?: string;
+  mobileNumber?: string;
+  job?: string;
+  imageUrl?: string;
   children: PersonModel[];
   wives: PersonModel[];
 }
