@@ -92,6 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/account/forgot-password/send-otp").permitAll()
             .antMatchers("/api/account/forgot-password/reset-password").permitAll()
             .antMatchers("/api/package/list/*").permitAll()
+            .antMatchers("/api/tree/adda-person").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/**").authenticated()

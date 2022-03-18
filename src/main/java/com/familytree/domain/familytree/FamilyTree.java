@@ -27,6 +27,9 @@ public class FamilyTree extends AbstractAuditingEntity implements Serializable {
     @Column(name = "name_ar")
     private String nameAr;
 
+    @Column(name = "head_person_id")
+    private Long headPersonId;
+
     @NotNull
     @Column(name = "record_activity", nullable = false)
     private Boolean recordActivity = true;
@@ -69,6 +72,14 @@ public class FamilyTree extends AbstractAuditingEntity implements Serializable {
         this.nameAr = nameAr;
     }
 
+    public Long getHeadPersonId() {
+        return headPersonId;
+    }
+
+    public void setHeadPersonId(Long headPersonId) {
+        this.headPersonId = headPersonId;
+    }
+
     public Boolean getRecordActivity() {
         return recordActivity;
     }
@@ -107,10 +118,19 @@ public class FamilyTree extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "FamilyTree{" +
-            "id=" + id +
-            ", nameAr='" + nameAr + '\'' +
-            ", recordActivity=" + recordActivity +
-            '}';
+        return (
+            "FamilyTree{" +
+            "id=" +
+            id +
+            ", nameAr='" +
+            nameAr +
+            '\'' +
+            ", headPersonId='" +
+            headPersonId +
+            '\'' +
+            ", recordActivity=" +
+            recordActivity +
+            '}'
+        );
     }
 }

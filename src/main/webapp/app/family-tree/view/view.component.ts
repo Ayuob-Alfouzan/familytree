@@ -1,55 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewFamilyTreeService } from './view.service';
 import * as d3 from 'd3';
-import { DataModel, FTHierarchyNode, FTHierarchyPointNode } from '../models/family-tree.model';
+import { PersonModel, FTHierarchyNode, FTHierarchyPointNode } from '../models/family-tree.model';
 import { HierarchyPointNode, selection } from 'd3';
-import { Data } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-view-family-tree',
   templateUrl: './view.component.html',
 })
 export class ViewFamilyTreeComponent implements OnInit {
-  treeData: DataModel = {
-    name: 'Top Level',
-    parent: 'null',
-    children: [
-      {
-        name: 'Level 2: A',
-        parent: 'Top Level',
-        children: [
-          {
-            name: 'Son of A',
-            parent: 'Level 2: A',
-          },
-          {
-            name: 'Daughter of A',
-            parent: 'Level 2: A',
-          },
-        ],
-      },
-      {
-        name: 'Level 2: B',
-        parent: 'Top Level',
-      },
-      // {
-      //   name: 'Level 2: C',
-      //   parent: 'Top Level',
-      // },
-    ],
-  };
+  treeData!: PersonModel;
 
-  margin = { top: 20, right: 90, bottom: 30, left: 90 };
-  width = 960 - this.margin.left - this.margin.right;
-  height = 500 - this.margin.top - this.margin.bottom;
-  treemap!: d3.TreeLayout<DataModel>;
+  margin = { top: 32, right: 32, bottom: 32, left: 32 };
+  width = 1200 - this.margin.left - this.margin.right;
+  height = 660 - this.margin.top - this.margin.bottom;
+  treemap!: d3.TreeLayout<PersonModel>;
   svg!: d3.Selection<SVGGElement, any, HTMLElement, any>;
-  root!: FTHierarchyNode<DataModel>;
+  root!: FTHierarchyNode<PersonModel>;
   i = 0;
 
-  constructor(private service: ViewFamilyTreeService) {}
+  constructor(private service: ViewFamilyTreeService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.data.pipe(first()).subscribe(data => {
+      this.treeData = data.data;
+      this.setup();
+    });
+  }
+
+  setup(): void {
     this.svg = d3
       .select('div.tree-container')
       .append('svg')
@@ -59,10 +40,10 @@ export class ViewFamilyTreeComponent implements OnInit {
       .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
 
     // declares a tree layout and assigns the size
-    this.treemap = d3.tree<DataModel>().size([this.height, this.width]);
+    this.treemap = d3.tree<PersonModel>().size([this.height, this.width]);
 
     // Assigns parent, children, height, depth
-    this.root = d3.hierarchy<DataModel>(this.treeData, d => d.children);
+    this.root = d3.hierarchy<PersonModel>(this.treeData, d => d.children);
     this.root.x0 = this.height / 2;
     this.root.y0 = 0;
 
@@ -71,19 +52,19 @@ export class ViewFamilyTreeComponent implements OnInit {
     this.update(this.root);
   }
 
-  update(source: FTHierarchyNode<DataModel>): void {
+  update(source: FTHierarchyNode<PersonModel>): void {
     // Assigns the x and y position for the nodes
     const treeData = this.treemap(this.root);
 
     // Compute the new tree layout.
-    const nodes = treeData.descendants() as FTHierarchyPointNode<DataModel>[];
+    const nodes = treeData.descendants() as FTHierarchyPointNode<PersonModel>[];
 
     // Normalize for fixed-depth.
-    nodes.forEach(d => (d.y = d.depth * 180));
+    nodes.forEach(d => (d.y = d.depth * 150));
 
     // ****************** Nodes section ***************************
     // Update the nodes...
-    const node: d3.Selection<any, FTHierarchyPointNode<DataModel>, SVGGElement, FTHierarchyPointNode<DataModel>> = this.svg
+    const node: d3.Selection<any, FTHierarchyPointNode<PersonModel>, SVGGElement, FTHierarchyPointNode<PersonModel>> = this.svg
       .selectAll('g.node')
       .data(nodes, (d: any) => d.id || (d.id = ++this.i));
 
@@ -96,16 +77,15 @@ export class ViewFamilyTreeComponent implements OnInit {
       .on('click', (x, y) => this.click(x, y));
 
     nodeEnter
-      .append('circle')
-      .attr('class', 'node')
-      .attr('r', 1e-6)
-      .style('fill', d => (d._children ? 'lightsteelblue' : '#fff'));
+      .append('ellipse')
+      .attr('class', d => `node ${d.data.gender.toLowerCase()}`)
+      .attr('rx', 1e-6)
+      .attr('ry', 1e-6);
 
     nodeEnter
       .append('text')
       .attr('dy', '.35em')
-      .attr('x', d => (d.children || d._children ? -13 : 13))
-      .attr('text-anchor', d => (d.children || d._children ? 'end' : 'start'))
+      .attr('text-anchor', d => 'middle')
       .text(function (d) {
         return d.data.name;
       });
@@ -123,23 +103,24 @@ export class ViewFamilyTreeComponent implements OnInit {
 
     // Update the node attributes and style
     nodeUpdate
-      .select('circle.node')
-      .attr('r', 10)
+      .select('ellipse.node')
+      .attr('rx', 30)
+      .attr('ry', 20)
       .style('fill', d => (d._children ? 'lightsteelblue' : '#fff'))
       .attr('cursor', 'pointer');
 
     // Remove any exiting nodes
     const nodeExit = node
-      .exit<FTHierarchyPointNode<DataModel>>()
+      .exit<FTHierarchyPointNode<PersonModel>>()
       .transition()
       .duration(duration)
       .attr('transform', d => `translate(${source.y !== undefined ? source.y : d.y},${source.x !== undefined ? source.x : d.x})`)
       .remove();
 
-    // // On exit reduce the node circles size to 0
-    nodeExit.select('circle').attr('r', 1e-6);
+    // On exit reduce the node size to 0
+    nodeExit.select('ellipse').attr('rx', 1e-6).attr('ry', 1e-6);
 
-    // // On exit reduce the opacity of text labels
+    // On exit reduce the opacity of text labels
     nodeExit.select('text').style('fill-opacity', 1e-6);
 
     // ****************** links section ***************************
@@ -195,7 +176,7 @@ export class ViewFamilyTreeComponent implements OnInit {
     return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`;
   }
 
-  click(event: any, d: FTHierarchyPointNode<DataModel>): void {
+  click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
     if (d.children) {
       d._children = d.children;
       d.children = undefined;
@@ -206,7 +187,7 @@ export class ViewFamilyTreeComponent implements OnInit {
     this.update(d);
   }
 
-  collapse(d: FTHierarchyNode<DataModel>): void {
+  collapse(d: FTHierarchyNode<PersonModel>): void {
     if (d.children) {
       d._children = d.children;
       d._children.forEach(it => this.collapse(it));

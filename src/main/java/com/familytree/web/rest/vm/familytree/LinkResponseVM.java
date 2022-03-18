@@ -64,10 +64,10 @@ public class LinkResponseVM {
 
                     List<LinkResponseVM> wifes = new ArrayList<>();
 
-                    if (it.getWifes() != null) {
+                    if (it.getWives() != null) {
                         wifes =
                             it
-                                .getWifes()
+                                .getWives()
                                 .stream()
                                 .map(
                                     itt -> {

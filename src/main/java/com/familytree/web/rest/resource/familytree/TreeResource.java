@@ -5,6 +5,7 @@ import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.Person;
 import com.familytree.repository.graph.PersonRepository;
 import com.familytree.security.AuthoritiesConstants;
+import com.familytree.service.dto.familytree.PersonDTO;
 import com.familytree.service.familytree.TreeService;
 import com.familytree.web.rest.vm.familytree.*;
 import java.net.URISyntaxException;
@@ -32,8 +33,8 @@ public class TreeResource {
 
     @GetMapping("/get-family/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<TreeResponseVM> getFamilyTree(@Valid @PathVariable Long familyTreeId) throws URISyntaxException {
-        return ResponseEntity.ok().body(new TreeResponseVM(treeService.getTree(familyTreeId)));
+    public ResponseEntity<PersonDTO> getFamilyTree(@Valid @PathVariable Long familyTreeId) throws URISyntaxException {
+        return ResponseEntity.ok(treeService.getTree(familyTreeId));
     }
 
     @PostMapping("/add-person")
@@ -63,7 +64,6 @@ public class TreeResource {
     }
 
     @PostMapping("/adda-person")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     @Transactional
     public void addPerson() {
         treeService.addPerson();

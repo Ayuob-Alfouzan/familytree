@@ -95,4 +95,10 @@
             separator=";">
         </loadUpdateData>
     </changeSet>
+
+    <changeSet id="20220317183100" author="ayuob">
+        <addColumn tableName="family_tree">
+            <column name="head_person_id" type="bigint" />
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

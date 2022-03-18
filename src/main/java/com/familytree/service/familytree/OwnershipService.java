@@ -75,7 +75,7 @@ public class OwnershipService {
     public void checkFamilyTreePackageLimitation(Long familyTreeId, int numberOfPersonsToAdd) {
         Subscription subscription = checkHasActiveSubscription(familyTreeId);
 
-        int numberOfPersons = personRepository.findByFamilyTreeIdAndRecordActivityIsTrue(familyTreeId);
+        int numberOfPersons = personRepository.countByFamilyTreeIdAndRecordActivityIsTrue(familyTreeId);
         numberOfPersons += numberOfPersonsToAdd;
 
         if (numberOfPersons > subscription.getRangeEnd()) {

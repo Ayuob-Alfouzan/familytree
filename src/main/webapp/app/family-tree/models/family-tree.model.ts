@@ -21,14 +21,20 @@ export interface LinkResponseModel {
   relationship: string;
 }
 
-export interface DataModel {
+export interface PersonModel {
+  id: number;
+  familyTreeId: number;
   name: string;
-  parent: string;
-  // x0: number;
-  // y0: number;
-  // x: number;
-  // y: number;
-  children?: DataModel[];
+  dateOfBirth: string;
+  gender: string;
+  recordActivity: boolean;
+  status: string;
+  description: string;
+  mobileNumber: string;
+  job: string;
+  imageUrl: string;
+  children: PersonModel[];
+  wives: PersonModel[];
 }
 
 export interface FTHierarchyNode<Datum> extends d3.HierarchyNode<Datum> {

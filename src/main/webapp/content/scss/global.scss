@@ -499,20 +499,35 @@ btn-group-toggle .btn-primary:not(:disabled):not(.disabled):active,
 }
 
 // TREE
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
+div.tree-container {
+  width: auto;
+  max-width: 100&;
+  height: auto;
+  max-height: 70vh;
+  overflow: auto;
 }
 
-.node text {
-  font: 12px sans-serif;
+.node ellipse {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.node ellipse.male {
+  stroke: steelblue;
+}
+
+.node ellipse.female {
+  stroke: pink;
 }
 
 .link {
   fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
+  stroke: #aaa;
+  stroke-width: 1px;
+}
+
+.node text {
+  font-weight: 400;
 }
 
 tbody.loading:after {

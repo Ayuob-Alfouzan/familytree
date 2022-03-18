@@ -2,6 +2,8 @@ package com.familytree.domain.familytree;
 
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -39,26 +41,26 @@ public class Person {
     private String imageUrl;
 
     @Relationship(type = "CHILDREN", direction = Relationship.Direction.OUTGOING)
-    private Set<Person> children;
+    private List<Person> children = new ArrayList<>();
 
-    @Relationship(type = "WIFES", direction = Relationship.Direction.OUTGOING)
-    private Set<Person> wifes;
+    @Relationship(type = "WIVES", direction = Relationship.Direction.OUTGOING)
+    private List<Person> wives = new ArrayList<>();
 
     public Person() {}
 
-    public Set<Person> getWifes() {
-        return wifes;
+    public List<Person> getWives() {
+        return wives;
     }
 
-    public void setWifes(Set<Person> wifes) {
-        this.wifes = wifes;
+    public void setWives(List<Person> wives) {
+        this.wives = wives;
     }
 
-    public Set<Person> getChildren() {
+    public List<Person> getChildren() {
         return children;
     }
 
-    public void setChildren(Set<Person> children) {
+    public void setChildren(List<Person> children) {
         this.children = children;
     }
 
