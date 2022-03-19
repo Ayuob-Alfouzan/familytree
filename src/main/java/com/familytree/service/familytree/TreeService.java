@@ -10,6 +10,7 @@ import com.familytree.service.mapper.familytree.PersonMapper;
 import com.familytree.service.util.exception.BadRequestException;
 import com.familytree.web.rest.vm.familytree.*;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class TreeService {
     public PersonDTO getTree(Long familyTreeId) {
         FamilyTree familyTree = ownershipService.getToViewByFamilyTreeId(familyTreeId);
         Person person = personRepository
-            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), familyTree.getHeadPersonId())
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrueOrderByDateOfBirthAsc(familyTree.getId(), familyTree.getHeadPersonId())
             .orElseThrow(() -> new BadRequestException("not_found"));
 
         return personMapper.toDto(person);
@@ -51,7 +52,7 @@ public class TreeService {
         Person person = requestVM.toEntity();
 
         personRepository
-            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), requestVM.getFatherId())
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrueOrderByDateOfBirthAsc(familyTree.getId(), requestVM.getFatherId())
             .ifPresent(
                 it -> {
                     it.getChildren().add(person);
@@ -131,7 +132,7 @@ public class TreeService {
         Person person1 = new Person();
         person1.setFamilyTreeId(1851L);
         person1.setName("صالح");
-        person1.setDateOfBirth(Instant.now());
+        person1.setDateOfBirth(Instant.now().minus(10, ChronoUnit.DAYS));
         person1.setGender(Gender.MALE);
         person1.setStatus(LifeStatus.ALIVE);
 
@@ -250,7 +251,7 @@ public class TreeService {
         Person person2 = new Person();
         person2.setFamilyTreeId(1851L);
         person2.setName("يوسف");
-        person2.setDateOfBirth(Instant.now());
+        person2.setDateOfBirth(Instant.now().minus(1, ChronoUnit.DAYS));
         person2.setGender(Gender.MALE);
         person2.setStatus(LifeStatus.ALIVE);
 
@@ -271,14 +272,14 @@ public class TreeService {
         Person person3 = new Person();
         person3.setFamilyTreeId(1851L);
         person3.setName("احمد");
-        person3.setDateOfBirth(Instant.now());
+        person3.setDateOfBirth(Instant.now().minus(2, ChronoUnit.DAYS));
         person3.setGender(Gender.MALE);
         person3.setStatus(LifeStatus.ALIVE);
 
         Person person4 = new Person();
         person4.setFamilyTreeId(1851L);
         person4.setName("فهد");
-        person4.setDateOfBirth(Instant.now());
+        person4.setDateOfBirth(Instant.now().minus(3, ChronoUnit.DAYS));
         person4.setGender(Gender.MALE);
         person4.setStatus(LifeStatus.ALIVE);
 

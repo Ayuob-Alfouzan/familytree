@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends Neo4jRepository<Person, Long> {
-    Optional<Person> findByFamilyTreeIdAndIdAndRecordActivityIsTrue(Long familyTreeId, Long headPersonId);
+    Optional<Person> findByFamilyTreeIdAndIdAndRecordActivityIsTrueOrderByDateOfBirthAsc(Long familyTreeId, Long headPersonId);
 
     List<Person> findByFamilyTreeIdAndNameContaining(Long familyTreeId, String name);
 

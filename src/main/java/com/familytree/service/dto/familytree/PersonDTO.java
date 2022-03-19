@@ -22,8 +22,8 @@ public class PersonDTO {
     private String mobileNumber;
     private String job;
     private String imageUrl;
-    private List<Person> children;
-    private List<Person> wives;
+    private List<PersonDTO> children;
+    private List<PersonDTO> wives;
 
     public Long getId() {
         return id;
@@ -113,19 +113,19 @@ public class PersonDTO {
         this.imageUrl = imageUrl;
     }
 
-    public List<Person> getChildren() {
+    public List<PersonDTO> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Person> children) {
+    public void setChildren(List<PersonDTO> children) {
         this.children = children;
     }
 
-    public List<Person> getWives() {
+    public List<PersonDTO> getWives() {
         return wives;
     }
 
-    public void setWives(List<Person> wives) {
+    public void setWives(List<PersonDTO> wives) {
         this.wives = wives;
     }
 
