@@ -4,8 +4,8 @@
   <form role="form" [formGroup]="form">
     <div class="form-group">
       <div class="row">
-        <label jhiTranslate="person.name" class="col-md-4 required p-0"></label>
-        <div class="col-md-8 input p-0">
+        <label jhiTranslate="person.name" class="col-4 required p-0"></label>
+        <div class="col-8 input p-0">
           <input
             type="text"
             class="form-control"
@@ -24,8 +24,8 @@
       </div>
 
       <div class="row mt-1">
-        <label jhiTranslate="person.dateOfBirth" class="col-md-4 p-0"></label>
-        <div class="col-md-8 input p-0">
+        <label jhiTranslate="person.dateOfBirth" class="col-4 p-0"></label>
+        <div class="col-8 input p-0">
           <div class="input-group">
             <input
               type="text"
@@ -51,8 +51,8 @@
       </div>
 
       <div class="row mt-1">
-        <label jhiTranslate="person.gender" class="col-md-4 required p-0"></label>
-        <div class="col-md-8 p-0">
+        <label jhiTranslate="person.gender" class="col-4 required p-0"></label>
+        <div class="col-8 p-0">
           <jhi-dropdown [data]="genders" formControlName="gender" placeholder="person.genderPlaceholder"> </jhi-dropdown>
 
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'gender':['required']">
@@ -62,8 +62,8 @@
       </div>
 
       <div class="row mt-1">
-        <label jhiTranslate="person.status" class="col-md-4 required p-0"></label>
-        <div class="col-md-8 p-0">
+        <label jhiTranslate="person.status" class="col-4 required p-0"></label>
+        <div class="col-8 p-0">
           <jhi-dropdown [data]="lifeStatuses" formControlName="status" placeholder="person.statusPlaceholder"> </jhi-dropdown>
 
           <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'status':['required']">

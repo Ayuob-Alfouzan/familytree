@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ViewFamilyTreeService } from './view.service';
 import * as d3 from 'd3';
 import { PersonModel, FTHierarchyNode, FTHierarchyPointNode } from '../models/family-tree.model';
@@ -9,13 +9,15 @@ import { first } from 'rxjs/operators';
   selector: 'jhi-view-family-tree',
   templateUrl: './view.component.html',
 })
-export class ViewFamilyTreeComponent implements OnInit {
+export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
+  @ViewChild('treeContainer', { read: ElementRef }) treeDiv?: ElementRef<any>;
+
   selectedPerson?: PersonModel;
   selectedPersonParent?: PersonModel;
   treeData!: PersonModel;
 
   margin = { top: 32, right: 32, bottom: 32, left: 32 };
-  width = 880 - this.margin.left - this.margin.right;
+  width = 2000 - this.margin.left - this.margin.right;
   height = 650 - this.margin.top - this.margin.bottom;
   treemap!: d3.TreeLayout<PersonModel>;
   svg!: d3.Selection<SVGGElement, any, HTMLElement, any>;
@@ -27,15 +29,30 @@ export class ViewFamilyTreeComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
       this.treeData = data.data;
-      // this.selectedPerson = data.data;
+      this.selectedPerson = data.data;
       this.setup();
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.positionDiv();
+  }
+
+  increaseSize(): void {
+    this.svg = this.svg.attr('width', 2500).attr('height', 1000).attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+  }
+
+  positionDiv(): void {
+    if (this.treeDiv) {
+      this.treeDiv.nativeElement.scrollTop = this.treeDiv.nativeElement.scrollHeight / 2 - this.treeDiv.nativeElement.offsetHeight / 2;
+      this.treeDiv.nativeElement.scrollLeft = 0;
+    }
   }
 
   refreshTreeData(): void {
     this.service.get(this.treeData.familyTreeId).subscribe(result => {
       this.treeData = result;
-      this.assignData();
+      this.assignData(false);
     });
   }
 
@@ -54,14 +71,17 @@ export class ViewFamilyTreeComponent implements OnInit {
     this.assignData();
   }
 
-  assignData(): void {
+  assignData(collapse = true): void {
     // Assigns parent, children, height, depth
     this.root = d3.hierarchy<PersonModel>(this.treeData, d => d.children);
     this.root.x0 = this.height / 2;
     this.root.y0 = 0;
 
     // Collapse after the second level
-    this.root.children?.forEach(x => this.collapse(x));
+    if (collapse) {
+      this.root.children?.forEach(x => this.collapse(x));
+    }
+
     this.update(this.root);
   }
 
@@ -208,6 +228,7 @@ export class ViewFamilyTreeComponent implements OnInit {
     if (d.children && d.parent) {
       // this.collapseOthers(d.id, d.parent);
     }
+    this.increaseSize();
   }
 
   collapseOthers(id: string | undefined, parent: FTHierarchyNode<PersonModel>): void {

@@ -2,38 +2,38 @@
   <h3 class="text-primary mt-md-2" jhiTranslate="person.viewHeader"></h3>
 
   <div class="form-group form-inline">
-    <label jhiTranslate="person.name" class="col-md-4 p-0"></label>
-    <div class="col-md-8 p-0">
+    <label jhiTranslate="person.name" class="col-4 p-0"></label>
+    <div class="col-8 p-0">
       <span>{{ person?.name }}</span>
     </div>
 
-    <label jhiTranslate="person.dateOfBirth" class="col-md-4 p-0"></label>
-    <div class="col-md-8 p-0">
+    <label jhiTranslate="person.dateOfBirth" class="col-4 p-0"></label>
+    <div class="col-8 p-0">
       <span>{{ person?.dateOfBirth | date: 'yyyy-MM-dd' }}</span>
     </div>
 
-    <label jhiTranslate="person.gender" class="col-md-4 p-0"></label>
-    <div class="col-md-8 p-0">
+    <label jhiTranslate="person.gender" class="col-4 p-0"></label>
+    <div class="col-8 p-0">
       <span>{{ 'person.' + person?.gender?.toLowerCase() | translate }}</span>
     </div>
 
-    <label jhiTranslate="person.status" class="col-md-4 p-0"></label>
-    <div class="col-md-8 p-0">
+    <label jhiTranslate="person.status" class="col-4 p-0"></label>
+    <div class="col-8 p-0">
       <span>{{ 'person.' + person?.status?.toLowerCase() | translate }}</span>
     </div>
 
-    <label *ngIf="person?.description" jhiTranslate="person.description" class="col-md-4 p-0"></label>
-    <div *ngIf="person?.description" class="col-md-8 p-0">
+    <label *ngIf="person?.description" jhiTranslate="person.description" class="col-4 p-0"></label>
+    <div *ngIf="person?.description" class="col-8 p-0">
       <span>{{ person?.description }}</span>
     </div>
 
-    <label *ngIf="person?.mobileNumber" jhiTranslate="person.mobileNumber" class="col-md-4 p-0"></label>
-    <div *ngIf="person?.mobileNumber" class="col-md-8 p-0">
+    <label *ngIf="person?.mobileNumber" jhiTranslate="person.mobileNumber" class="col-4 p-0"></label>
+    <div *ngIf="person?.mobileNumber" class="col-8 p-0">
       <span>{{ person?.mobileNumber }}</span>
     </div>
 
-    <label *ngIf="person?.job" jhiTranslate="person.job" class="col-md-4 p-0"></label>
-    <div *ngIf="person?.job" class="col-md-8 p-0">
+    <label *ngIf="person?.job" jhiTranslate="person.job" class="col-4 p-0"></label>
+    <div *ngIf="person?.job" class="col-8 p-0">
       <span>{{ person?.job }}</span>
     </div>
   </div>
