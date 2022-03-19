@@ -1,9 +1,18 @@
 <ng-container *ngIf="person">
   <ng-container *ngIf="page === 'VIEW'">
-    <jhi-view-person [person]="person" (action)="viewAction($event)"></jhi-view-person>
+    <jhi-view-person [person]="person" [personParent]="personParent" (action)="viewAction($event)"></jhi-view-person>
   </ng-container>
   <ng-container *ngIf="page === 'ADD'">
-    <jhi-add-person [person]="person" (action)="addAction($event)" (addedPerson)="gotAddedPerson($event)"></jhi-add-person>
+    <jhi-add-person
+      [person]="person"
+      [childGender]="childGender"
+      [addingFather]="addingFather"
+      (action)="addAction($event)"
+      (addedPerson)="gotAddedPerson($event)"
+    ></jhi-add-person>
+  </ng-container>
+  <ng-container *ngIf="page === 'UPDATE'">
+    <jhi-update-person [person]="person" (action)="updateAction($event)" (updatedPerson)="gotUpdateedPerson($event)"></jhi-update-person>
   </ng-container>
 </ng-container>
 <div *ngIf="!person">

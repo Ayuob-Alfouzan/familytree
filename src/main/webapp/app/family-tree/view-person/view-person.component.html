@@ -38,8 +38,29 @@
     </div>
   </div>
 
-  <div class="mx-md-2 form-btn text-center" *ngIf="person?.gender?.toLowerCase() === 'male'">
-    <button type="submit" (click)="addChild()" class="btn btn-success" jhiTranslate="person.addChildButton"></button>
+  <div class="mx-md-2 form-btn text-center">
+    <button
+      *ngIf="!personParent"
+      type="submit"
+      (click)="addFather()"
+      class="btn btn-success"
+      jhiTranslate="person.addFatherButton"
+    ></button>
+    <button
+      *ngIf="person?.gender?.toLowerCase() === 'male'"
+      type="submit"
+      (click)="addChild('MALE')"
+      class="btn btn-success"
+      jhiTranslate="person.addMaleChildButton"
+    ></button>
+    <button
+      *ngIf="person?.gender?.toLowerCase() === 'male'"
+      type="submit"
+      (click)="addChild('FEMALE')"
+      class="btn btn-success"
+      jhiTranslate="person.addFemaleChildButton"
+    ></button>
+    <button type="submit" (click)="update()" class="btn btn-success" jhiTranslate="person.updateButton"></button>
   </div>
 </div>
 <div *ngIf="person === undefined">

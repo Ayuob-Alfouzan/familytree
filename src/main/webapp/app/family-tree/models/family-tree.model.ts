@@ -1,14 +1,17 @@
-export interface PersonModel {
+export interface PersonBasicModel {
+  name: string;
+  dateOfBirth: string;
+  gender: string;
+  status: string;
+  description: string;
+  mobileNumber: string;
+  job: string;
+}
+
+export interface PersonModel extends PersonBasicModel {
   id: number;
   familyTreeId: number;
-  name: string;
-  dateOfBirth: Date;
-  gender: string;
   recordActivity: boolean;
-  status: string;
-  description?: string;
-  mobileNumber?: string;
-  job?: string;
   imageUrl?: string;
   children: PersonModel[];
   wives: PersonModel[];
@@ -28,14 +31,17 @@ export interface FTHierarchyPointNode<Datum> extends d3.HierarchyPointNode<Datum
   y0?: number;
 }
 
-export interface AddPersonModel {
+export interface AddChildModel extends PersonBasicModel {
   familyTreeId: number;
-  name: string;
-  dateOfBirth: string;
-  gender: string;
-  status: string;
-  description: string;
-  mobileNumber: string;
-  job: string;
   fatherId: number;
+}
+
+export interface AddFatherModel extends PersonBasicModel {
+  familyTreeId: number;
+  childId: number;
+}
+
+export interface UpdatePersonModel extends PersonBasicModel {
+  familyTreeId: number;
+  id: number;
 }

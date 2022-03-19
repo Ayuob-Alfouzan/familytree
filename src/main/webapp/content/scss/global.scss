@@ -520,6 +520,10 @@ div.tree-container {
   stroke: pink;
 }
 
+.node ellipse.selected {
+  stroke-width: 2px;
+}
+
 .node ellipse.have-children {
   fill: lightgray;
 }

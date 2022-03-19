@@ -12,10 +12,19 @@ import { ViewPersonComponent } from './view-person/view-person.component';
 import { AddPersonComponent } from './add/add.component';
 import { AddPersonService } from './add/add.service';
 import { ActionComponent } from './action/action.component';
+import { UpdatePersonComponent } from './update/update.component';
+import { UpdatePersonService } from './update/update.service';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(familyTreeRoutes), NgMultiSelectDropDownModule.forRoot()],
-  declarations: [NgbdSortableHeaderDirective, ViewFamilyTreeComponent, ActionComponent, ViewPersonComponent, AddPersonComponent],
-  providers: [FamilyTreeService, FamilyTreeResolver, ViewFamilyTreeService, AddPersonService],
+  declarations: [
+    NgbdSortableHeaderDirective,
+    ViewFamilyTreeComponent,
+    ActionComponent,
+    ViewPersonComponent,
+    AddPersonComponent,
+    UpdatePersonComponent,
+  ],
+  providers: [FamilyTreeService, FamilyTreeResolver, ViewFamilyTreeService, AddPersonService, UpdatePersonService],
 })
 export class FamilyTreeModule {}

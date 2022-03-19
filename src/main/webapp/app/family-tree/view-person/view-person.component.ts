@@ -13,6 +13,9 @@ export class ViewPersonComponent {
   @Input()
   person?: PersonModel;
 
+  @Input()
+  personParent?: PersonModel;
+
   @Output() action = new EventEmitter<string>();
 
   currentLanguage = this.languageService.onLangChange();
@@ -24,9 +27,25 @@ export class ViewPersonComponent {
     private accountService: AccountService
   ) {}
 
-  addChild(): void {
+  addChild(childGender: string): void {
     if (this.person && this.person.gender.toLowerCase() === 'male') {
-      this.action.emit('ADD_CHILD');
+      if (childGender === 'MALE') {
+        this.action.emit('ADD_MALE_CHILD');
+      } else if (childGender === 'FEMALE') {
+        this.action.emit('ADD_FEMALE_CHILD');
+      }
+    }
+  }
+
+  addFather(): void {
+    if (this.person && !this.personParent) {
+      this.action.emit('ADD_FATHER');
+    }
+  }
+
+  update(): void {
+    if (this.person) {
+      this.action.emit('UPDATE');
     }
   }
 }

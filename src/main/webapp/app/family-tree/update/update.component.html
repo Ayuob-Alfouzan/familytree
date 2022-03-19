@@ -1,5 +1,5 @@
 <div *ngIf="person !== undefined">
-  <h3 class="text-primary mt-md-2" jhiTranslate="person.addHeader"></h3>
+  <h3 class="text-primary mt-md-2" jhiTranslate="person.updateHeader"></h3>
 
   <form role="form" [formGroup]="form">
     <div class="form-group">
@@ -51,6 +51,17 @@
       </div>
 
       <div class="row mt-1">
+        <label jhiTranslate="person.gender" class="col-md-4 required p-0"></label>
+        <div class="col-md-8 p-0">
+          <jhi-dropdown [data]="genders" formControlName="gender" placeholder="person.genderPlaceholder"> </jhi-dropdown>
+
+          <small class="form-text text-danger" *ngIf="form | showErrorMessage: 'gender':['required']">
+            {{ 'global.message.error.requiredSelect' | translate: { fieldName: 'person.gender' | translate } }}
+          </small>
+        </div>
+      </div>
+
+      <div class="row mt-1">
         <label jhiTranslate="person.status" class="col-md-4 required p-0"></label>
         <div class="col-md-8 p-0">
           <jhi-dropdown [data]="lifeStatuses" formControlName="status" placeholder="person.statusPlaceholder"> </jhi-dropdown>
@@ -62,10 +73,10 @@
       </div>
 
       <div class="mx-md-2 form-btn d-flex mt-1">
-        <button type="submit" (click)="add()" [disabled]="submitting" class="btn btn-success">
+        <button type="submit" (click)="update()" [disabled]="submitting" class="btn btn-success">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
 
-          <span jhiTranslate="person.addButton" *ngIf="!submitting"></span>
+          <span jhiTranslate="person.updateButton" *ngIf="!submitting"></span>
         </button>
 
         <button type="button" (click)="cancel()" [disabled]="submitting" class="btn btn-light" jhiTranslate="global.cancel"></button>

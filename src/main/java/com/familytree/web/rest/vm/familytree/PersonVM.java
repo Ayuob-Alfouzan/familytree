@@ -7,10 +7,7 @@ import java.time.Instant;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
-public class AddPersonVM {
-
-    @NotNull
-    private Long familyTreeId;
+public class PersonVM {
 
     @NotNull
     @Length(min = 1, max = 20)
@@ -33,9 +30,6 @@ public class AddPersonVM {
 
     @Length(max = 30)
     private String job;
-
-    @NotNull
-    private Long fatherId;
 
     public String getName() {
         return name;
@@ -93,47 +87,15 @@ public class AddPersonVM {
         this.job = job;
     }
 
-    public Person toEntity() {
-        Person person = new Person();
-        person.setFamilyTreeId(getFamilyTreeId());
-        person.setName(getName());
-        person.setDateOfBirth(getDateOfBirth());
-        person.setGender(getGender());
-        person.setStatus(getStatus());
-        person.setDescription(getDescription());
-        person.setMobileNumber(getMobileNumber());
-        person.setJob(getJob());
-        return person;
-    }
-
-    public Long getFatherId() {
-        return fatherId;
-    }
-
-    public void setFatherId(Long fatherId) {
-        this.fatherId = fatherId;
-    }
-
-    public Long getFamilyTreeId() {
-        return familyTreeId;
-    }
-
-    public void setFamilyTreeId(Long familyTreeId) {
-        this.familyTreeId = familyTreeId;
-    }
-
     @Override
     public String toString() {
         return (
-            "AddPersonVM{" +
-            "familyTreeId=" +
-            familyTreeId +
-            ", name='" +
+            "PersonVM{" +
+            "name='" +
             name +
             '\'' +
-            ", dateOfBirth='" +
+            ", dateOfBirth=" +
             dateOfBirth +
-            '\'' +
             ", gender=" +
             gender +
             ", status=" +
@@ -147,8 +109,6 @@ public class AddPersonVM {
             ", job='" +
             job +
             '\'' +
-            ", fatherId=" +
-            fatherId +
             '}'
         );
     }

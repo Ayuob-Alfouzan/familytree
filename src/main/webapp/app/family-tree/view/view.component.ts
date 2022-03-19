@@ -11,6 +11,7 @@ import { first } from 'rxjs/operators';
 })
 export class ViewFamilyTreeComponent implements OnInit {
   selectedPerson?: PersonModel;
+  selectedPersonParent?: PersonModel;
   treeData!: PersonModel;
 
   margin = { top: 32, right: 32, bottom: 32, left: 32 };
@@ -120,6 +121,7 @@ export class ViewFamilyTreeComponent implements OnInit {
       .attr('rx', 30)
       .attr('ry', 20)
       .classed('have-children', d => (d._children ? true : false))
+      .classed('selected', d => d.data.id === this.selectedPerson?.id)
       .attr('cursor', 'pointer');
 
     // Remove any exiting nodes
@@ -191,6 +193,7 @@ export class ViewFamilyTreeComponent implements OnInit {
 
   click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
     this.selectedPerson = d.data;
+    this.selectedPersonParent = d.parent?.data;
 
     if (d.children) {
       d._children = d.children;
@@ -226,6 +229,7 @@ export class ViewFamilyTreeComponent implements OnInit {
   }
 
   gotAddedPerson(person: PersonModel): void {
+    this.selectedPerson = person;
     this.refreshTreeData();
   }
 }

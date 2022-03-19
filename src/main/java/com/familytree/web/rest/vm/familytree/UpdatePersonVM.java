@@ -4,28 +4,15 @@ import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
 import java.time.Instant;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
-public class UpdatePersonVM {
+public class UpdatePersonVM extends PersonVM {
+
+    @NotNull
+    private Long familyTreeId;
 
     @NotNull
     private Long id;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    private Instant dateOfBirth;
-
-    @NotNull
-    private Gender gender;
-
-    @NotNull
-    private LifeStatus status;
-
-    private String description;
-    private String mobileNumber;
-    private String job;
-    private String imageUrl;
 
     public Long getId() {
         return id;
@@ -35,99 +22,16 @@ public class UpdatePersonVM {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getFamilyTreeId() {
+        return familyTreeId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Instant getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Instant dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public LifeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(LifeStatus status) {
-        this.status = status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setFamilyTreeId(Long familyTreeId) {
+        this.familyTreeId = familyTreeId;
     }
 
     @Override
     public String toString() {
-        return (
-            "UpdatePersonVM{" +
-            "id=" +
-            id +
-            ", name='" +
-            name +
-            '\'' +
-            ", dateOfBirth='" +
-            dateOfBirth +
-            '\'' +
-            ", gender=" +
-            gender +
-            ", status=" +
-            status +
-            ", description='" +
-            description +
-            '\'' +
-            ", mobileNumber='" +
-            mobileNumber +
-            '\'' +
-            ", job='" +
-            job +
-            '\'' +
-            ", imageUrl='" +
-            imageUrl +
-            '\'' +
-            '}'
-        );
+        return "UpdatePersonVM{" + "familyTreeId=" + familyTreeId + ", id=" + id + ", person=" + super.toString() + '}';
     }
 }

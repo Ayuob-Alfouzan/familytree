@@ -4,6 +4,7 @@ import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.FamilyTree;
 import com.familytree.domain.familytree.Person;
+import com.familytree.repository.familytree.FamilyTreeRepository;
 import com.familytree.repository.graph.PersonRepository;
 import com.familytree.service.dto.familytree.PersonDTO;
 import com.familytree.service.mapper.familytree.PersonMapper;
@@ -11,7 +12,6 @@ import com.familytree.service.util.exception.BadRequestException;
 import com.familytree.web.rest.vm.familytree.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,31 +28,39 @@ public class TreeService {
 
     private final PersonMapper personMapper;
 
-    public TreeService(PersonRepository personRepository, OwnershipService ownershipService, PersonMapper personMapper) {
+    private final FamilyTreeRepository familyTreeRepository;
+
+    public TreeService(
+        PersonRepository personRepository,
+        OwnershipService ownershipService,
+        PersonMapper personMapper,
+        FamilyTreeRepository familyTreeRepository
+    ) {
         this.personRepository = personRepository;
         this.ownershipService = ownershipService;
         this.personMapper = personMapper;
+        this.familyTreeRepository = familyTreeRepository;
     }
 
     @Transactional(readOnly = true)
     public PersonDTO getTree(Long familyTreeId) {
         FamilyTree familyTree = ownershipService.getToViewByFamilyTreeId(familyTreeId);
         Person person = personRepository
-            .findByFamilyTreeIdAndIdAndRecordActivityIsTrueOrderByDateOfBirthAsc(familyTree.getId(), familyTree.getHeadPersonId())
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), familyTree.getHeadPersonId())
             .orElseThrow(() -> new BadRequestException("not_found"));
 
         return personMapper.toDto(person);
     }
 
     @Transactional
-    public Person addPerson(AddPersonVM requestVM) {
+    public PersonDTO addChild(AddChildVM requestVM) {
         FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(requestVM.getFamilyTreeId());
         ownershipService.checkFamilyTreePackageLimitation(familyTree.getId(), 1);
 
         Person person = requestVM.toEntity();
 
         personRepository
-            .findByFamilyTreeIdAndIdAndRecordActivityIsTrueOrderByDateOfBirthAsc(familyTree.getId(), requestVM.getFatherId())
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), requestVM.getFatherId())
             .ifPresent(
                 it -> {
                     it.getChildren().add(person);
@@ -60,64 +68,68 @@ public class TreeService {
                 }
             );
 
-        return person;
+        return personMapper.toDto(person);
     }
 
     @Transactional
-    public Person updatePerson(UpdatePersonVM person) {
-        return personRepository
-            .findById(person.getId())
-            .map(
-                it -> {
-                    it.setName(person.getName());
-                    it.setDateOfBirth(person.getDateOfBirth());
-                    it.setGender(person.getGender());
-                    it.setStatus(person.getStatus());
-                    it.setDescription(person.getDescription());
-                    it.setMobileNumber(person.getMobileNumber());
-                    it.setJob(person.getJob());
-                    return personRepository.save(it);
-                }
-            )
+    public PersonDTO addFather(AddFatherVM requestVM) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(requestVM.getFamilyTreeId());
+        ownershipService.checkFamilyTreePackageLimitation(familyTree.getId(), 1);
+
+        Person person = requestVM.toEntity();
+
+        Person child = personRepository
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(familyTree.getId(), requestVM.getChildId())
             .orElseThrow(() -> new BadRequestException("not_found"));
+
+        person.getChildren().add(child);
+        person = personRepository.save(person);
+
+        familyTree.setHeadPersonId(person.getId());
+        familyTreeRepository.save(familyTree);
+        return personMapper.toDto(person);
     }
 
     @Transactional
-    public void addRelationship(AddRelationshipVM relationship) {
-        personRepository
-            .findById(relationship.getId())
-            .map(
-                it -> {
-                    if (relationship.getHeadOfHousehold() != null) {
-                        personRepository
-                            .findById(relationship.getHeadOfHousehold())
-                            .ifPresent(
-                                head -> {
-                                    head.getChildren().add(it);
-                                    personRepository.save(head);
-                                }
-                            );
-                    }
+    public PersonDTO updatePerson(UpdatePersonVM requestVM) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(requestVM.getFamilyTreeId());
+        ownershipService.checkHasActiveSubscription(familyTree.getId());
 
-                    if (relationship.getSpouse() != null) {
-                        personRepository
-                            .findById(relationship.getSpouse())
-                            .ifPresent(
-                                spouse -> {
-                                    spouse.getWives().add(it);
-                                    personRepository.save(spouse);
-                                }
-                            );
+        return personMapper.toDto(
+            personRepository
+                .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(requestVM.getFamilyTreeId(), requestVM.getId())
+                .map(
+                    it -> {
+                        it.setName(requestVM.getName());
+                        it.setDateOfBirth(requestVM.getDateOfBirth());
+                        it.setGender(requestVM.getGender());
+                        it.setStatus(requestVM.getStatus());
+                        it.setDescription(requestVM.getDescription());
+                        it.setMobileNumber(requestVM.getMobileNumber());
+                        it.setJob(requestVM.getJob());
+                        return personRepository.save(it);
                     }
-                    return it;
-                }
-            )
-            .orElseThrow(() -> new BadRequestException("not_found"));
+                )
+                .orElseThrow(() -> new BadRequestException("not_found"))
+        );
     }
 
     @Transactional
-    public void deletePerson(DeletePersonVM person) {
-        personRepository.delete(personRepository.findById(person.getId()).orElseThrow(() -> new BadRequestException("not_found")));
+    public PersonDTO deletePerson(DeletePersonVM requestVM) {
+        FamilyTree familyTree = ownershipService.getToWriteByFamilyTreeId(requestVM.getFamilyTreeId());
+        ownershipService.checkHasActiveSubscription(familyTree.getId());
+
+        return personMapper.toDto(
+            personRepository
+                .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(requestVM.getFamilyTreeId(), requestVM.getId())
+                .map(
+                    it -> {
+                        it.setRecordActivity(false);
+                        return personRepository.save(it);
+                    }
+                )
+                .orElseThrow(() -> new BadRequestException("not_found"))
+        );
     }
 
     @Transactional

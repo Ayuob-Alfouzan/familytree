@@ -37,6 +37,10 @@ export class LookupService {
     }
   }
 
+  findLookupByCode(list: LookupModel[], code: string): LookupModel | undefined {
+    return list.find(x => x.code === code);
+  }
+
   private loadFamilyTreeTypes(): Observable<LookupModel[]> {
     if (this._familyTreeTypes.length > 0) {
       return of(this._familyTreeTypes);

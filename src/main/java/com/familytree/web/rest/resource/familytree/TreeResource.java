@@ -1,14 +1,9 @@
 package com.familytree.web.rest.resource.familytree;
 
-import com.familytree.domain.enumeration.Gender;
-import com.familytree.domain.enumeration.LifeStatus;
-import com.familytree.domain.familytree.Person;
-import com.familytree.repository.graph.PersonRepository;
 import com.familytree.security.AuthoritiesConstants;
 import com.familytree.service.dto.familytree.PersonDTO;
 import com.familytree.service.familytree.TreeService;
 import com.familytree.web.rest.vm.familytree.*;
-import java.net.URISyntaxException;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,43 +19,39 @@ public class TreeResource {
     private final Logger log = LoggerFactory.getLogger(TreeResource.class);
 
     private final TreeService treeService;
-    private final PersonRepository personRepository;
 
-    public TreeResource(TreeService treeService, PersonRepository personRepository) {
+    public TreeResource(TreeService treeService) {
         this.treeService = treeService;
-        this.personRepository = personRepository;
     }
 
     @GetMapping("/get-family/{familyTreeId}")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<PersonDTO> getFamilyTree(@Valid @PathVariable Long familyTreeId) throws URISyntaxException {
+    public ResponseEntity<PersonDTO> getFamilyTree(@Valid @PathVariable Long familyTreeId) {
         return ResponseEntity.ok(treeService.getTree(familyTreeId));
     }
 
-    @PostMapping("/add-person")
+    @PostMapping("/add-child")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<Person> addPerson(@RequestBody @Valid AddPersonVM person) throws URISyntaxException {
-        return ResponseEntity.ok().body(treeService.addPerson(person));
+    public ResponseEntity<PersonDTO> addChild(@RequestBody @Valid AddChildVM person) {
+        return ResponseEntity.ok().body(treeService.addChild(person));
     }
 
-    @PostMapping("/add-relationship")
+    @PostMapping("/add-father")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<Boolean> addRelationship(@RequestBody @Valid AddRelationshipVM relationship) throws URISyntaxException {
-        treeService.addRelationship(relationship);
-        return ResponseEntity.ok(true);
+    public ResponseEntity<PersonDTO> addFather(@RequestBody @Valid AddFatherVM person) {
+        return ResponseEntity.ok().body(treeService.addFather(person));
     }
 
     @PostMapping("/update-person")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<Person> updatePerson(@RequestBody @Valid UpdatePersonVM person) throws URISyntaxException {
+    public ResponseEntity<PersonDTO> updatePerson(@RequestBody @Valid UpdatePersonVM person) {
         return ResponseEntity.ok().body(treeService.updatePerson(person));
     }
 
     @PostMapping("/delete-person")
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
-    public ResponseEntity<Boolean> deletePerson(@RequestBody @Valid DeletePersonVM person) throws URISyntaxException {
-        treeService.deletePerson(person);
-        return ResponseEntity.ok().body(true);
+    public ResponseEntity<PersonDTO> deletePerson(@RequestBody @Valid DeletePersonVM person) {
+        return ResponseEntity.ok().body(treeService.deletePerson(person));
     }
 
     @PostMapping("/adda-person")

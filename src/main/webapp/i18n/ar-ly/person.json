@@ -12,12 +12,16 @@
     "female": "أنثى",
     "alive": "حي",
     "dead": "ميت",
-    "addChildButton": "إضافة",
+    "addMaleChildButton": "إضافة ابن",
+    "addFemaleChildButton": "إضافة ابنة",
+    "addFatherButton": "إضافة اب",
     "addHeader": "إضافة",
     "namePlaceholder": "أدخل الاسم",
     "dateOfBirthPlaceholder": "أختر تاريخ الميلاد",
     "genderPlaceholder": "أختر الجنس",
     "statusPlaceholder": "أختر الحالة",
-    "addButton": "إضافة"
+    "addButton": "إضافة",
+    "updateHeader": "تعديل",
+    "updateButton": "تعديل"
   }
 }
