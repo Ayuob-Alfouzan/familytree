@@ -23,6 +23,7 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
   svg!: d3.Selection<SVGGElement, any, HTMLElement, any>;
   root!: FTHierarchyNode<PersonModel>;
   i = 0;
+  maxDepth: { depth: number; count: number }[] = [];
 
   constructor(private service: ViewFamilyTreeService, private route: ActivatedRoute) {}
 
@@ -38,8 +39,19 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
     this.positionDiv();
   }
 
-  increaseSize(): void {
-    this.svg = this.svg.attr('width', 2500).attr('height', 1000).attr('transform', `translate(${this.margin.left},${this.margin.top})`);
+  increaseSize(height: number): void {
+    this.height = height - this.margin.top - this.margin.bottom;
+
+    this.treemap = d3.tree<PersonModel>().size([this.height, this.width]);
+
+    d3.select('svg').attr('height', this.height + this.margin.top + this.margin.bottom);
+
+    this.root.x0 = this.height / 2;
+    this.root.y0 = 0;
+    this.root.x = this.height / 2;
+    this.root.y = 0;
+
+    this.update(this.root);
   }
 
   positionDiv(): void {
@@ -86,6 +98,8 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
   }
 
   update(source: FTHierarchyNode<PersonModel>): void {
+    this.maxDepth = [];
+
     // Assigns the x and y position for the nodes
     const treeData = this.treemap(this.root);
 
@@ -93,7 +107,10 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
     const nodes = treeData.descendants() as FTHierarchyPointNode<PersonModel>[];
 
     // Normalize for fixed-depth.
-    nodes.forEach(d => (d.y = d.depth * 150));
+    nodes.forEach(d => {
+      this.setMaxDepth(d);
+      return (d.y = d.depth * 150);
+    });
 
     // ****************** Nodes section ***************************
     // Update the nodes...
@@ -106,8 +123,10 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
       .enter()
       .append('g')
       .attr('class', 'node')
-      .attr('transform', () => `translate(${source.y0 !== undefined ? source.y0 : 0},${source.x0 !== undefined ? source.x0 : 0})`)
-      .on('click', (x, y) => this.click(x, y));
+      .attr('transform', d => `translate(${source.y0 !== undefined ? source.y0 : 0},${source.x0 !== undefined ? source.x0 : 0})`)
+      .on('click', (x, y) => this.click(x, y))
+      .on('dblclick', (x, y) => this.dblclick(x, y))
+      .on('doubletap', (x, y) => this.dblclick(x, y));
 
     nodeEnter
       .append('ellipse')
@@ -119,9 +138,7 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
       .append('text')
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
-      .text(function (d) {
-        return d.data.name;
-      })
+      .text(d => d.data.name)
       .attr('cursor', 'pointer');
 
     const duration = 750;
@@ -205,16 +222,34 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
       d.x0 = d.x;
       d.y0 = d.y;
     });
+
+    this.resetHighet();
+  }
+
+  resetHighet(): void {
+    let max = 0;
+    this.maxDepth.forEach(x => (x.count > max ? (max = x.count) : null));
+
+    if (max > 10 && max * 100 >= this.height + 100) {
+      this.increaseSize(max * 100);
+    }
+  }
+
+  setMaxDepth(d: FTHierarchyPointNode<PersonModel>): void {
+    const depth = this.maxDepth.find(x => x.depth === d.depth);
+
+    if (depth) {
+      depth.count = depth.count + 1;
+    } else {
+      this.maxDepth.push({ depth: d.depth, count: 1 });
+    }
   }
 
   diagonal(s: { x: number; y: number }, d: { x: number; y: number }): string {
     return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`;
   }
 
-  click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
-    this.selectedPerson = d.data;
-    this.selectedPersonParent = d.parent?.data;
-
+  dblclick(event: any, d: FTHierarchyPointNode<PersonModel>): void {
     if (d.children) {
       d._children = d.children;
       d.children = undefined;
@@ -228,7 +263,11 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
     if (d.children && d.parent) {
       // this.collapseOthers(d.id, d.parent);
     }
-    this.increaseSize();
+  }
+
+  click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
+    this.selectedPerson = d.data;
+    this.selectedPersonParent = d.parent?.data;
   }
 
   collapseOthers(id: string | undefined, parent: FTHierarchyNode<PersonModel>): void {
@@ -241,6 +280,7 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
   collapse(d: FTHierarchyNode<PersonModel>): void {
     if (d.children) {
       d._children = d.children;
