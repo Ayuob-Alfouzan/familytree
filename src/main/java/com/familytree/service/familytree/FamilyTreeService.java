@@ -45,6 +45,8 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
 
     private final SubscriptionService subscriptionService;
 
+    private final TreeService treeService;
+
     public FamilyTreeService(
         FamilyTreeRepository familyTreeRepository,
         FamilyTreeMapper familyTreeMapper,
@@ -53,7 +55,8 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
         LookupService lookupService,
         FamilyTreeUserRepository familyTreeUserRepository,
         OwnershipService ownershipService,
-        SubscriptionService subscriptionService
+        SubscriptionService subscriptionService,
+        TreeService treeService
     ) {
         this.familyTreeRepository = familyTreeRepository;
         this.familyTreeMapper = familyTreeMapper;
@@ -63,6 +66,7 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
         this.familyTreeUserRepository = familyTreeUserRepository;
         this.ownershipService = ownershipService;
         this.subscriptionService = subscriptionService;
+        this.treeService = treeService;
     }
 
     @Transactional
@@ -72,13 +76,20 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
         familyTree.setType(lookupService.getEntityByCodeAndCategory(vm.getType(), LookupCategory.FamilyTreeType.value()));
 
         FamilyTreeUser familyTreeUser = new FamilyTreeUser();
-        familyTreeUser.setType(lookupService.getEntityByCodeAndCategory(FamilyTreeUserTypeEnum.Main.value(), LookupCategory.FamilyTreeUserType.value()));
+        familyTreeUser.setType(
+            lookupService.getEntityByCodeAndCategory(FamilyTreeUserTypeEnum.Main.value(), LookupCategory.FamilyTreeUserType.value())
+        );
         familyTreeUser.setFamilyTree(familyTree);
         familyTreeUser.setUser(userService.getUser());
 
         familyTree.getFamilyTreeUsers().add(familyTreeUser);
 
         familyTree.getSubscriptions().add(subscriptionService.createTrail(familyTree));
+
+        familyTree = familyTreeRepository.save(familyTree);
+
+        // Create default head
+        familyTree.setHeadPersonId(treeService.addHead(familyTree.getId()));
 
         return familyTreeMapper.toDto(familyTreeRepository.save(familyTree));
     }
@@ -104,6 +115,8 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
         familyTree.setRecordActivity(false);
 
         familyTree.getFamilyTreeUsers().forEach(it -> it.setRecordActivity(false));
+
+        treeService.deleteAll(familyTree.getId());
 
         return familyTreeMapper.toDto(familyTreeRepository.save(familyTree));
     }
@@ -173,7 +186,9 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
             }
         } else {
             FamilyTreeUser newFamilyTreeUser = new FamilyTreeUser();
-            newFamilyTreeUser.setType(lookupService.getEntityByCodeAndCategory(vm.getFamilyTreeUserType(), LookupCategory.FamilyTreeUserType.value()));
+            newFamilyTreeUser.setType(
+                lookupService.getEntityByCodeAndCategory(vm.getFamilyTreeUserType(), LookupCategory.FamilyTreeUserType.value())
+            );
             newFamilyTreeUser.setFamilyTree(familyTree);
             newFamilyTreeUser.setUser(userService.getUser(vm.getUserEmail()));
 
@@ -193,7 +208,11 @@ public class FamilyTreeService extends QueryService<FamilyTree> {
             throw new BadRequestException("family_tree.cannot_remove_self");
         }
 
-        Optional<FamilyTreeUser> familyTreeUser = familyTree.getFamilyTreeUsers().stream().filter(it -> it.getUser().getId().equals(vm.getUserId())).findAny();
+        Optional<FamilyTreeUser> familyTreeUser = familyTree
+            .getFamilyTreeUsers()
+            .stream()
+            .filter(it -> it.getUser().getId().equals(vm.getUserId()))
+            .findAny();
 
         if (familyTreeUser.isPresent()) {
             familyTree.getFamilyTreeUsers().remove(familyTreeUser.get());

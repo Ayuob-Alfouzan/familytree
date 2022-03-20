@@ -15,6 +15,7 @@ import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -50,6 +51,19 @@ public class TreeService {
             .orElseThrow(() -> new BadRequestException("not_found"));
 
         return personMapper.toDto(person);
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    public Long addHead(Long familyTreeId) {
+        Person person = new Person();
+        person.setFamilyTreeId(familyTreeId);
+        person.setName("الاب");
+        person.setDateOfBirth(Instant.now());
+        person.setGender(Gender.MALE);
+        person.setStatus(LifeStatus.ALIVE);
+
+        person = personRepository.save(person);
+        return person.getId();
     }
 
     @Transactional
@@ -130,6 +144,11 @@ public class TreeService {
                 )
                 .orElseThrow(() -> new BadRequestException("not_found"))
         );
+    }
+
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void deleteAll(Long familyTreeId) {
+        personRepository.deleteAllByFamilyTreeId(familyTreeId);
     }
 
     @Transactional

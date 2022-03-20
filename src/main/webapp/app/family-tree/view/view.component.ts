@@ -230,8 +230,8 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
     let max = 0;
     this.maxDepth.forEach(x => (x.count > max ? (max = x.count) : null));
 
-    if (max > 10 && max * 100 >= this.height + 100) {
-      this.increaseSize(max * 100);
+    if (max > 10 && max * 70 >= this.height + 100) {
+      this.increaseSize(max * 70);
     }
   }
 
@@ -268,6 +268,7 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
   click(event: any, d: FTHierarchyPointNode<PersonModel>): void {
     this.selectedPerson = d.data;
     this.selectedPersonParent = d.parent?.data;
+    this.update(d);
   }
 
   collapseOthers(id: string | undefined, parent: FTHierarchyNode<PersonModel>): void {

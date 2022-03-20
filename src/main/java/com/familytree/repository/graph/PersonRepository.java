@@ -13,4 +13,7 @@ public interface PersonRepository extends Neo4jRepository<Person, Long> {
     List<Person> findByFamilyTreeIdAndNameContaining(Long familyTreeId, String name);
 
     int countByFamilyTreeIdAndRecordActivityIsTrue(Long familyTreeId);
+
+    @Query("MATCH (p:Person {recordActivity: true, familyTreeId: {0}}) " + "SET p.recordActivity = false ")
+    void deleteAllByFamilyTreeId(Long familyTreeId);
 }
