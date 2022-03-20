@@ -15,6 +15,7 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
   selectedPerson?: PersonModel;
   selectedPersonParent?: PersonModel;
   treeData!: PersonModel;
+  anon = false;
 
   margin = { top: 32, right: 32, bottom: 32, left: 32 };
   width = 2000 - this.margin.left - this.margin.right;
@@ -29,6 +30,11 @@ export class ViewFamilyTreeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.route.data.pipe(first()).subscribe(data => {
+      if (data.view === 'ANON') {
+        this.anon = true;
+      }
+
+      console.log(data);
       this.treeData = data.data;
       this.selectedPerson = data.data;
       this.setup();

@@ -11,4 +11,8 @@ export class FamilyTreeService {
   get(id: number): Observable<PersonModel> {
     return this.http.get<PersonModel>(this.applicationConfigService.getEndpointFor(`api/tree/get-family/${id}`));
   }
+
+  getAnon(token: string): Observable<PersonModel> {
+    return this.http.get<PersonModel>(this.applicationConfigService.getEndpointFor(`api/tree/get-family-anon/${token}`));
+  }
 }

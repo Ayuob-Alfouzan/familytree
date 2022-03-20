@@ -1,8 +1,8 @@
 <div class="d-flex flex-column body-card">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="!anon">
       <jhi-action [person]="selectedPerson" [personParent]="selectedPersonParent" (addedPerson)="gotAddedPerson($event)"></jhi-action>
     </div>
-    <div #treeContainer class="tree-container col-md-9" style="direction: ltr"></div>
+    <div #treeContainer class="tree-container" [ngClass]="!anon ? 'col-md-9' : 'col-md-12'" style="direction: ltr"></div>
   </div>
 </div>

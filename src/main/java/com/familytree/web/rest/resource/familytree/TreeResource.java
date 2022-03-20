@@ -32,7 +32,6 @@ public class TreeResource {
     }
 
     @GetMapping("/get-family-anon/{token}")
-    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<AnonPersonDTO> getFamilyTreeAnon(@Valid @PathVariable String token) {
         return ResponseEntity.ok(treeService.getTreeAnon(token));
     }

@@ -20,4 +20,14 @@ export const familyTreeRoutes: Route[] = [
       lookups: LookupResolver,
     },
   },
+  {
+    path: 'view-anon/:token',
+    component: ViewFamilyTreeComponent,
+    data: {
+      view: 'ANON',
+    },
+    resolve: {
+      data: FamilyTreeResolver,
+    },
+  },
 ];
