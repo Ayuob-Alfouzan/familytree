@@ -16,6 +16,15 @@ public class ApplicationProperties {
     private Sftp sftp = new Sftp();
     private OTP otp = new OTP();
     private Subscription subscription = new Subscription();
+    private String viewTreeAnonUrl = "http://localhost:9001/";
+
+    public String getViewTreeAnonUrl() {
+        return viewTreeAnonUrl;
+    }
+
+    public void setViewTreeAnonUrl(String viewTreeAnonUrl) {
+        this.viewTreeAnonUrl = viewTreeAnonUrl;
+    }
 
     public Subscription getSubscription() {
         return subscription;

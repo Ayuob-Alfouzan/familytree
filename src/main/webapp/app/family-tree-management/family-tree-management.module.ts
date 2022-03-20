@@ -26,6 +26,8 @@ import { ViewSubscriptionResolver } from './subscription/view/view.resolver';
 import { ViewSubscriptionComponent } from './subscription/view/view.component';
 import { RenewSubscriptionResolver } from './subscription/renew/renew.resolver';
 import { RenewSubscriptionComponent } from './subscription/renew/renew.component';
+import { TokenComponent } from './token/token.component';
+import { TokenService } from './token/token.service';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(familyTreeRoutes), NgMultiSelectDropDownModule.forRoot()],
@@ -42,6 +44,7 @@ import { RenewSubscriptionComponent } from './subscription/renew/renew.component
     UpgradeSubscriptionComponent,
     ViewSubscriptionComponent,
     RenewSubscriptionComponent,
+    TokenComponent,
   ],
   providers: [
     ListFamilyTreeService,
@@ -55,6 +58,7 @@ import { RenewSubscriptionComponent } from './subscription/renew/renew.component
     SubscriptionService,
     ViewSubscriptionResolver,
     RenewSubscriptionResolver,
+    TokenService,
   ],
 })
 export class FamilyTreeManagementModule {}

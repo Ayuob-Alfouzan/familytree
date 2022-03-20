@@ -16,6 +16,7 @@ import { ViewSubscriptionResolver } from './subscription/view/view.resolver';
 import { ViewSubscriptionComponent } from './subscription/view/view.component';
 import { RenewSubscriptionComponent } from './subscription/renew/renew.component';
 import { RenewSubscriptionResolver } from './subscription/renew/renew.resolver';
+import { TokenComponent } from './token/token.component';
 
 export const familyTreeRoutes: Route[] = [
   {
@@ -70,6 +71,14 @@ export const familyTreeRoutes: Route[] = [
     data: {
       authorities: [Authority.USER],
       lookupNames: [LookupEnum.InvoiceStatus],
+    },
+  },
+  {
+    path: 'token/:familyTreeId',
+    component: TokenComponent,
+    canActivate: [UserRouteAccessService],
+    data: {
+      authorities: [Authority.USER],
     },
   },
   {

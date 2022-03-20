@@ -56,6 +56,12 @@
                 class="btn btn-primary btn-sm py-0"
                 jhiTranslate="familyTree.manageSubscriptions"
               ></button>
+              <button
+                type="button"
+                [routerLink]="['.', 'token', item.id]"
+                class="btn btn-primary btn-sm py-0"
+                jhiTranslate="familyTree.manageTokens"
+              ></button>
               <a class="mx-md-2" [routerLink]="['.', 'edit', item.id]">
                 <fa-icon [icon]="faEdit"></fa-icon>
               </a>

@@ -1,0 +1,89 @@
+<div class="d-flex flex-column body-card">
+  <div class="d-flex justify-content-between flex-column flex-lg-row">
+    <h3 class="text-primary mt-md-2" jhiTranslate="familyTree.token.listTitle"></h3>
+
+    <button type="button" (click)="add()" class="btn btn-success" [disabled]="deleting || submitting">
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="submitting"></span>
+
+      <span jhiTranslate="familyTree.token.addButton" *ngIf="!submitting"></span>
+    </button>
+  </div>
+
+  <form>
+    <div class="form-group form-inline mt-4">
+      <label jhiTranslate="familyTree.token.token" class="col-md-2"></label>
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          id="token"
+          [(ngModel)]="service.token"
+          placeholder="{{ 'familyTree.token.tokenFilterPlaceholder' | translate }}"
+          name="token"
+        />
+      </div>
+
+      <div class="col-md-2 form-btn">
+        <button type="button" (click)="service.load()" [disabled]="service.loading" class="btn btn-primary">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="service.loading"></span>
+
+          <span jhiTranslate="familyTree.listFilterButton" *ngIf="!service.loading"></span>
+        </button>
+      </div>
+
+      <div class="col-md-3 form-btn">
+        <button
+          type="button"
+          (click)="service.clearFilters()"
+          [disabled]="service.loading"
+          class="btn btn-primary"
+          jhiTranslate="familyTree.clearFilterButton"
+        ></button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mt-4">
+        <thead class="thead-dark">
+          <tr>
+            <th style="width: 40%" scope="col" jhiTranslate="familyTree.token.token"></th>
+            <th style="width: 60%" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="service.list" [class.loading]="service.loading">
+          <tr *ngFor="let item of service.list">
+            <td>{{ item.token }}</td>
+            <td>
+              <a class="href mx-md-3" (click)="copy(item.url)">
+                <fa-icon [icon]="faCopy" class="text-primary"></fa-icon>
+              </a>
+              <a class="href mx-md-3" [class.disabled]="deleting || submitting" (click)="delete(item.id)">
+                <fa-icon [icon]="faTrashAlt" class="text-danger"></fa-icon>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+
+        <caption>
+          {{
+            'global.numberOfRecords' | translate: { fieldName: 'familyTree.token.listTitle' | translate }
+          }}
+          {{
+            service.totalRecords
+          }}
+        </caption>
+      </table>
+    </div>
+
+    <ngb-pagination
+      *ngIf="service.totalRecords > 10"
+      class="d-flex justify-content-center"
+      [collectionSize]="service.totalRecords"
+      [(page)]="service.page"
+      [pageSize]="service.size"
+    >
+    </ngb-pagination>
+  </form>
+</div>
+
+<jhi-confirm-modal #confirmDeleteModal messageKey="familyTree.token.deleteMessage" (confirmed)="confirmed($event)"> </jhi-confirm-modal>

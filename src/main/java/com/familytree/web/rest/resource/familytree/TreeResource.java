@@ -1,6 +1,7 @@
 package com.familytree.web.rest.resource.familytree;
 
 import com.familytree.security.AuthoritiesConstants;
+import com.familytree.service.dto.familytree.AnonPersonDTO;
 import com.familytree.service.dto.familytree.PersonDTO;
 import com.familytree.service.familytree.TreeService;
 import com.familytree.web.rest.vm.familytree.*;
@@ -28,6 +29,12 @@ public class TreeResource {
     @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<PersonDTO> getFamilyTree(@Valid @PathVariable Long familyTreeId) {
         return ResponseEntity.ok(treeService.getTree(familyTreeId));
+    }
+
+    @GetMapping("/get-family-anon/{token}")
+    @PreAuthorize("hasAnyAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<AnonPersonDTO> getFamilyTreeAnon(@Valid @PathVariable String token) {
+        return ResponseEntity.ok(treeService.getTreeAnon(token));
     }
 
     @PostMapping("/add-child")

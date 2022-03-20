@@ -3,10 +3,14 @@ package com.familytree.service.familytree;
 import com.familytree.domain.enumeration.Gender;
 import com.familytree.domain.enumeration.LifeStatus;
 import com.familytree.domain.familytree.FamilyTree;
+import com.familytree.domain.familytree.FamilyTreeToken;
 import com.familytree.domain.familytree.Person;
 import com.familytree.repository.familytree.FamilyTreeRepository;
+import com.familytree.repository.familytree.FamilyTreeTokenRepository;
 import com.familytree.repository.graph.PersonRepository;
+import com.familytree.service.dto.familytree.AnonPersonDTO;
 import com.familytree.service.dto.familytree.PersonDTO;
+import com.familytree.service.mapper.familytree.AnonPersonMapper;
 import com.familytree.service.mapper.familytree.PersonMapper;
 import com.familytree.service.util.exception.BadRequestException;
 import com.familytree.web.rest.vm.familytree.*;
@@ -29,18 +33,26 @@ public class TreeService {
 
     private final PersonMapper personMapper;
 
+    private final AnonPersonMapper anonPersonMapper;
+
     private final FamilyTreeRepository familyTreeRepository;
+
+    private final FamilyTreeTokenRepository familyTreeTokenRepository;
 
     public TreeService(
         PersonRepository personRepository,
         OwnershipService ownershipService,
         PersonMapper personMapper,
-        FamilyTreeRepository familyTreeRepository
+        AnonPersonMapper anonPersonMapper,
+        FamilyTreeRepository familyTreeRepository,
+        FamilyTreeTokenRepository familyTreeTokenRepository
     ) {
         this.personRepository = personRepository;
         this.ownershipService = ownershipService;
         this.personMapper = personMapper;
+        this.anonPersonMapper = anonPersonMapper;
         this.familyTreeRepository = familyTreeRepository;
+        this.familyTreeTokenRepository = familyTreeTokenRepository;
     }
 
     @Transactional(readOnly = true)
@@ -51,6 +63,22 @@ public class TreeService {
             .orElseThrow(() -> new BadRequestException("not_found"));
 
         return personMapper.toDto(person);
+    }
+
+    @Transactional(readOnly = true)
+    public AnonPersonDTO getTreeAnon(String token) {
+        FamilyTreeToken familyTreeToken = familyTreeTokenRepository
+            .findByTokenAndRecordActivityIsTrue(token)
+            .orElseThrow(() -> new BadRequestException("not_found"));
+
+        Person person = personRepository
+            .findByFamilyTreeIdAndIdAndRecordActivityIsTrue(
+                familyTreeToken.getFamilyTree().getId(),
+                familyTreeToken.getFamilyTree().getHeadPersonId()
+            )
+            .orElseThrow(() -> new BadRequestException("not_found"));
+
+        return anonPersonMapper.toDto(person);
     }
 
     @Transactional(propagation = Propagation.MANDATORY)

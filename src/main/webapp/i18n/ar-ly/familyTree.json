@@ -33,6 +33,7 @@
     "familyTreeUsersTitle": "إدارة مستخدمي الشجرة",
     "manageInvoices": "الفواتير",
     "manageSubscriptions": "الإشتراكات",
+    "manageTokens": "الروابط",
     "invoice": {
       "listTitle": "الفواتير",
       "invoiceNumber": "رقم الفاتورة",
@@ -70,6 +71,14 @@
       "renewButton": "تجديد",
       "renewHeader": "تجديد الاشتراك",
       "renewFirst": "سيتم التجديد على الباقة التالية"
+    },
+    "token": {
+      "token": "الرابط",
+      "listTitle": "الروابط",
+      "tokenFilterPlaceholder": "تصفية النتائج بجزء من الرابط",
+      "deleteMessage": "هل أنت متأكد من حذف الرابط، سيتم حذف جميع بياناته ولا يمكن استرجاعها؟",
+      "addButton": "إضافة رابط جديد",
+      "successfullyCopied": "تم النسخ"
     }
   }
 }

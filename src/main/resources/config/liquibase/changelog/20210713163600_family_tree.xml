@@ -101,4 +101,43 @@
             <column name="head_person_id" type="bigint" />
         </addColumn>
     </changeSet>
+
+    <changeSet id="20220320180600" author="ayuob">
+        <createTable tableName="family_tree_token">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="family_tree_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="token" type="nvarchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="record_activity" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_by" type="bigint"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="family_tree_id" baseTableName="family_tree_token"
+                                 constraintName="family_tree_token_family_tree_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="family_tree"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="family_tree_token"
+                                 constraintName="family_tree_token_user_id_foreign_key" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="ft_user"/>
+    </changeSet>
 </databaseChangeLog>

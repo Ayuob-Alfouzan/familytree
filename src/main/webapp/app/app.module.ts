@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/ar-LY';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { TranslateModule, TranslateService, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { LocalStorageService, NgxWebstorageModule } from 'ngx-webstorage';
@@ -65,6 +66,7 @@ import { PricingService } from './static/pricing/pricing.service';
       },
     }),
     BrowserAnimationsModule,
+    ClipboardModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
     }),
